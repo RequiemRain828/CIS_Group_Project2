@@ -64,4 +64,9 @@ public class Employee
        
         return x;
     }
+    
+    public String toString()
+    {
+        return "Username: " + this.username + ", Password: " + this.password + ", Employee name: " + this.employeeName;               
+    }
 }
