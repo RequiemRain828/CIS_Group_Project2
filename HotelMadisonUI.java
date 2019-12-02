@@ -186,10 +186,10 @@ public class HotelMadisonUI extends Application
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        Tabs.getTabs().add(tabEmployee);
-        Tabs.getTabs().add(tabGuest);
-        Tabs.getTabs().add(tabAddGuest);
-        Tabs.getTabs().add(tabAddEmployee);
+        //Tabs.getTabs().add(tabEmployee);
+        //Tabs.getTabs().add(tabGuest);
+        //Tabs.getTabs().add(tabAddGuest);
+        //Tabs.getTabs().add(tabAddEmployee);
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -207,6 +207,7 @@ public class HotelMadisonUI extends Application
         loginPane.add(invalid, 1, 5);
         btnLogin.setOnAction(e -> {
             handleLogin(cmboLogin.getValue().toString());
+            
         });
         
          
@@ -501,6 +502,9 @@ public class HotelMadisonUI extends Application
                 {
                     System.out.println("Welcome " + employee.get(i).getEmployeeName());
                     Tabs.getTabs().add(tabEmployee); Tabs.getSelectionModel().select(tabEmployee);
+                    txtUsername.clear();
+                    txtPassword.clear();
+                    
                     invalid.setText("");
                     break;
                 }
@@ -517,6 +521,8 @@ public class HotelMadisonUI extends Application
                 {
                     System.out.println("Welcome " + guest.get(i).getGuestName());
                     Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
+                    txtUsername.clear();
+                    txtPassword.clear();
                     invalid.setText("");
                     break;
                 }
@@ -537,9 +543,9 @@ public class HotelMadisonUI extends Application
         {
             case "Run a Booking Report":; break;
             case "Check a Guest Room Out": ; break;
-            case "Create Guest Account": ; break;
+            case "Create Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); break;
             case "Edit Guest Account": ; break;
-            case "Create Employee Account": ; break;
+            case "Create Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); break;
             case "Edit Employee Account": ; break;
             case "Create Guest Rooms": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); break;
             case "Edit Guest Rooms": ; break;           
