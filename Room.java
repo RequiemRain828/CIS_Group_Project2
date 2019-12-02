@@ -218,10 +218,10 @@ public class Room
                 break;
         }
         
-        desc = ("Room #: " + this.getRoomNumber() + " comes with " 
+        desc = ("Room #: " + this.getRoomNumber() + " has " 
                 + bed + ", a " + kitchen + ", a " + coffee
-                + " and is classifed as a " + access
-                + ", Price Per Night is $ " + this.roomCostPerNight
+                + ", is a " + access
+                + ", Price Per Night $ " + this.roomCostPerNight
                 );
         /*
         desc = ("Room Number: " + this.getRoomNumber() + " comes fully furnished with \n" 
