@@ -218,17 +218,34 @@ public class Room
                 break;
         }
         
+        desc = ("Room #: " + this.getRoomNumber() + " comes with " 
+                + bed + ", a " + kitchen + ", a " + coffee
+                + " and is classifed as a " + access
+                + ", Price Per Night is $ " + this.roomCostPerNight
+                );
+        /*
         desc = ("Room Number: " + this.getRoomNumber() + " comes fully furnished with \n" 
                 + bed + ", a " + kitchen + ", a " + coffee + "\n"
                 + "and is classifed as a " + access + "\n"
                 + "Room Price Per Night is $" + this.roomCostPerNight + "\n"
                 );
+        */
         return desc;
     }
     
     public boolean setRoomNumber(int roomNumber) // Setter for room number
     {
         return false;
+    }
+       
+    @Override
+    public String toString()
+    {
+
+        return "Room Number: " + this.getRoomNumber() + " comes fully furnished with "  
+                +  this.bedOption + ", a " + this.kitchenOption + ", a " + this.coffeeOption 
+                + " and is classifed as a " + this.accessibleOption + 
+                " Room Price Per Night is $" + this.roomCostPerNight;              
     }
         
 }
