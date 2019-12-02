@@ -57,4 +57,11 @@ public class Guest
        
          return x;
     }
+     
+     public String toString()
+    {
+        return "Username: " + this.username + ", Password: " + this.password + ", Guest Name: " + this.guestName;
+        // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
+                
+    }
 }
