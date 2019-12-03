@@ -10,12 +10,13 @@ package CIS_Group_Project2;
 public class Booking {
     public Room bookedRoom;
     public Guest bookingGuest;
+    public ValueGuest valueGuest;
     public int bookingYear;
     public int checkInDay;
     public int checkOutDay;
     
     
-    private static int nextID = 1;
+    //private static int nextID;
     
     public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, 
             int checkOut){
@@ -25,6 +26,15 @@ public class Booking {
         this.checkInDay = checkIn;
         this.checkOutDay = checkOut;
         
+    }
+    
+    public Booking(ValueGuest valueGuest, Room bookedRoom, int year, int checkIn, 
+            int checkOut){
+        this.valueGuest = valueGuest;
+        this.bookedRoom = bookedRoom;
+        this.bookingYear = year;
+        this.checkInDay = checkIn;
+        this.checkOutDay = checkOut;
     }
     
     public Guest getBookingGuest(){
