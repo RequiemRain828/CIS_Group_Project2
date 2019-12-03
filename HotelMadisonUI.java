@@ -221,12 +221,10 @@ public class HotelMadisonUI extends Application
             handleLogin(cmboLogin.getValue().toString());
             
         });
-        
-         
+
         //loginPane.setVgap(20);
         //loginPane.setHgap(40);
-        
-        
+
         // Employee Menu Pane
         tabEmployee.setContent(employeePane);
         employeePane.setAlignment(Pos.CENTER);
@@ -470,7 +468,14 @@ public class HotelMadisonUI extends Application
             
             Room tempRoom = new Room(bed, kitchen, coffee, access,  
                     Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
-                   
+            
+            for (int i = 0; i < room.size(); i ++)
+            {
+                if (Integer.valueOf(txtRoomNum.getText()) == room.get(i).getRoomNumber());
+                {
+                    
+                }
+            }
             room.add(tempRoom);
             
             selectRoomList.add(tempRoom.getRoomNumber());
