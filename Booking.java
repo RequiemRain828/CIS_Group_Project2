@@ -6,15 +6,16 @@
             and creates a link between a Guest object and a Room object. 
 */
 package CIS_Group_Project2;
-
+import static CIS_Group_Project2.RoomService.nextInt;
+import java.util.*;
 public class Booking {
     public Room bookedRoom;
     public Guest bookingGuest;
     public int bookingYear;
     public int checkInDay;
     public int checkOutDay;
-    
-    
+    public ArrayList<RoomService> roomServiceList = new ArrayList<>(); 
+    public int i = 0;
     private static int nextID = 1;
     
     public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, 
@@ -45,6 +46,14 @@ public class Booking {
                 + " in " + this.bookingYear ;
         return result; 
     }
+    
+ public void RoomService(String description, double price){
+     
+     this.roomServiceList.set(i, new RoomService(description, price));
+     i++;
+
+     
+ }    
     
     
 }
