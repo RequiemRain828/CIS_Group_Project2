@@ -299,7 +299,6 @@ public class HotelMadisonUI extends Application
             Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
                     ,txtGuestName.getText());
             
-            
             guest.add(tempGuest);
             
             guestList.add(tempGuest.toString());
@@ -307,8 +306,7 @@ public class HotelMadisonUI extends Application
             txtGuestUsername.clear();
             txtGuestPassword.clear();
             txtGuestName.clear();
-            
-            
+             
         });
         btnEmployeeBack3.setOnAction(e -> {
                 Tabs.getSelectionModel().select(tabEmployee);
@@ -368,7 +366,7 @@ public class HotelMadisonUI extends Application
         addRoomPane.add(cmboBed, 1, 1);
         addRoomPane.add(lblKitchen, 0, 2);
         cmboKitchen.getItems().add("Microwave");
-        cmboKitchen.getItems().add("Microwave + Fridge");
+        cmboKitchen.getItems().add("Fridge + Microwave");
         cmboKitchen.getSelectionModel().select(0);
         addRoomPane.add(cmboKitchen, 1, 2);
         addRoomPane.add(lblCoffee, 0, 3);
@@ -455,14 +453,17 @@ public class HotelMadisonUI extends Application
             //bookList.remove(room.get(i));
         }
         btnBookRoom.setOnAction(e -> {
-           for (int i = 0; i < room.size(); i++)
+           /*for (int i = 0; i < room.size(); i++)
         { 
            if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
            {
                room.get(i).bookRoom();
                listBookRoom.getItems().remove(i);
+               
            }
-        }
+        }*/
+           int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
+           listBookRoom.getItems().remove(selectedInt);
            
         });
         btnGuestBack1.setOnAction(e -> {
@@ -505,7 +506,7 @@ public class HotelMadisonUI extends Application
             {
                 if (employee.get(i).checkCredentials(username, password))
                 {
-                    System.out.println("Welcome " + employee.get(i).getEmployeeName());
+                    //System.out.println("Welcome " + employee.get(i).getEmployeeName());
                     Tabs.getTabs().add(tabEmployee); Tabs.getSelectionModel().select(tabEmployee);
                     txtUsername.clear();
                     txtPassword.clear();
@@ -524,7 +525,7 @@ public class HotelMadisonUI extends Application
             {
                 if (guest.get(i).checkCredentials(username, password))
                 {
-                    System.out.println("Welcome " + guest.get(i).getGuestName());
+                    //System.out.println("Welcome " + guest.get(i).getGuestName());
                     Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
                     txtUsername.clear();
                     txtPassword.clear();
@@ -622,5 +623,9 @@ public class HotelMadisonUI extends Application
         return result;
     }
     
-    
+    @Override
+    public void stop()
+    {
+        
+    }
 }
