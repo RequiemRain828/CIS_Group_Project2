@@ -198,7 +198,7 @@ public class HotelMadisonUI extends Application
         //Tabs.getTabs().add(tabAddGuest);
         //Tabs.getTabs().add(tabAddEmployee);
         Tabs.getTabs().add(tabBooking);
-        //Tabs.getTabs().add(tabAddRoom);
+        Tabs.getTabs().add(tabAddRoom);
         
         
         primaryPane.add(Tabs, 0, 0);
@@ -378,7 +378,7 @@ public class HotelMadisonUI extends Application
         
         tabAddRoom.setContent(addRoomPane);
         addRoomPane.setAlignment(Pos.CENTER);
-        addRoomPane.add(new Label("Welcome to the Employee Add Room"), 0, 0);
+        addRoomPane.add(new Label("Add Room Menu"), 0, 0);
         addRoomPane.add(lblBed, 0, 1);
         cmboBed.getItems().add("1 Queen Size Bed");
         cmboBed.getItems().add("2 Queen Size Beds");
@@ -433,6 +433,9 @@ public class HotelMadisonUI extends Application
             room.add(tempRoom);
             
             selectRoomList.add(tempRoom.getRoomNumber());
+            
+            //roomList.add(tempRoom.roomDesc1());
+            //roomList.add(tempRoom.roomDesc2());
             
             roomList.add(tempRoom.roomDescription());
             

@@ -218,18 +218,13 @@ public class Room
                 break;
         }
         
-        desc = ("Room #: " + this.getRoomNumber() + " has " 
-                + bed + ", a " + kitchen + ", a " + coffee
-                + ", is a " + access
-                + ", Price Per Night $ " + this.roomCostPerNight
-                );
-        /*
+        
         desc = ("Room Number: " + this.getRoomNumber() + " comes fully furnished with \n" 
                 + bed + ", a " + kitchen + ", a " + coffee + "\n"
                 + "and is classifed as a " + access + "\n"
                 + "Room Price Per Night is $" + this.roomCostPerNight + "\n"
                 );
-        */
+        
         return desc;
     }
     
