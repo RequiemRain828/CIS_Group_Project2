@@ -21,9 +21,9 @@ public class Booking {
     public int checkOutMonth;
     public int checkOutDay;
     public int checkOutYear;
-    
-    
-    //private static int nextID;
+    public ArrayList<RoomService> roomServiceList = newArrayList<)();
+    public int i = 0;
+    private static int nextID = 1;
     
     public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, 
         int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
@@ -78,6 +78,11 @@ public class Booking {
         long dayFrombeg1= ChronoUnit.DAYS.between(firstYear, checkOut);
        numberOfDays=dayFrombeg1-daysFrombeg;
         return numberOfDays;
+    }
+    
+    public void RoomService(String description, double price){
+        this.roomServiceList.set(i, new RoomService(description, price));
+        i++;
     }
     
 }
