@@ -27,6 +27,8 @@ public class HotelMadisonUI extends Application
     public static ObservableList guestList = FXCollections.observableArrayList();
     public static ObservableList employeeList = FXCollections.observableArrayList();
     public static ObservableList bookList = FXCollections.observableArrayList();
+    public static ObservableList ebookingList = FXCollections.observableArrayList();
+    public static ObservableList selectRoomList = FXCollections.observableArrayList(room);
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -62,6 +64,11 @@ public class HotelMadisonUI extends Application
     public Button btnGuestLogout = new Button("Logout^ ");
     
     // Employee Room Summary controls
+    public Label lblSelectRoom = new Label("Room # Selection: ");
+    public ComboBox cmboSelectRoom = new ComboBox(selectRoomList);
+    public ListView lstEmployeeBooking = new ListView(ebookingList);
+    public Button btnDisplayAll = new Button("Display All");
+    public Button btnDisplaySelect = new Button("Display Selected Room");
     
     // Employee Guest Room Checkout controls
     
@@ -190,6 +197,9 @@ public class HotelMadisonUI extends Application
         //Tabs.getTabs().add(tabGuest);
         //Tabs.getTabs().add(tabAddGuest);
         //Tabs.getTabs().add(tabAddEmployee);
+        Tabs.getTabs().add(tabBooking);
+        //Tabs.getTabs().add(tabAddRoom);
+        
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -229,6 +239,7 @@ public class HotelMadisonUI extends Application
                 ("Create Guest Rooms"),
                 ("Edit Guest Rooms")
         );
+        cmboEmployeeMenu.getSelectionModel().select(0);
         employeePane.add(cmboEmployeeMenu, 0, 1);
         employeePane.add(btnEmployeeSelect, 0, 2);
         employeePane.add(btnEmployeeLogout, 1, 2);
@@ -252,6 +263,7 @@ public class HotelMadisonUI extends Application
                 ("Display Booking Report"),
                 ("Edit Guest Information")
         );
+        cmboGuestMenu.getSelectionModel().select(0);
         guestPane.add(cmboGuestMenu, 0, 1);
         guestPane.add(btnGuestSelect, 0, 2);
         guestPane.add(btnGuestLogout, 1, 2);
@@ -266,18 +278,27 @@ public class HotelMadisonUI extends Application
                 Tabs.getTabs().remove(tabGuest);  
         });
         
-        
         tabBooking.setContent(employeeBookingPane);
         employeeBookingPane.setAlignment(Pos.CENTER);
-        employeeBookingPane.add(new Label("Welcome to the Employee Display Booking Report Menu"), 0, 0);
+        employeeBookingPane.add(new Label("Employee Booking Report Menu"), 0, 0);
+        employeeBookingPane.add(lblSelectRoom, 0, 3);
+        cmboSelectRoom.getItems().add("None");
+        cmboSelectRoom.getSelectionModel().select(0);
+        
+        employeeBookingPane.add(cmboSelectRoom, 0, 4);
+        employeeBookingPane.add(lstEmployeeBooking, 1, 1, 2, 5);
+        employeeBookingPane.add(btnDisplayAll, 0, 6);
+        employeeBookingPane.add(btnDisplaySelect, 0, 7);
+        employeeBookingPane.add(btnEmployeeBack1, 1, 7);
+        lstEmployeeBooking.setPrefWidth(600);
         
         tabCheckout.setContent(checkoutPane);
         checkoutPane.setAlignment(Pos.CENTER);
-        checkoutPane.add(new Label("Welcome to the Checkout Guest Room Menu"), 0, 0);
+        checkoutPane.add(new Label("Checkout Guest Room Menu"), 0, 0);
         
         tabAddGuest.setContent(addGuestPane);
         addGuestPane.setAlignment(Pos.CENTER);
-        addGuestPane.add(new Label("Welcome to the Create a Guest Account Menu"), 0, 0);
+        addGuestPane.add(new Label("Guest Account Menu"), 0, 0);
         addGuestPane.add(lblGuestStatus, 0, 1);
         addGuestPane.add(lblGuestUsername, 0, 2);
         addGuestPane.add(lblGuestPassword, 0, 3);
@@ -319,7 +340,7 @@ public class HotelMadisonUI extends Application
         
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
-        addEmployeePane.add(new Label("Welcome to the Create an Employee Account Menu"), 0, 0); 
+        addEmployeePane.add(new Label("Employee Account Menu"), 0, 0); 
         addEmployeePane.add(lblEmployeeUsername, 0, 1);
         addEmployeePane.add(lblEmployeePassword, 0, 2);
         addEmployeePane.add(lblEmployeeName, 0, 3);        
@@ -411,12 +432,14 @@ public class HotelMadisonUI extends Application
             
             room.add(tempRoom);
             
+            selectRoomList.add(tempRoom.getRoomNumber());
+            
             roomList.add(tempRoom.roomDescription());
             
-            cmboBed.getSelectionModel().clearSelection();
-            cmboKitchen.getSelectionModel().clearSelection();
-            cmboCoffee.getSelectionModel().clearSelection();
-            cmboAccess.getSelectionModel().clearSelection();
+            cmboBed.getSelectionModel().select(0);
+            cmboKitchen.getSelectionModel().select(0);
+            cmboCoffee.getSelectionModel().select(0);
+            cmboAccess.getSelectionModel().select(0);
             txtRoomNum.clear();
             txtPrice.clear();
             
