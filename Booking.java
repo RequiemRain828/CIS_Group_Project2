@@ -7,19 +7,28 @@
 */
 package CIS_Group_Project2;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+
 public class Booking {
     public Room bookedRoom;
     public Guest bookingGuest;
     public ValueGuest valueGuest;
     public int bookingYear;
     public int checkInDay;
+    public int checkInMonth;
+    public int checkOutMonth;
     public int checkOutDay;
+    public int checkOutYear;
     
     
     //private static int nextID;
     
     public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, 
-            int checkOut){
+        int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
+        this.checkOutMonth= checkOutMonth;
+        this.checkInMonth=checkInMonth;
         this.bookingGuest = bookingGuest;
         this.bookedRoom = bookedRoom;
         this.bookingYear = year;
@@ -29,7 +38,9 @@ public class Booking {
     }
     
     public Booking(ValueGuest valueGuest, Room bookedRoom, int year, int checkIn, 
-            int checkOut){
+            int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
+        this.checkOutMonth= checkOutMonth;
+        this.checkInMonth=checkInMonth;
         this.valueGuest = valueGuest;
         this.bookedRoom = bookedRoom;
         this.bookingYear = year;
@@ -49,12 +60,24 @@ public class Booking {
         this.bookedRoom.freeThisRoom();
     }
     
+    @Override
     public String toString(){
         String result = "";
         result += this.bookingGuest.getGuestName() + " booked room " + this.bookedRoom.getRoomNumber() 
-                + " in " + this.bookingYear ;
+                + " from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.bookingYear+" to "+
+                this.checkOutDay+"/"+this.checkOutMonth+"/"+this.checkOutYear ;
         return result; 
     }
     
+    public long dayCount(){
+        long numberOfDays;
+        LocalDate firstYear= LocalDate.of(bookingYear, Month.JANUARY, 1);
+        LocalDate checkIn = LocalDate.of(bookingYear, Month.of(checkInMonth), checkInDay);
+        LocalDate checkOut = LocalDate.of(checkOutYear, Month.of(checkOutMonth), checkOutDay);
+        long daysFrombeg = ChronoUnit.DAYS.between(firstYear, checkIn);
+        long dayFrombeg1= ChronoUnit.DAYS.between(firstYear, checkOut);
+       numberOfDays=dayFrombeg1-daysFrombeg;
+        return numberOfDays;
+    }
     
 }
