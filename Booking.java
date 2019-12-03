@@ -10,6 +10,7 @@ package CIS_Group_Project2;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Booking {
     public Room bookedRoom;
@@ -21,7 +22,7 @@ public class Booking {
     public int checkOutMonth;
     public int checkOutDay;
     public int checkOutYear;
-    public ArrayList<RoomService> roomServiceList = newArrayList<)();
+    public ArrayList <RoomService> roomServiceList = new ArrayList<>();
     public int i = 0;
     private static int nextID = 1;
     
