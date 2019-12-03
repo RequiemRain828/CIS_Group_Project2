@@ -72,7 +72,7 @@ public class HotelMadisonUI extends Application
     
     // Employee Guest Room Checkout controls
     
-    // Create Guest Aaccount
+    // Create Guest Account
     public Label lblGuestStatus = new Label("Guest or Valued Guest:");
     public Label lblGuestUsername = new Label("Enter Guest Username: ");
     public Label lblGuestPassword = new Label("Enter Guest Password: ");
@@ -82,6 +82,7 @@ public class HotelMadisonUI extends Application
     public TextField txtGuestPassword = new TextField();
     public TextField txtGuestName = new TextField();
     public Button btnAddGuest = new Button("Add Guest -> ");
+    public Button btnEditGuest = new Button("Edit Guest -> ");
     public ListView lstGuest = new ListView(guestList);
     
     // Edit Guest Account
@@ -94,6 +95,7 @@ public class HotelMadisonUI extends Application
     public TextField txtEmployeePassword = new TextField();
     public TextField txtEmployeeName = new TextField();
     public Button btnAddEmployee = new Button("Add Employee -> ");
+    public Button btnEditEmployee = new Button("Edit Employee -> ");
     public ListView lstEmployee = new ListView(employeeList);
     
     // Edit Employee Account
@@ -113,7 +115,8 @@ public class HotelMadisonUI extends Application
     public TextField txtRoomNum = new TextField();
     public TextField txtPrice = new TextField();
     public ComboBox cmboStatus = new ComboBox();
-    public Button btnAddRoom = new Button("Add Room -> ");   
+    public Button btnAddRoom = new Button("Add Room -> ");
+    public Button btnEditRoom = new Button("Edit Room -> ");
     public ListView lstRoom = new ListView(roomList);
     
     // Edit Guest Room Controls
@@ -193,13 +196,12 @@ public class HotelMadisonUI extends Application
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        //Tabs.getTabs().add(tabEmployee);
-        //Tabs.getTabs().add(tabGuest);
-        //Tabs.getTabs().add(tabAddGuest);
-        //Tabs.getTabs().add(tabAddEmployee);
+        Tabs.getTabs().add(tabEmployee);
+        Tabs.getTabs().add(tabGuest);
+        Tabs.getTabs().add(tabAddGuest);
+        Tabs.getTabs().add(tabAddEmployee);
         Tabs.getTabs().add(tabBooking);
         Tabs.getTabs().add(tabAddRoom);
-        
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -348,7 +350,8 @@ public class HotelMadisonUI extends Application
         addEmployeePane.add(txtEmployeePassword, 1, 2);
         addEmployeePane.add(txtEmployeeName, 1, 3);
         addEmployeePane.add(btnAddEmployee, 1, 7);
-        addEmployeePane.add(btnEmployeeBack5, 2, 7);
+        addEmployeePane.add(btnEditEmployee, 1, 8);
+        addEmployeePane.add(btnEmployeeBack5, 2, 7);       
         addEmployeePane.add(lstEmployee, 2, 1, 1, 6);
         lstEmployee.setPrefWidth(400);
         addEmployeePane.setVgap(10);
@@ -356,7 +359,20 @@ public class HotelMadisonUI extends Application
         btnAddEmployee.setOnAction(e -> {
             Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
                     // Integer.parseInt());
+            employee.add(tempEmployee);
             
+            employeeList.add(tempEmployee.toString());
+            
+            txtEmployeeUsername.clear();
+            txtEmployeePassword.clear();
+            txtEmployeeName.clear();     
+        });
+        btnEditEmployee.setOnAction(e -> {
+            int selectedInt = lstEmployee.getSelectionModel().getSelectedIndex();
+            
+            Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
+                    
+            lstEmployee.getItems().remove(selectedInt);        
             employee.add(tempEmployee);
             
             employeeList.add(tempEmployee.toString());
@@ -364,7 +380,6 @@ public class HotelMadisonUI extends Application
             txtEmployeeUsername.clear();
             txtEmployeePassword.clear();
             txtEmployeeName.clear();
-               
         });
         btnEmployeeBack5.setOnAction(e -> {
 
@@ -412,10 +427,41 @@ public class HotelMadisonUI extends Application
         addRoomPane.add(lstRoom, 2, 1, 2, 8);
         lstRoom.setPrefWidth(500);
         addRoomPane.add(btnAddRoom, 1, 9);
+        addRoomPane.add(btnEditRoom, 1, 10);
         addRoomPane.add(btnEmployeeBack7, 2, 9);
         addRoomPane.setHgap(10);
         cmboBed.getSelectionModel();
         btnAddRoom.setOnAction(e -> {
+            
+            // Integer.parseInt());
+                    
+            /*Room newRoom = new Room(Integer.valueOf((String)cmboBed.getValue()), Integer.valueOf((String)cmboKitchen.getValue()), 
+                    Integer.valueOf((String)cmboCoffee.getValue()), Integer.valueOf((String)cmboAccess.getValue()),  
+                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));*/
+            int bed = handleBed(cmboBed.getValue().toString());
+            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
+            int coffee = handleCoffee(cmboCoffee.getValue().toString());
+            int access = handleAccess(cmboAccess.getValue().toString());
+            
+            Room tempRoom = new Room(bed, kitchen, coffee, access,  
+                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
+                   
+            room.add(tempRoom);
+            
+            selectRoomList.add(tempRoom.getRoomNumber());
+            
+            roomList.add(tempRoom.roomDescription());
+            
+            cmboBed.getSelectionModel().select(0);
+            cmboKitchen.getSelectionModel().select(0);
+            cmboCoffee.getSelectionModel().select(0);
+            cmboAccess.getSelectionModel().select(0);
+            txtRoomNum.clear();
+            txtPrice.clear();
+            
+        });
+        btnEditRoom.setOnAction(e -> {
+            int selectedInt = lstRoom.getSelectionModel().getSelectedIndex();
             
             int bed = handleBed(cmboBed.getValue().toString());
             int kitchen = handleKitchen(cmboKitchen.getValue().toString());
@@ -424,19 +470,12 @@ public class HotelMadisonUI extends Application
             
             Room tempRoom = new Room(bed, kitchen, coffee, access,  
                     Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
-                    // Integer.parseInt());
-                    
-            /*Room newRoom = new Room(Integer.valueOf((String)cmboBed.getValue()), Integer.valueOf((String)cmboKitchen.getValue()), 
-                    Integer.valueOf((String)cmboCoffee.getValue()), Integer.valueOf((String)cmboAccess.getValue()),  
-                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));*/
-            
+                   
             room.add(tempRoom);
             
             selectRoomList.add(tempRoom.getRoomNumber());
             
-            //roomList.add(tempRoom.roomDesc1());
-            //roomList.add(tempRoom.roomDesc2());
-            
+            lstRoom.getItems().remove(selectedInt);
             roomList.add(tempRoom.roomDescription());
             
             cmboBed.getSelectionModel().select(0);
