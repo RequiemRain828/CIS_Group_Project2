@@ -272,13 +272,13 @@ public class HotelMadisonUI extends Application
         employeePane.add(new Label("Welcome to the Employee Menu"), 0, 0);
         cmboEmployeeMenu.getItems().addAll(
                 ("Run a Booking Report"),
-                ("Check a Guest Room Out"),
-                ("Create Guest Account"),
+                ("Checkout Guest"),
+                ("Create New Guest Account"),
                 ("Edit Guest Account"),
-                ("Create Employee Account"),
+                ("Create New Employee Account"),
                 ("Edit Employee Account"),
-                ("Create Guest Rooms"),
-                ("Edit Guest Rooms")
+                ("Create New Room"),
+                ("Edit Rooms")
         );
         cmboEmployeeMenu.getSelectionModel().select(0);
         employeePane.add(cmboEmployeeMenu, 0, 1);

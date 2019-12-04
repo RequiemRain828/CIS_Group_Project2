@@ -21,10 +21,10 @@ public class HotelMadison
         
     public static void main(String[] args) 
     {
-        Employee e1 = new Employee ("admin" , "1234", "Austin Putnam");
+        Employee e1 = new Employee ("admin" , "A1", "Austin Putnam");
         employee.add(e1);
         
-        Employee e2 = new Employee ("root","12345","Ben Carson");
+        Employee e2 = new Employee ("root","A2","Ben Carson");
         employee.add(e2);
         
         Guest g1 = new Guest("guest", "pass", "Jeremy Ezell");
@@ -900,9 +900,38 @@ public class HotelMadison
             userName=in1.nextLine();
             System.out.print("Enter Password: ");
             passWord=in1.nextLine();
+            
             System.out.print("Enter Employee Name: ");
             name=in1.nextLine();
-            Employee employee1 =new Employee(userName, passWord, name) ;
+            Employee employee1 = new Employee(userName, passWord, name);
+            
+            int y = 0;
+            
+            do 
+            {
+                
+                
+                if (y == 0)
+            System.out.println("Your password needs a capital letter and number! "
+                            + "Please try again!");
+        
+        if (y == 1)
+            System.out.println("Your password cannot start with a number! "
+                    + "Please try again!");
+                
+                System.out.print("Enter Password: ");
+                passWord=in1.nextLine();
+                
+                y = employee1.createNewPassword(passWord);
+                
+                
+                
+                 
+                
+            }
+            
+            while (employee1.createNewPassword(passWord) != 2);
+            
             employee.add(employee1);        
             System.out.println("Your ID is: " + counter);
             counter++;
@@ -1125,7 +1154,35 @@ public class HotelMadison
                 passWord=in1.nextLine();
                 System.out.print("Enter Guest Name: ");
                 name=in1.nextLine();
-                Guest guestNew =new Guest(userName, passWord, name) ;
+                Guest guestNew =new Guest(userName, passWord, name);
+                
+                int z = 0;
+            
+            do 
+            {
+                
+                
+                if (z == 0)
+            System.out.println("Your password needs a capital letter and number! "
+                            + "Please try again!");
+        
+        if (z == 1)
+            System.out.println("Your password cannot start with a number! "
+                    + "Please try again!");
+                
+                System.out.print("Enter Password: ");
+                passWord=in1.nextLine();
+                
+                z = guestNew.createNewPassword(passWord);
+                
+                
+                
+                 
+                
+            }
+            
+            while (guestNew.createNewPassword(passWord) != 2);
+                
                 guest.add(guestNew);        
                 System.out.println("Your ID is: "+counter);
                 counter++; 
@@ -1140,6 +1197,34 @@ public class HotelMadison
                 System.out.print("Enter Guest Name: ");
                 name=in1.nextLine();
                 Guest guestNew =new Guest(userName, passWord, name) ;
+                
+                 int z = 0;
+            
+            do 
+            {
+                
+                
+                if (z == 0)
+            System.out.println("Your password needs a capital letter and number! "
+                            + "Please try again!");
+        
+        if (z == 1)
+            System.out.println("Your password cannot start with a number! "
+                    + "Please try again!");
+                
+                System.out.print("Enter Password: ");
+                passWord=in1.nextLine();
+                
+                z = guestNew.createNewPassword(passWord);
+                
+                
+                
+                 
+                
+            }
+            
+            while (guestNew.createNewPassword(passWord) != 2);
+                
                 guest.add(guestNew);        
                 System.out.println("Your ID is: "+counter);
                 counter++;   
