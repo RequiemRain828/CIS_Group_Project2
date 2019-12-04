@@ -13,6 +13,8 @@ public class Guest
     private String password;
     private String guestName;
     private static int nextID = 0;
+    public double amountSpentWithHotel;
+    public int numberOfBookings;
     
     public Guest(String username, String password, String guestName) // Constructor
     {
