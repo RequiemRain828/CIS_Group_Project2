@@ -167,7 +167,7 @@ public class HotelMadisonUI extends Application
     public ListView listOrder = new ListView(roomServiceList); 
     public TextField txtServiceQuantity = new TextField();
     public Label lblQuantity = new Label("Quantity: ");
-    public Label lblTotalPrice = new Label("Label ");
+    public Label lblTotalPrice = new Label("Price: ");
     
     
     // Panes
@@ -331,13 +331,14 @@ public class HotelMadisonUI extends Application
                 ("Edit Guest Information"),
                 ("Order Room Service")
         );
-        cmboGuestMenu.getSelectionModel().select(0);
         valueGuestPane.add(cmboVGuestMenu, 0, 1);
+        cmboVGuestMenu.getSelectionModel().select(0);
         valueGuestPane.add(btnVGuestSelect, 0, 2);
         valueGuestPane.add(btnVGuestLogout, 1, 2);
         valueGuestPane.setVgap(10);
         btnVGuestSelect.setOnAction(e -> {            
             handleVGuestChoice(cmboVGuestMenu.getValue().toString());
+            //Tabs.getTabs().remove(tabValueGuest);
         });
         btnVGuestLogout.setOnAction(e -> {
             currentVGuest.remove(0);
@@ -648,8 +649,8 @@ public class HotelMadisonUI extends Application
            
            if (!currentGuest.isEmpty())
            {
-               Guest myGuest = currentGuest.get(0);
-               room.get(selectedInt);              
+                Guest myGuest = currentGuest.get(0);
+                room.get(selectedInt);              
                 room.get(selectedInt).bookRoom();
                 Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
@@ -683,9 +684,17 @@ public class HotelMadisonUI extends Application
                 
         });
         btnGuestBack1.setOnAction(e -> {
-            
-                Tabs.getSelectionModel().select(tabGuest);
-                Tabs.getTabs().remove(tabBookRoom);   
+           if (!currentVGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabGuest);
+               Tabs.getTabs().remove(tabBookRoom); 
+           }
+           if (!currentGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabValueGuest);
+               Tabs.getTabs().remove(tabBookRoom); 
+           }
+                  
         });
        
         tabDisplayBooking.setContent(guestBookingPane);
@@ -707,12 +716,14 @@ public class HotelMadisonUI extends Application
         roomServicePane.add(btnFinishOrderService, 0, 7);
         roomServicePane.add(btnBack, 2, 7);
         roomServicePane.add(lblQuantity, 1, 1);
+        roomServicePane.add(lblTotalPrice, 2, 6); 
         roomServicePane.setVgap(20);
         roomServicePane.setHgap(20);
         cmboServices.getItems().addAll(
         ("Pizza - $17.00"), ("Dessert - $5.00"), ("Salad - $8.00"), ("Dom Perignon 1968 - $150.00"), ("Towels - $2.00")
         );
         cmboServices.getSelectionModel().select(0);
+        ArrayList <RoomService> tempServiceList = new ArrayList<>();
         btnAddToOrder.setOnAction(e -> {
         
             //double quantityOfService; 
@@ -723,32 +734,41 @@ public class HotelMadisonUI extends Application
            
             double num = handleRoomService(cmboServices.getValue().toString());
             double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
-                      
+            
+            RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService);
+            tempServiceList.add(newOrder);
+            System.out.println(newOrder.toString());
+            System.out.println(tempServiceList.get(0).toString());          
         });
         
         btnFinishOrderService.setOnAction(e -> {
-        
+        /*
         double num = handleRoomService(cmboServices.getValue().toString());
         double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
         RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService);
-                
+        */
+          
+          double totalCost = 0;
           for(int i = 0; i < booking.size();i++)
             {
                 if(booking.get(i).getBookingGuest() == currentVGuest.get(0))
                 {
-                    booking.get(0).getArrayList().add(newOrder);   
+                    //booking.get(0).getArrayList().add(newOrder);
+                    for (int j = 0; j < tempServiceList.size(); j++)
+                    {
+                    booking.get(0).getArrayList().add(tempServiceList.get(j));
+                    totalCost += tempServiceList.get(j).getPrice();
+                    lblTotalPrice.setText("Price: " + totalCost / 2);
+                    }
                 }
-            }
-        
-          double totalCost;
-          
-          
-        
+            }    
         });
-        
-        
-        
-        
+        btnBack.setOnAction(e -> {
+            Tabs.getTabs().remove(tabRoomService);
+            Tabs.getSelectionModel().select(tabValueGuest);
+            cmboVGuestMenu.getSelectionModel().select(0);
+              
+        });
         
         // Create a scene
         Scene primaryScene = new Scene(primaryPane, 1000, 600);
