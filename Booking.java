@@ -29,27 +29,28 @@ public class Booking {
     public double roomServiceCost;
     public double totalCost;
     
-    public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, 
-        int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
-        this.checkOutMonth= checkOutMonth;
-        this.checkInMonth=checkInMonth;
+    public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkInDay, 
+        int checkOutDay, int checkInMonth, int checkOutMonth, int checkOutYear){
+        this.checkOutMonth = checkOutMonth;
+        this.checkInMonth = checkInMonth;
         this.bookingGuest = bookingGuest;
         this.bookedRoom = bookedRoom;
         this.bookingYear = year;
-        this.checkInDay = checkIn;
-        this.checkOutDay = checkOut;
-        
+        this.checkInDay = checkInDay;
+        this.checkOutDay = checkOutDay;
+        this.checkOutYear = checkOutYear;    
     }
     
     public Booking(ValueGuest valueGuest, Room bookedRoom, int year, int checkIn, 
             int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
-        this.checkOutMonth= checkOutMonth;
-        this.checkInMonth=checkInMonth;
+        this.checkOutMonth = checkOutMonth;
+        this.checkInMonth = checkInMonth;
         this.valueGuest = valueGuest;
         this.bookedRoom = bookedRoom;
         this.bookingYear = year;
         this.checkInDay = checkIn;
         this.checkOutDay = checkOut;
+        this.checkOutYear = checkOutYear;
     }
     
     public Guest getBookingGuest(){
