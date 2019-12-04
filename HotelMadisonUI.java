@@ -23,6 +23,7 @@ public class HotelMadisonUI extends Application
     public static ArrayList<Room> room = new ArrayList<Room>();
     public static ArrayList<Booking> booking = new ArrayList();
     public static ArrayList<Booking> tempBooking = new ArrayList();
+    public static ArrayList<Guest> currentGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
     public static ObservableList guestList = FXCollections.observableArrayList();
     public static ObservableList employeeList = FXCollections.observableArrayList();
@@ -122,17 +123,23 @@ public class HotelMadisonUI extends Application
     public Button btnAddRoom = new Button("Add Room -> ");
     public Button btnEditRoom = new Button("Edit Room -> ");
     public ListView lstRoom = new ListView(roomList);
+    public Label lblRoomPrice = new Label("");
+    public Label lblRoomNumber = new Label("");
     
     // Edit Guest Room Controls
     
     // Guest Book a Room Controls
     public Label lblFreeRooms = new Label("Free Rooms: ");
     public Label lblCheckinYear = new Label("Check In Year: ");
-    public Label lblCheckinDate = new Label("Check In Date: ");
-    public Label lblCheckoutDate = new Label("Check Out Date: ");
+    public Label lblCheckinDate = new Label("Check In Month/Day: ");
+    public Label lblCheckoutDate = new Label("Check Out Month/Day: ");
     public Button btnBookRoom = new Button("Book Room -> "); 
     public ListView listBookRoom = new ListView(bookList);
-    
+    public ComboBox cmboYear = new ComboBox();
+    public ComboBox cmboDayIn = new ComboBox();
+    public ComboBox cmboDayOut = new ComboBox();
+    public ComboBox cmboMonthIn = new ComboBox();
+    public ComboBox cmboMonthOut = new ComboBox();
     public TextField txtCheckInYear = new TextField();
     public TextField txtCheckInDate = new TextField();
     public TextField txtCheckOutDate = new TextField();
@@ -201,11 +208,12 @@ public class HotelMadisonUI extends Application
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
         Tabs.getTabs().add(tabEmployee);
-        Tabs.getTabs().add(tabGuest);
+        //Tabs.getTabs().add(tabGuest);
         Tabs.getTabs().add(tabAddGuest);
         Tabs.getTabs().add(tabAddEmployee);
         Tabs.getTabs().add(tabBooking);
         Tabs.getTabs().add(tabAddRoom);
+        //Tabs.getTabs().add(tabBookRoom);
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -227,11 +235,9 @@ public class HotelMadisonUI extends Application
             
         });
         
-         
         //loginPane.setVgap(20);
         //loginPane.setHgap(40);
-        
-        
+
         // Employee Menu Pane
         tabEmployee.setContent(employeePane);
         employeePane.setAlignment(Pos.CENTER);
@@ -299,7 +305,8 @@ public class HotelMadisonUI extends Application
         lstEmployeeBooking.setPrefWidth(600);
         btnEmployeeBack1.setOnAction(e -> {
                 Tabs.getSelectionModel().select(tabEmployee);
-                Tabs.getTabs().remove(tabBooking);  
+                Tabs.getTabs().remove(tabBooking);
+                cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
         tabCheckout.setContent(checkoutPane);
@@ -312,7 +319,8 @@ public class HotelMadisonUI extends Application
         lstEmployeeBooking.setPrefWidth(400);
         btnEmployeeBack2.setOnAction(e -> {
                 Tabs.getSelectionModel().select(tabEmployee);
-                Tabs.getTabs().remove(tabCheckout);  
+                Tabs.getTabs().remove(tabCheckout);
+                cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
         tabAddGuest.setContent(addGuestPane);
@@ -387,10 +395,13 @@ public class HotelMadisonUI extends Application
         btnEditEmployee.setOnAction(e -> {
             int selectedInt = lstEmployee.getSelectionModel().getSelectedIndex();
             
+            
             Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
                     
             lstEmployee.getItems().remove(selectedInt);        
-            employee.add(tempEmployee);
+            employee.get(selectedInt).setEmployeeName(txtEmployeeName.getText());
+            employee.get(selectedInt).setEmployeeName(txtEmployeeUsername.getText());
+            employee.get(selectedInt).setPassword(txtEmployeePassword.getText(),txtEmployeePassword.getText());
             
             employeeList.add(tempEmployee.toString());
             
@@ -443,39 +454,43 @@ public class HotelMadisonUI extends Application
         addRoomPane.add(cmboStatus, 1, 7);
         addRoomPane.add(lstRoom, 2, 1, 2, 8);
         lstRoom.setPrefWidth(500);
-        addRoomPane.add(btnAddRoom, 1, 9);
-        addRoomPane.add(btnEditRoom, 1, 10);
+        addRoomPane.add(btnAddRoom, 0, 9);
+        addRoomPane.add(btnEditRoom, 0, 10);
         addRoomPane.add(btnEmployeeBack7, 2, 9);
         addRoomPane.setHgap(10);
-        cmboBed.getSelectionModel();
+        addRoomPane.add(lblRoomPrice, 1, 9);
+        addRoomPane.add(lblRoomNumber, 1, 10);
+        //cmboBed.getSelectionModel();
         btnAddRoom.setOnAction(e -> {
-            
-            // Integer.parseInt());
+            if (isValidRoomPrice() == true && isValidRoomNumber() == true)
+            {
+                handleAddRoom();
+                lblRoomPrice.setText("");
+                lblRoomNumber.setText("");
+            }
+            else
+            {
+                if (isValidRoomPrice() == false)
+                {
+                    lblRoomPrice.setText("Please enter valid room price!");
+                    lblRoomNumber.setText("");
+                }
+                if (isValidRoomNumber() == false)
+                {
+                    lblRoomNumber.setText("Please enter valid room number!");
+                    lblRoomPrice.setText("");
+                }
+                if (isValidRoomPrice() == false && isValidRoomNumber() == false)
+                {
+                    lblRoomPrice.setText("Please enter valid room price!");
+                    lblRoomNumber.setText("Please enter valid room number!");
+                }
+            }    
                     
             /*Room newRoom = new Room(Integer.valueOf((String)cmboBed.getValue()), Integer.valueOf((String)cmboKitchen.getValue()), 
                     Integer.valueOf((String)cmboCoffee.getValue()), Integer.valueOf((String)cmboAccess.getValue()),  
                     Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));*/
-            int bed = handleBed(cmboBed.getValue().toString());
-            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
-            int coffee = handleCoffee(cmboCoffee.getValue().toString());
-            int access = handleAccess(cmboAccess.getValue().toString());
-            
-            Room tempRoom = new Room(bed, kitchen, coffee, access,  
-                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
-                   
-            room.add(tempRoom);
-            
-            selectRoomList.add(tempRoom.getRoomNumber());
-            
-            roomList.add(tempRoom.roomDescription());
-            
-            cmboBed.getSelectionModel().select(0);
-            cmboKitchen.getSelectionModel().select(0);
-            cmboCoffee.getSelectionModel().select(0);
-            cmboAccess.getSelectionModel().select(0);
-            txtRoomNum.clear();
-            txtPrice.clear();
-            
+ 
         });
         btnEditRoom.setOnAction(e -> {
             int selectedInt = lstRoom.getSelectionModel().getSelectedIndex();
@@ -521,9 +536,30 @@ public class HotelMadisonUI extends Application
         bookRoomPane.add(lblCheckinYear, 0, 5);
         bookRoomPane.add(lblCheckinDate, 0, 6);
         bookRoomPane.add(lblCheckoutDate, 0, 7);
-        bookRoomPane.add(txtCheckInYear, 1, 5);
-        bookRoomPane.add(txtCheckInDate, 1, 6);
-        bookRoomPane.add(txtCheckOutDate, 1, 7);
+        cmboYear.getItems().addAll((2019), (2020),
+                (2021), (2022), (2023));
+        bookRoomPane.add(cmboYear, 1, 5);
+        cmboYear.getSelectionModel().select(0);
+        for (int i = 1; i < 32; i++)
+        {
+        cmboDayIn.getItems().add(i);
+        cmboDayIn.getSelectionModel().select(0);
+        }
+        bookRoomPane.add(cmboDayIn, 2, 6);
+        for (int i = 1; i < 32; i++)
+        {
+        cmboDayOut.getItems().add(i);
+        cmboDayOut.getSelectionModel().select(0);
+        }
+        bookRoomPane.add(cmboDayOut, 2, 7);
+        cmboMonthIn.getItems().addAll(("January"),("February"),("March"),("April"),("May"),
+                ("June"),("July"),("August"),("September"),("October"),("November"),("December"));      
+        bookRoomPane.add(cmboMonthIn, 1, 6);
+        cmboMonthIn.getSelectionModel().select(0);
+        cmboMonthOut.getItems().addAll(("January"),("February"),("March"),("April"),("May"),
+                ("June"),("July"),("August"),("September"),("October"),("November"),("December"));
+        bookRoomPane.add(cmboMonthOut, 1, 7);
+        cmboMonthOut.getSelectionModel().select(0);
         bookRoomPane.add(btnBookRoom, 1, 8);
         bookRoomPane.add(btnGuestBack1, 2, 8);
         bookRoomPane.add(listBookRoom, 1, 1, 2, 4);
@@ -536,18 +572,30 @@ public class HotelMadisonUI extends Application
             //bookList.remove(room.get(i));
         }
         btnBookRoom.setOnAction(e -> {
-           /*for (int i = 0; i < room.size(); i++)
-        { 
-           if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
-           {
-               room.get(i).bookRoom();
-               listBookRoom.getItems().remove(i);
-               
-           }
-        }*/
            int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
            listBookRoom.getItems().remove(selectedInt);
            
+           int dayIn = ((Integer)cmboDayIn.getValue());
+           int dayOut = ((Integer)cmboDayOut.getValue());
+           int year = ((Integer)cmboYear.getValue());
+           int monthIn = handleMonth(cmboMonthIn.getValue().toString());
+           int monthOut = handleMonth(cmboMonthOut.getValue().toString());
+           Guest myGuest = currentGuest.get(0);
+           
+           
+           for (int i = 0; i < room.size(); i++)
+            { 
+                if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
+                {
+                room.get(i).bookRoom();
+                Room chosenRoom = room.get(i);
+                //listBookRoom.getItems().remove(i);
+                Booking newBooking = new Booking(myGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+                
+                booking.add(newBooking);
+                System.out.print(newBooking.toString());
+                }
+            }   
         });
         btnGuestBack1.setOnAction(e -> {
             
@@ -592,8 +640,7 @@ public class HotelMadisonUI extends Application
                     //System.out.println("Welcome " + employee.get(i).getEmployeeName());
                     Tabs.getTabs().add(tabEmployee); Tabs.getSelectionModel().select(tabEmployee);
                     txtUsername.clear();
-                    txtPassword.clear();
-                    
+                    txtPassword.clear();                    
                     invalid.setText("");
                     break;
                 }
@@ -608,6 +655,7 @@ public class HotelMadisonUI extends Application
             {
                 if (guest.get(i).checkCredentials(username, password))
                 {
+                    currentGuest.add(guest.get(i));
                     //System.out.println("Welcome " + guest.get(i).getGuestName());
                     Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
                     txtUsername.clear();
@@ -704,6 +752,91 @@ public class HotelMadisonUI extends Application
             default: break;
         }
         return result;
+    }
+    
+    public int handleMonth(String month)
+    {
+        int monthInt = 0;
+        switch(month)
+        {
+            case "January": monthInt = 1; break;
+            case "February": monthInt = 2; break;
+            case "March": monthInt = 3; break;
+            case "April": monthInt = 4; break;
+            case "May": monthInt = 5; break;
+            case "June": monthInt = 6; break;
+            case "July": monthInt = 7; break;
+            case "August": monthInt = 8; break;
+            case "September": monthInt = 9; break;
+            case "October": monthInt = 10; break;
+            case "November": monthInt = 11; break;
+            case "December": monthInt = 12; break;            
+            default: break;
+        }
+        return monthInt;
+    }
+    
+    public void handleAddRoom(){
+        int bed = handleBed(cmboBed.getValue().toString());
+            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
+            int coffee = handleCoffee(cmboCoffee.getValue().toString());
+            int access = handleAccess(cmboAccess.getValue().toString());
+            
+            Room tempRoom = new Room(bed, kitchen, coffee, access,  
+                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
+                   
+            room.add(tempRoom);
+            
+            selectRoomList.add(tempRoom.getRoomNumber());
+            
+            roomList.add(tempRoom.roomDescription());
+            
+            cmboBed.getSelectionModel().select(0);
+            cmboKitchen.getSelectionModel().select(0);
+            cmboCoffee.getSelectionModel().select(0);
+            cmboAccess.getSelectionModel().select(0);
+            txtRoomNum.clear();
+            txtPrice.clear();
+    }
+    
+    public boolean isValidRoomPrice()
+    {
+        boolean result = false;
+        if (!(txtPrice.getText() == null || txtPrice.getText().length() == 0)) 
+        {
+        try {
+            // Do all the validation you need here such as
+            Double d = Double.parseDouble(txtPrice.getText());
+            if ( d >= 1.0 && d < 999.9)
+                {
+                result = true;
+                }
+            } catch (NumberFormatException e) 
+            {
+            result = false;
+            }
+        }
+        return result;     
+    }
+    
+    public boolean isValidRoomNumber()
+    {
+        boolean result = false;
+        if (!(txtRoomNum.getText() == null || txtRoomNum.getText().length() == 0)) 
+        {
+        try {
+            // Do all the validation you need here such as
+            int d = Integer.parseInt(txtRoomNum.getText());
+            if ( d >= 1 && d < 999)
+                {
+                result = true;
+                }
+            } catch (NumberFormatException e) 
+            {
+            result = false;
+            }
+        }
+        return result;     
     }
     
     @Override
