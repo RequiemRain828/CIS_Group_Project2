@@ -21,9 +21,11 @@ public class HotelMadisonUI extends Application
     public static ArrayList<Employee> employee = new ArrayList();
     public static ArrayList<Guest> guest = new ArrayList();
     public static ArrayList<Room> room = new ArrayList<Room>();
+    public static ArrayList<ValueGuest> valueGuest = new ArrayList();
     public static ArrayList<Booking> booking = new ArrayList();
     public static ArrayList<Booking> tempBooking = new ArrayList();
     public static ArrayList<Guest> currentGuest = new ArrayList();
+    public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
     public static ObservableList guestList = FXCollections.observableArrayList();
     public static ObservableList employeeList = FXCollections.observableArrayList();
@@ -64,6 +66,11 @@ public class HotelMadisonUI extends Application
     public ComboBox cmboGuestMenu = new ComboBox();
     public Button btnGuestSelect = new Button("Select -> ");
     public Button btnGuestLogout = new Button("Logout^ ");
+    
+    // Value Guest Menu
+    public ComboBox cmboVGuestMenu = new ComboBox();
+    public Button btnVGuestSelect = new Button("Select -> ");
+    public Button btnVGuestLogout = new Button("Logout^ ");
     
     // Employee Room Summary controls
     public Label lblSelectRoom = new Label("Room # Selection: ");
@@ -153,6 +160,7 @@ public class HotelMadisonUI extends Application
     public GridPane loginPane = new GridPane();
     public GridPane employeePane = new GridPane();
     public GridPane guestPane = new GridPane();
+    public GridPane valueGuestPane = new GridPane();
     public GridPane employeeBookingPane = new GridPane();
     public GridPane checkoutPane = new GridPane();
     public GridPane addGuestPane = new GridPane();
@@ -170,6 +178,7 @@ public class HotelMadisonUI extends Application
     public Tab tabLogin = new Tab("Login Screen");
     public Tab tabEmployee = new Tab("Employee Menu");
     public Tab tabGuest = new Tab("Guest Menu");
+    public Tab tabValueGuest = new Tab("Value Guest Menu");
     public Tab tabBooking = new Tab("Booking Menu");
     public Tab tabCheckout = new Tab();
     public Tab tabAddGuest = new Tab("Add Guest Menu");
@@ -197,6 +206,9 @@ public class HotelMadisonUI extends Application
         Guest g2 = new Guest("guest1" , "pass1", "Mike Thorton");
         guest.add(g2);
         
+        ValueGuest g3 = new ValueGuest("guest1" , "pass1", "Seth Ledger");
+        valueGuest.add(g3);
+        
         Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
         room.add(r1);
         
@@ -207,12 +219,12 @@ public class HotelMadisonUI extends Application
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        Tabs.getTabs().add(tabEmployee);
+        //Tabs.getTabs().add(tabEmployee);
         //Tabs.getTabs().add(tabGuest);
-        Tabs.getTabs().add(tabAddGuest);
-        Tabs.getTabs().add(tabAddEmployee);
-        Tabs.getTabs().add(tabBooking);
-        Tabs.getTabs().add(tabAddRoom);
+        //Tabs.getTabs().add(tabAddGuest);
+        //Tabs.getTabs().add(tabAddEmployee);
+        //Tabs.getTabs().add(tabBooking);
+        //Tabs.getTabs().add(tabAddRoom);
         //Tabs.getTabs().add(tabBookRoom);
         
         primaryPane.add(Tabs, 0, 0);
@@ -262,9 +274,10 @@ public class HotelMadisonUI extends Application
             handleEmployeeChoice(cmboEmployeeMenu.getValue().toString());
         });
         btnEmployeeLogout.setOnAction(e -> {
-
-                Tabs.getSelectionModel().select(tabLogin);
-                Tabs.getTabs().remove(tabEmployee);  
+            invalid.setText("");
+            Tabs.getSelectionModel().select(tabLogin);
+            Tabs.getTabs().remove(tabEmployee);
+                
         });
         
         // Guest Menu Pane
@@ -281,14 +294,38 @@ public class HotelMadisonUI extends Application
         guestPane.add(btnGuestSelect, 0, 2);
         guestPane.add(btnGuestLogout, 1, 2);
         guestPane.setVgap(10);
-        btnGuestSelect.setOnAction(e -> {
-            
+        btnGuestSelect.setOnAction(e -> {            
             handleGuestChoice(cmboGuestMenu.getValue().toString());
         });
-        btnGuestLogout.setOnAction(e -> {
-
-                Tabs.getSelectionModel().select(tabEmployee);
-                Tabs.getTabs().remove(tabGuest);  
+        btnGuestLogout.setOnAction(e -> {            
+            currentGuest.remove(0);
+            invalid.setText("");
+            Tabs.getSelectionModel().select(tabLogin);
+            Tabs.getTabs().remove(tabGuest);  
+        });
+        
+        tabValueGuest.setContent(valueGuestPane);
+        valueGuestPane.setAlignment(Pos.CENTER);
+        valueGuestPane.add(new Label("Welcome to the Value Guest Menu"), 0, 0);
+        cmboVGuestMenu.getItems().addAll(
+                ("Book a Room"),
+                ("Display Booking Report"),
+                ("Edit Guest Information"),
+                ("Order Room Service")
+        );
+        cmboGuestMenu.getSelectionModel().select(0);
+        valueGuestPane.add(cmboVGuestMenu, 0, 1);
+        valueGuestPane.add(btnVGuestSelect, 0, 2);
+        valueGuestPane.add(btnVGuestLogout, 1, 2);
+        valueGuestPane.setVgap(10);
+        btnVGuestSelect.setOnAction(e -> {            
+            handleVGuestChoice(cmboGuestMenu.getValue().toString());
+        });
+        btnVGuestLogout.setOnAction(e -> {
+            currentVGuest.remove(0);
+            invalid.setText("");
+            Tabs.getSelectionModel().select(tabLogin);
+            Tabs.getTabs().remove(tabValueGuest);  
         });
         
         tabBooking.setContent(employeeBookingPane);
@@ -303,10 +340,16 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.add(btnDisplaySelect, 0, 7);
         employeeBookingPane.add(btnEmployeeBack1, 1, 7);
         lstEmployeeBooking.setPrefWidth(600);
+        btnDisplayAll.setOnAction(e -> {
+            for (int i = 0; i < room.size(); i++)
+            {
+                ebookingList.add(room.get(i).roomDescription());
+            }
+        });
         btnEmployeeBack1.setOnAction(e -> {
-                Tabs.getSelectionModel().select(tabEmployee);
-                Tabs.getTabs().remove(tabBooking);
-                cmboEmployeeMenu.getSelectionModel().select(0);
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabBooking);
+            cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
         tabCheckout.setContent(checkoutPane);
@@ -317,10 +360,21 @@ public class HotelMadisonUI extends Application
         checkoutPane.add(btnCheckout, 0, 6);
         checkoutPane.add(btnEmployeeBack2, 1, 6);
         lstEmployeeBooking.setPrefWidth(400);
+        btnCheckout.setOnAction(e -> {
+            int selectedInt = lstEmployeeBooking.getSelectionModel().getSelectedIndex();
+            for (int i = 0; i < booking.size(); i++)
+            {
+                if (selectedInt == i)
+                {
+                booking.get(i).bookedRoom.freeThisRoom();
+                bookList.add(booking.get(i).toString());
+                }
+            }
+        });
         btnEmployeeBack2.setOnAction(e -> {
-                Tabs.getSelectionModel().select(tabEmployee);
-                Tabs.getTabs().remove(tabCheckout);
-                cmboEmployeeMenu.getSelectionModel().select(0);
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabCheckout);
+            cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
         tabAddGuest.setContent(addGuestPane);
@@ -344,17 +398,8 @@ public class HotelMadisonUI extends Application
         addGuestPane.setVgap(10);
         addGuestPane.setHgap(10);
         btnAddGuest.setOnAction(e -> {
-            Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
-                    ,txtGuestName.getText());
-            
-            guest.add(tempGuest);
-            
-            guestList.add(tempGuest.toString());
-            
-            txtGuestUsername.clear();
-            txtGuestPassword.clear();
-            txtGuestName.clear();
-             
+            handleAddGuest(cmboGuestStatus.getValue().toString());
+    
         });
         btnEmployeeBack3.setOnAction(e -> {
                 Tabs.getSelectionModel().select(tabEmployee);
@@ -580,22 +625,42 @@ public class HotelMadisonUI extends Application
            int year = ((Integer)cmboYear.getValue());
            int monthIn = handleMonth(cmboMonthIn.getValue().toString());
            int monthOut = handleMonth(cmboMonthOut.getValue().toString());
-           Guest myGuest = currentGuest.get(0);
            
-           
-           for (int i = 0; i < room.size(); i++)
-            { 
-                if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
-                {
-                room.get(i).bookRoom();
-                Room chosenRoom = room.get(i);
+           if (!currentGuest.isEmpty())
+           {
+               Guest myGuest = currentGuest.get(0);
+               room.get(selectedInt);              
+                room.get(selectedInt).bookRoom();
+                Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
                 Booking newBooking = new Booking(myGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
-                
+
                 booking.add(newBooking);
+                checkoutList.add(newBooking.toString());
                 System.out.print(newBooking.toString());
+                System.out.print("Booked a guest");
+                  
+           }
+           if (!currentVGuest.isEmpty())
+           {
+               Guest aGuest = currentVGuest.get(0);
+               for (int i = 0; i < room.size(); i++)
+                { 
+                    if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
+                    {
+                    room.get(i).bookRoom();
+                    Room chosenRoom = room.get(i);
+                    //listBookRoom.getItems().remove(i);
+                    Booking newBooking = new Booking(aGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+
+                    booking.add(newBooking);
+                    checkoutList.add(newBooking.toString());
+                    System.out.print(newBooking.toString());
+                    System.out.print("Booked a valued guest");
+                    }
                 }
-            }   
+           }
+                
         });
         btnGuestBack1.setOnAction(e -> {
             
@@ -651,7 +716,8 @@ public class HotelMadisonUI extends Application
                 }
             }            
             break;
-            case "Guests":  for(int i =0; i< guest.size(); i++)
+            case "Guests":  
+            for(int i =0; i< guest.size(); i++)
             {
                 if (guest.get(i).checkCredentials(username, password))
                 {
@@ -663,7 +729,25 @@ public class HotelMadisonUI extends Application
                     invalid.setText("");
                     break;
                 }
-                else
+                if (guest.get(i).checkCredentials(username, password) == false)
+                {
+                    invalid.setText("Invalid Credentials! Please try again!");
+                    break;
+                }
+            }
+            for(int i =0; i< valueGuest.size(); i++)
+            {
+                if (valueGuest.get(i).checkCredentials(username, password))
+                {
+                    currentVGuest.add(valueGuest.get(i));
+                    //System.out.println("Welcome " + guest.get(i).getGuestName());
+                    Tabs.getTabs().add(tabValueGuest); Tabs.getSelectionModel().select(tabValueGuest);
+                    txtUsername.clear();
+                    txtPassword.clear();
+                    invalid.setText("");
+                    break;
+                }
+                if (valueGuest.get(i).checkCredentials(username, password) == false)
                 {
                     invalid.setText("Invalid Credentials! Please try again!");
                     break;
@@ -697,6 +781,17 @@ public class HotelMadisonUI extends Application
             case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
             case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
             case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuest); break; 
+            default: break;
+        }
+    }
+    public void handleVGuestChoice(String menuChoice)
+    {
+        switch(menuChoice)
+        {
+            case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
+            case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
+            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuest); break;
+            case "Order Room Service": break;
             default: break;
         }
     }
@@ -790,6 +885,7 @@ public class HotelMadisonUI extends Application
             selectRoomList.add(tempRoom.getRoomNumber());
             
             roomList.add(tempRoom.roomDescription());
+            bookList.add(tempRoom.roomDescription());
             
             cmboBed.getSelectionModel().select(0);
             cmboKitchen.getSelectionModel().select(0);
@@ -837,6 +933,43 @@ public class HotelMadisonUI extends Application
             }
         }
         return result;     
+    }
+    
+    public void handleAddGuest(String status)
+    {
+        switch(status)
+        {
+            case "Guest": addGuest(); break; 
+            case "Valued Guest": addValueGuest(); System.out.print("This is valued Guest"); break;
+            default: break;
+        }
+    }
+    
+    public void addGuest()
+    {
+        Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
+                    ,txtGuestName.getText());
+            
+        guest.add(tempGuest);
+            
+        guestList.add(tempGuest.toString());
+            
+        txtGuestUsername.clear();
+        txtGuestPassword.clear();
+        txtGuestName.clear();
+    }
+    
+    public void addValueGuest()
+    {
+        ValueGuest tempValueGuest = new ValueGuest(txtGuestUsername.getText(), txtGuestPassword.getText()
+                    ,txtGuestName.getText());
+        
+        valueGuest.add(tempValueGuest);
+        
+        guestList.add(tempValueGuest.toString());
+        txtGuestUsername.clear();
+        txtGuestPassword.clear();
+        txtGuestName.clear();       
     }
     
     @Override
