@@ -359,7 +359,7 @@ public class HotelMadisonUI extends Application
         checkoutPane.add(lstCheckout, 1, 1, 2, 5);
         checkoutPane.add(btnCheckout, 0, 6);
         checkoutPane.add(btnEmployeeBack2, 1, 6);
-        lstEmployeeBooking.setPrefWidth(400);
+        lstCheckout.setPrefWidth(400);
         btnCheckout.setOnAction(e -> {
             int selectedInt = lstEmployeeBooking.getSelectionModel().getSelectedIndex();
             for (int i = 0; i < booking.size(); i++)
@@ -367,9 +367,11 @@ public class HotelMadisonUI extends Application
                 if (selectedInt == i)
                 {
                 booking.get(i).bookedRoom.freeThisRoom();
+                checkoutList.remove(selectedInt);
                 bookList.add(booking.get(i).toString());
                 }
             }
+            
         });
         btnEmployeeBack2.setOnAction(e -> {
             Tabs.getSelectionModel().select(tabEmployee);
