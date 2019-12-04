@@ -159,7 +159,8 @@ public class HotelMadisonUI extends Application
     
     // Room Service Controls
     public Label lblServices = new Label("Available services: ");
-    public Button btnOrderService = new Button("Order");
+    public Button btnAddToOrder = new Button("Add to Order");
+    public Button btnFinishOrderService = new Button("Complete Order");
     public Button btnBack = new Button("Back");
     public ComboBox cmboServices = new ComboBox();
     public TextField txtQuantity = new TextField();
@@ -701,14 +702,37 @@ public class HotelMadisonUI extends Application
         roomServicePane.add(cmboServices, 0, 2);
         roomServicePane.add(txtServiceQuantity, 1, 2);
         roomServicePane.add(listOrder, 2, 1, 2, 5);
-        roomServicePane.add(btnOrderService, 0, 7);
+        roomServicePane.add(btnAddToOrder, 0, 4);
+        roomServicePane.add(btnFinishOrderService, 0, 7);
         roomServicePane.add(btnBack, 2, 7);
         roomServicePane.add(lblQuantity, 1, 1);
         roomServicePane.setVgap(20);
         roomServicePane.setHgap(20);
         cmboServices.getItems().addAll(
-        ("Pizza"), ("Dessert"), ("Salad"), ("Champagne")
+        ("Pizza - $17.00"), ("Dessert - $5.00"), ("Salad - $8.00"), ("Dom Perignon 1968 - $150.00"), ("Towels - $2.00")
         );
+        cmboServices.getSelectionModel().select(0);
+        btnAddToOrder.setOnAction(e -> {
+        
+            //double quantityOfService; 
+            //quantityOfService = Double.parseDouble(txtServiceQuantity.getText())
+            String quantityOfService;
+            quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
+            roomServiceList.add(quantityOfService);
+            RoomService newOrder = new RoomService(txtServiceQuantity.getText(), Double.parseDouble(txtServiceQuantity.getText()));
+            for(int i = 0; i < booking.size();i++)
+            {
+                if(booking.get(i).getBookingGuest() == currentVGuest.get(0))
+                {
+                    booking.get(0).getArrayList().add(newOrder);   
+                }
+            }
+                     
+            
+        });
+        
+        
+        
         
         
         // Create a scene
