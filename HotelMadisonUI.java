@@ -985,7 +985,7 @@ public class HotelMadisonUI extends Application
         Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
                     ,txtGuestName.getText());
             
-        guest.add(tempGuest);
+        guest.add(tempGuest);        
             
         guestList.add(tempGuest.toString());
             
