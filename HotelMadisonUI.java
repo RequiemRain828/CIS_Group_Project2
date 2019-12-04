@@ -336,7 +336,7 @@ public class HotelMadisonUI extends Application
         valueGuestPane.add(btnVGuestLogout, 1, 2);
         valueGuestPane.setVgap(10);
         btnVGuestSelect.setOnAction(e -> {            
-            handleVGuestChoice(cmboGuestMenu.getValue().toString());
+            handleVGuestChoice(cmboVGuestMenu.getValue().toString());
         });
         btnVGuestLogout.setOnAction(e -> {
             currentVGuest.remove(0);
