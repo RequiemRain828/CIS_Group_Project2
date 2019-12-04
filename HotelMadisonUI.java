@@ -692,12 +692,12 @@ public class HotelMadisonUI extends Application
         btnGuestBack1.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
            {
-               Tabs.getSelectionModel().select(tabGuest);
+               Tabs.getSelectionModel().select(tabValueGuest);
                Tabs.getTabs().remove(tabBookRoom); 
            }
            if (!currentGuest.isEmpty())
            {
-               Tabs.getSelectionModel().select(tabValueGuest);
+               Tabs.getSelectionModel().select(tabGuest);
                Tabs.getTabs().remove(tabBookRoom); 
            }
                   
@@ -764,7 +764,7 @@ public class HotelMadisonUI extends Application
                     {
                     booking.get(0).getArrayList().add(tempServiceList.get(j));
                     totalCost += tempServiceList.get(j).getPrice();
-                    lblTotalPrice.setText("Price: " + totalCost / 2);
+                    lblTotalPrice.setText("Price: $" + totalCost / 2);
                     }
                 }
             }    
