@@ -33,6 +33,7 @@ public class HotelMadisonUI extends Application
     public static ObservableList ebookingList = FXCollections.observableArrayList();
     public static ObservableList selectRoomList = FXCollections.observableArrayList(room);
     public static ObservableList checkoutList = FXCollections.observableArrayList();
+    public static ObservableList roomServiceList = FXCollections.observableArrayList();
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -154,7 +155,19 @@ public class HotelMadisonUI extends Application
     // Guest Display Booking Report Controls
     
     // Guest Edit Information Controls
-     
+    
+    // Room Service Controls
+    public Label lblServices = new Label("Available services: ");
+    public Button btnOrderService = new Button("Order");
+    public Button btnBack = new Button("Back");
+    public ComboBox cmboServices = new ComboBox();
+    public TextField txtQuantity = new TextField();
+    public ListView listOrder = new ListView(roomServiceList); 
+    public Spinner<Integer> spinnerServiceQuantity = new Spinner<Integer>();
+    public SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 0);
+    public Label lblQuantity = new Label("Quantity: ");
+    
+    
     // Panes
     public GridPane primaryPane = new GridPane();
     public GridPane loginPane = new GridPane();
@@ -172,6 +185,7 @@ public class HotelMadisonUI extends Application
     public GridPane bookRoomPane = new GridPane();
     public GridPane guestBookingPane = new GridPane();
     public GridPane editGuestInfoPane= new GridPane();
+    public GridPane roomServicePane = new GridPane();
     
     // Tab Pane and tabs
     public TabPane Tabs = new TabPane();
@@ -190,6 +204,7 @@ public class HotelMadisonUI extends Application
     public Tab tabBookRoom = new Tab("Book Room Menu");
     public Tab tabDisplayBooking = new Tab();
     public Tab tabEditGuestInfo = new Tab();
+    public Tab tabRoomService = new Tab("Room Service Menu");
     
     @Override
     public void start(Stage primaryStage) 
@@ -226,6 +241,7 @@ public class HotelMadisonUI extends Application
         //Tabs.getTabs().add(tabBooking);
         //Tabs.getTabs().add(tabAddRoom);
         //Tabs.getTabs().add(tabBookRoom);
+        Tabs.getTabs().add(tabRoomService);
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -677,6 +693,20 @@ public class HotelMadisonUI extends Application
         tabEditGuestInfo.setContent(editGuestInfoPane);
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 0);
+        
+        tabRoomService.setContent(roomServicePane);
+        roomServicePane.setAlignment(Pos.CENTER);
+        roomServicePane.add(new Label("Welcome to the Room Service Menu"), 0, 0);
+        roomServicePane.add(lblServices, 0, 1);
+        roomServicePane.add(cmboServices, 0, 2);
+        roomServicePane.add(spinnerServiceQuantity, 1, 2);
+        roomServicePane.add(listOrder, 2, 1, 2, 5);
+        roomServicePane.add(btnOrderService, 0, 7);
+        roomServicePane.add(btnBack, 2, 7);
+        roomServicePane.add(lblQuantity, 1, 1);
+        roomServicePane.setVgap(20);
+        roomServicePane.setHgap(20);
+        
         
         // Create a scene
         Scene primaryScene = new Scene(primaryPane, 1000, 600);
