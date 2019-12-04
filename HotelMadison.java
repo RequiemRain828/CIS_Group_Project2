@@ -717,7 +717,7 @@ public class HotelMadison
                         }
                     }
                     
-                    Booking newBooking = new Booking(guest, chosenRoom, 2019, 1, 1);
+                    Booking newBooking = new Booking(guest, chosenRoom, 2019, 1, 1, 1, 1, 1);
                     booking.add(newBooking);
                     System.out.println("Thank you for booking Room #" + newBooking.getBookedRoom().getRoomNumber());
                     check = true;
@@ -784,7 +784,7 @@ public class HotelMadison
                         }
                     }
                     chosenRoom.bookRoom();
-                    Booking newBooking = new Booking(guest, chosenRoom, 2019, 1, 1);
+                    Booking newBooking = new Booking(guest, chosenRoom, 2019, 1, 1, 1, 1, 1);
                     booking.add(newBooking);
                     System.out.println("Thank you for booking Room #" + newBooking.getBookedRoom().getRoomNumber());
                     check = true;
