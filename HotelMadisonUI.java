@@ -29,6 +29,7 @@ public class HotelMadisonUI extends Application
     public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
     public static ObservableList guestList = FXCollections.observableArrayList();
+    public static ObservableList editGuestList = FXCollections.observableArrayList();
     public static ObservableList employeeList = FXCollections.observableArrayList();
     public static ObservableList bookList = FXCollections.observableArrayList();
     public static ObservableList ebookingList = FXCollections.observableArrayList();
@@ -108,7 +109,7 @@ public class HotelMadisonUI extends Application
     public TextField txtEditGuestPassword1 = new TextField();
     public TextField txtEditGuestName = new TextField();
     public Button btnEditGuest = new Button("Edit Guest -> ");
-    public ListView lstEditGuest = new ListView(guestList);
+    public ListView lstEditGuest = new ListView(editGuestList);
     
     // Create Employee Account
     public Label lblEmployeeUsername = new Label("Enter Employee Username: ");
@@ -445,7 +446,68 @@ public class HotelMadisonUI extends Application
         tabEditGuest.setContent(editGuestPane);
         editGuestPane.setAlignment(Pos.CENTER);
         editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 0);
-        
+        editGuestPane.add(lblEditGuestName, 0, 1);
+        editGuestPane.add(lblEditGuestPassword, 0, 2);
+        editGuestPane.add(lblEditGuestPassword1, 0, 3);
+        editGuestPane.add(txtEditGuestName, 1, 1);
+        editGuestPane.add(txtEditGuestPassword, 1, 2);
+        editGuestPane.add(txtEditGuestPassword1, 1, 3);
+        editGuestPane.add(btnEmployeeBack4, 2, 6);
+        editGuestPane.add(btnEditGuest, 1, 6);
+        editGuestPane.add(lstEditGuest, 2, 1, 2, 5);
+        lstEditGuest.setPrefWidth(400);
+        editGuestPane.setVgap(10);
+        editGuestPane.setHgap(10);
+        btnEditGuest.setOnAction(e -> {
+            int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
+            
+            Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
+                    ,txtGuestName.getText());
+            
+            lstEditGuest.getItems().remove(selectedInt);        
+            guest.get(selectedInt).setGuestName(txtEditGuestName.getText());
+            guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+            
+            guest.add(tempGuest);
+            editGuestList.add(tempGuest.toString());
+            
+            txtEditGuestName.clear();
+            txtEditGuestPassword.clear();
+            txtEditGuestPassword1.clear();
+            
+        });
+        /*
+        Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
+                    ,txtGuestName.getText());
+            
+        guest.add(tempGuest);        
+            
+        guestList.add(tempGuest.toString());
+        guestName.add(tempGuest.getGuestName());
+        txtGuestUsername.clear();
+        txtGuestPassword.clear();
+        txtGuestName.clear();
+        */
+        /*
+        btnEditEmployee.setOnAction(e -> {
+            int selectedInt = lstEmployee.getSelectionModel().getSelectedIndex();
+            
+            
+            Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
+                    
+            lstEmployee.getItems().remove(selectedInt);        
+            employee.get(selectedInt).setEmployeeName(txtEmployeeName.getText());
+            employee.get(selectedInt).setEmployeeName(txtEmployeeUsername.getText());
+            employee.get(selectedInt).setPassword(txtEmployeePassword.getText(),txtEmployeePassword.getText());
+            
+            employeeList.add(tempEmployee.toString());
+            
+            txtEmployeeUsername.clear();
+            txtEmployeePassword.clear();
+            txtEmployeeName.clear();
+        });
+        */
+            
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
         addEmployeePane.add(new Label("Employee Account Menu"), 0, 0); 
