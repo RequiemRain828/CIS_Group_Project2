@@ -33,6 +33,7 @@ public class Guest
                 }
         return credentials;
     }
+    
      public String getGuestName() // Getter for guest name
     {
         return this.guestName;
@@ -48,16 +49,40 @@ public class Guest
         this.guestName = guestName;
     }
     
-     public int setPassword(String oldP, String newP) // Allows user to change passwords
+     public int setPassword(String oldP, String newP) //Allows users to change passwords
     { 
-         int x=0;
-         if (this.password.equals(oldP))
-         {
-             this.password=newP;
-             x = 1;
+        int x = 0;
+        
+        if (this.password.equals(oldP))
+        {
+            x = 1;
+     
+            if (oldP.equals(newP) == false)
+            {
+                x = 2; 
+                
+                if (newP.matches(".*[A-Z].*") && (newP.matches(".*[0-9].*")))
+                { 
+                    x = 3;
+                    if (Character.getNumericValue(newP.charAt(0)) != 0 &&
+                            Character.getNumericValue(newP.charAt(0)) != 1 &&
+                            Character.getNumericValue(newP.charAt(0)) != 2 &&
+                            Character.getNumericValue(newP.charAt(0)) != 3 &&
+                            Character.getNumericValue(newP.charAt(0)) != 4 &&
+                            Character.getNumericValue(newP.charAt(0)) != 5 &&
+                            Character.getNumericValue(newP.charAt(0)) != 6 &&
+                            Character.getNumericValue(newP.charAt(0)) != 7 &&
+                            Character.getNumericValue(newP.charAt(0)) != 8 &&
+                            Character.getNumericValue(newP.charAt(0)) != 9)
+                    { 
+                        x = 4;
+                        this.password = newP;
+                    }    
+                }
+            }
          }
-       
-         return x;
+     
+        return x;
     }
      
     @Override
