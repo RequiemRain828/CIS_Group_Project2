@@ -10,8 +10,6 @@ public class ValueGuest extends Guest
 {
     //private String savingsNumber;
     private int valueClubID;
-    private int numberOfBookings;
-    private double amountSpentWithHotel;
     private static int nextID;
     
     public ValueGuest(String username, String password, String guestName) // Constructor
@@ -39,4 +37,8 @@ public class ValueGuest extends Guest
     {
         return this.valueClubID;
     }
+    
+    
+
+
 }
