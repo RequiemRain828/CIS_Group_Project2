@@ -134,9 +134,13 @@ public class Booking {
         
     }
     
+    // Getter for RoomService ArrayList
     
-    
-    
+    public ArrayList getArrayList(){
+        
+        return this.roomServiceList;
+       
+    }
     
     
 
