@@ -14,6 +14,7 @@ public class Employee
     private String username;
     private String password;
     private String employeeName;
+    
     public static int nextID = 0;
     public static ArrayList<Employee> employeeArray = new ArrayList<Employee>();
 

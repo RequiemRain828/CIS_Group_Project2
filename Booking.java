@@ -16,38 +16,44 @@ public class Booking {
     public Room bookedRoom;
     public Guest bookingGuest;
     public ValueGuest valueGuest;
-    public int bookingYear;
+    
+    public int checkInYear;
     public int checkInDay;
     public int checkInMonth;
+    
     public int checkOutMonth;
     public int checkOutDay;
     public int checkOutYear;
-    public ArrayList <RoomService> roomServiceList = new ArrayList<>();
+    
     public int i = 0;
-    private static int nextID = 1;
+    
     public double roomCost;
     public double roomServiceCost;
     public double totalCost;
     
-    public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkInDay, 
+    public ArrayList <RoomService> roomServiceList = new ArrayList<>();
+    
+    private static int nextID = 1;
+    
+    public Booking(Guest bookingGuest, Room bookedRoom, int checkInYear, int checkInDay, 
         int checkOutDay, int checkInMonth, int checkOutMonth, int checkOutYear){
         this.checkOutMonth = checkOutMonth;
         this.checkInMonth = checkInMonth;
         this.bookingGuest = bookingGuest;
         this.bookedRoom = bookedRoom;
-        this.bookingYear = year;
+        this.checkInYear = checkInYear;
         this.checkInDay = checkInDay;
         this.checkOutDay = checkOutDay;
         this.checkOutYear = checkOutYear;    
     }
     
-    public Booking(ValueGuest valueGuest, Room bookedRoom, int year, int checkIn, 
+    public Booking(ValueGuest valueGuest, Room bookedRoom, int checkInYear, int checkIn, 
             int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
         this.checkOutMonth = checkOutMonth;
         this.checkInMonth = checkInMonth;
         this.valueGuest = valueGuest;
         this.bookedRoom = bookedRoom;
-        this.bookingYear = year;
+        this.checkInYear = checkInYear;
         this.checkInDay = checkIn;
         this.checkOutDay = checkOut;
         this.checkOutYear = checkOutYear;
@@ -69,15 +75,15 @@ public class Booking {
     public String toString(){
         String result = "";
         result += this.bookingGuest.getGuestName() + " booked room " + this.bookedRoom.getRoomNumber() 
-                + " from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.bookingYear+" to "+
+                + " from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.checkInYear+" to "+
                 this.checkOutDay+"/"+this.checkOutMonth+"/"+this.checkOutYear ;
         return result; 
     }
     
     public long dayCount(){
         long numberOfDays;
-        LocalDate firstYear= LocalDate.of(bookingYear, Month.JANUARY, 1);
-        LocalDate checkIn = LocalDate.of(bookingYear, Month.of(checkInMonth), checkInDay);
+        LocalDate firstYear= LocalDate.of(checkInYear, Month.JANUARY, 1);
+        LocalDate checkIn = LocalDate.of(checkInYear, Month.of(checkInMonth), checkInDay);
         LocalDate checkOut = LocalDate.of(checkOutYear, Month.of(checkOutMonth), checkOutDay);
         long daysFrombeg = ChronoUnit.DAYS.between(firstYear, checkIn);
         long dayFrombeg1= ChronoUnit.DAYS.between(firstYear, checkOut);
