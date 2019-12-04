@@ -5,6 +5,7 @@ import javafx.event.*;
 import javafx.collections.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.*; 
 import javafx.stage.Stage;
 
@@ -163,8 +164,7 @@ public class HotelMadisonUI extends Application
     public ComboBox cmboServices = new ComboBox();
     public TextField txtQuantity = new TextField();
     public ListView listOrder = new ListView(roomServiceList); 
-    public Spinner<Integer> spinnerServiceQuantity = new Spinner<Integer>();
-    public SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 0);
+    public TextField txtServiceQuantity = new TextField();
     public Label lblQuantity = new Label("Quantity: ");
     
     
@@ -699,7 +699,7 @@ public class HotelMadisonUI extends Application
         roomServicePane.add(new Label("Welcome to the Room Service Menu"), 0, 0);
         roomServicePane.add(lblServices, 0, 1);
         roomServicePane.add(cmboServices, 0, 2);
-        roomServicePane.add(spinnerServiceQuantity, 1, 2);
+        roomServicePane.add(txtServiceQuantity, 1, 2);
         roomServicePane.add(listOrder, 2, 1, 2, 5);
         roomServicePane.add(btnOrderService, 0, 7);
         roomServicePane.add(btnBack, 2, 7);
