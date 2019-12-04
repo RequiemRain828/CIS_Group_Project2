@@ -826,7 +826,7 @@ public class HotelMadisonUI extends Application
             case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
             case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
             case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuest); break;
-            case "Order Room Service": break;
+            case "Order Room Service": Tabs.getTabs().add(tabRoomService); Tabs.getSelectionModel().select(tabRoomService); break;
             default: break;
         }
     }
@@ -1002,6 +1002,7 @@ public class HotelMadisonUI extends Application
         valueGuest.add(tempValueGuest);
         
         guestList.add(tempValueGuest.toString());
+        
         txtGuestUsername.clear();
         txtGuestPassword.clear();
         txtGuestName.clear();       
