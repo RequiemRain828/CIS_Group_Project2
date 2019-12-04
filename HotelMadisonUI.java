@@ -707,7 +707,7 @@ public class HotelMadisonUI extends Application
         roomServicePane.setVgap(20);
         roomServicePane.setHgap(20);
         cmboServices.getItems().addAll(
-        ("Pizza"), ("Dessert"), ("Salad"), ("Champaigne")
+        ("Pizza"), ("Dessert"), ("Salad"), ("Champagne")
         );
         
         
