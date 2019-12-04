@@ -706,6 +706,9 @@ public class HotelMadisonUI extends Application
         roomServicePane.add(lblQuantity, 1, 1);
         roomServicePane.setVgap(20);
         roomServicePane.setHgap(20);
+        cmboServices.getItems().addAll(
+        ("Pizza"), ("Dessert"), ("Salad"), ("Champaigne")
+        );
         
         
         // Create a scene
