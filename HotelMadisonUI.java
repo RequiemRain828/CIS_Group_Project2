@@ -167,6 +167,7 @@ public class HotelMadisonUI extends Application
     public ListView listOrder = new ListView(roomServiceList); 
     public TextField txtServiceQuantity = new TextField();
     public Label lblQuantity = new Label("Quantity: ");
+    public Label lblTotalPrice = new Label("Label ");
     
     
     // Panes
@@ -720,14 +721,16 @@ public class HotelMadisonUI extends Application
             quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
             roomServiceList.add(quantityOfService);
            
-         
-                     
-            
+            double num = handleRoomService(cmboServices.getValue().toString());
+            double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
+                      
         });
         
         btnFinishOrderService.setOnAction(e -> {
-        double totalService = Double.parseDouble(txtServiceQuantity.getText());
-        RoomService newOrder = new RoomService(cmboServices.getValue().toString(), Double.parseDouble(txtServiceQuantity.getText()));
+        
+        double num = handleRoomService(cmboServices.getValue().toString());
+        double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
+        RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService);
                 
           for(int i = 0; i < booking.size();i++)
             {
@@ -1042,6 +1045,22 @@ public class HotelMadisonUI extends Application
         txtGuestUsername.clear();
         txtGuestPassword.clear();
         txtGuestName.clear();       
+    }
+    
+    public double handleRoomService(String service)
+    {
+        double num = 0;
+        switch(service)
+        {
+            case "Pizza - $17.00":  num = 17.00; break;
+            case "Dessert - $5.00":  num = 5.00; break;
+            case "Salad - $8.00": num = 8.00; break;
+            case "Dom Perignon 1968 - $150.00": num = 150.00; break;
+            case "Towels - $2.00": num = 2.00 ; break;
+                  
+            default: break;
+        }
+        return num;
     }
     
     @Override
