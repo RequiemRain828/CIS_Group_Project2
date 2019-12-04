@@ -17,15 +17,13 @@ public class Booking {
     public Guest bookingGuest;
     public ValueGuest valueGuest;
     
-    public int checkInYear;
-    public int checkInDay;
     public int checkInMonth;
+    public int checkInDay;
+    public int checkInYear;
     
     public int checkOutMonth;
     public int checkOutDay;
     public int checkOutYear;
-    
-    public int i = 0;
     
     public double roomCost;
     public double roomServiceCost;
@@ -92,8 +90,7 @@ public class Booking {
     }
     
     public void RoomService(String description, double price){
-        this.roomServiceList.set(i, new RoomService(description, price));
-        i++;
+        this.roomServiceList.add(new RoomService(description, price));
     }
     
     public void roomCost(){
@@ -104,7 +101,7 @@ public class Booking {
     
     public void roomService(){
         
-        for (i = 0; i < this.roomServiceList.size(); i++){
+        for (int i = 0; i < this.roomServiceList.size(); i++){
             
            this.roomServiceCost += roomServiceList.get(i).price;
             

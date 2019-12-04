@@ -6,16 +6,17 @@ package CIS_Group_Project2;
  */
 public class RoomService {
     
-    public int ID;
+    public int roomServiceID;
     public String description;
     public double price;
-    public static int nextInt = 1;
+    
+    public static int nextInt = 0;
     
 //Constructor
 public RoomService(String description, double price){
     this.description = description;
     this.price = price;
-    this.ID = nextInt++;
+    this.roomServiceID = nextInt++;
 }    
     
 //Getter for description
@@ -45,7 +46,7 @@ public void setPrice(double price){
 //Getter for ID
 
 public int getID() {
-    return this.ID;
+    return this.roomServiceID;
 }
     
 

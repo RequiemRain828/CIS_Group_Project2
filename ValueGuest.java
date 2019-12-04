@@ -37,8 +37,4 @@ public class ValueGuest extends Guest
     {
         return this.valueClubID;
     }
-    
-    
-
-
 }
