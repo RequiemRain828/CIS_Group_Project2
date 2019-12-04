@@ -12,9 +12,11 @@ public class Guest
     private String username;
     private String password;
     private String guestName;
-    private static int nextID = 0;
     public double amountSpentWithHotel;
     public int numberOfBookings;
+    
+    private static int nextID = 0;
+    
     
     public Guest(String username, String password, String guestName) // Constructor
     {
