@@ -219,9 +219,9 @@ public class Room
         }
         
         
-        desc = ("Room Number: " + this.getRoomNumber() + " comes fully furnished with \n" 
+        desc = ("Room Number: " + this.getRoomNumber() + " has \n" 
                 + bed + ", a " + kitchen + ", a " + coffee + "\n"
-                + "and is classifed as a " + access + "\n"
+                + "and is a " + access + "\n"
                 + "Room Price Per Night is $" + this.roomCostPerNight + "\n"
                 );
         
