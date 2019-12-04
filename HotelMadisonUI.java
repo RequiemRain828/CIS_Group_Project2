@@ -35,6 +35,7 @@ public class HotelMadisonUI extends Application
     public static ObservableList selectRoomList = FXCollections.observableArrayList(room);
     public static ObservableList checkoutList = FXCollections.observableArrayList();
     public static ObservableList roomServiceList = FXCollections.observableArrayList();
+    public static ObservableList guestName = FXCollections.observableArrayList(guest);
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -75,8 +76,8 @@ public class HotelMadisonUI extends Application
     public Button btnVGuestLogout = new Button("Logout^ ");
     
     // Employee Room Summary controls
-    public Label lblSelectRoom = new Label("Room # Selection: ");
-    public ComboBox cmboSelectRoom = new ComboBox(selectRoomList);
+    public Label lblSelectRoom = new Label("Select Guest: ");
+    public ComboBox cmboSelectRoom = new ComboBox(guestName);
     public ListView lstEmployeeBooking = new ListView(ebookingList);
     public Button btnDisplayAll = new Button("Display All");
     public Button btnDisplaySelect = new Button("Display Selected Room");
@@ -195,7 +196,7 @@ public class HotelMadisonUI extends Application
     public Tab tabEmployee = new Tab("Employee Menu");
     public Tab tabGuest = new Tab("Guest Menu");
     public Tab tabValueGuest = new Tab("Value Guest Menu");
-    public Tab tabBooking = new Tab("Booking Menu");
+    public Tab tabBooking = new Tab("Booking Report");
     public Tab tabCheckout = new Tab();
     public Tab tabAddGuest = new Tab("Add Guest Menu");
     public Tab tabEditGuest = new Tab();
@@ -231,6 +232,11 @@ public class HotelMadisonUI extends Application
         
         Room r2 = new Room(1, 1, 1 ,1 , 2, 100.00);
         room.add(r2);
+        
+        for(int i=0;i<guest.size();i++){
+            guestList.add(guest.get(i));
+            guestName.add(guest.get(i).getGuestName());
+        }
         
         primaryPane.setAlignment(Pos.TOP_LEFT);
         
@@ -1027,7 +1033,7 @@ public class HotelMadisonUI extends Application
         guest.add(tempGuest);        
             
         guestList.add(tempGuest.toString());
-            
+        guestName.add(tempGuest.getGuestName());
         txtGuestUsername.clear();
         txtGuestPassword.clear();
         txtGuestName.clear();
