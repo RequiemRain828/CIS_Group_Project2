@@ -967,8 +967,8 @@ public class HotelMadison
         {
             do
             {  
-                System.out.println("Please Enter EmployeeID:");
-                EmployeeID=in.nextLine();
+                System.out.print("Please Enter EmployeeID: ");
+                EmployeeID = in.nextLine();
                 
                 switch (EmployeeID) 
                 {
@@ -998,16 +998,42 @@ public class HotelMadison
                 passWordold=in1.nextLine();
                 System.out.print("Enter new Password: ");
                 passWordnew=in2.nextLine();
-                y=employee.get(Integer.parseInt(EmployeeID)).setPassword(passWordold, passWordnew);
-                if (y==0)
+                y = employee.get(Integer.parseInt(EmployeeID))
+                        .setPassword(passWordold, passWordnew);
+                
+                if (y == 0)
                 {
-                    System.out.println("Wrong Password! Please try again");
+                    System.out.println("You entered the wrong password! "
+                            + "Please try again!");
+                }
+                
+                if (y == 1)
+                {
+                    System.out.println("You entered the same password twice! "
+                            + "Please try again!");
+                }
+                
+                if ( y == 2)
+                {
+                    System.out.println("Your password needs a capital letter and number! "
+                            + "Please try again!");
+                }
+                
+                if (y == 3)
+                {
+                    System.out.println("Your password cannot start with a number! "
+                            + "Please try again!");
+                }
+                
+                if (y == 4)
+                {
+                    System.out.println("Your password has been changed successfully.");
                 }
                 
             }
             
-            while(y==0);    
-            int f=0;
+            while(y != 4);    
+            int f = 0;
             
               do
               {
@@ -1015,7 +1041,7 @@ public class HotelMadison
                           + "1.Continue Editing \n "
                           + "2.Done Editing \n"
                           + "--------------------------------");
-                  System.out.print("Enter choice here:");
+                  System.out.print("Enter choice here: ");
                   choice=in.nextLine();
                  
                   switch (choice) 
@@ -1191,15 +1217,37 @@ public class HotelMadison
                       passWordnew=in2.nextLine();
                       y=guest.get(guestID).setPassword(passWordold, passWordnew);
                       
-                      if (y==0)
-                
+                      if (y == 0)
                       {
-                          System.out.println("Wrong Password! please try Again");
+                          System.out.println("You entered the wrong password! "
+                                  + "Please try again!");
+                      }   
+                
+                      if (y == 1)
+                      {
+                          System.out.println("You entered the same password twice! "
+                                  + "Please try again!");
                       }
-                      
+                
+                      if ( y == 2)
+                      {
+                          System.out.println("Your password needs a capital letter and number! "
+                                  + "Please try again!");
+                      }
+                
+                      if (y == 3)
+                      {
+                          System.out.println("Your password cannot start with a number! "
+                                  + "Please try again!");
+                      }
+                
+                      if (y == 4)
+                      {
+                          System.out.println("Your password has been changed successfully.");
+                      } 
                   }
                   
-                  while(y==0);    
+                  while(y != 4);    
                   int f=0;
                   
                   do
