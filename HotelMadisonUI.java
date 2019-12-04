@@ -97,10 +97,18 @@ public class HotelMadisonUI extends Application
     public TextField txtGuestPassword = new TextField();
     public TextField txtGuestName = new TextField();
     public Button btnAddGuest = new Button("Add Guest -> ");
-    public Button btnEditGuest = new Button("Edit Guest -> ");
+
     public ListView lstGuest = new ListView(guestList);
     
     // Edit Guest Account
+    public Label lblEditGuestPassword = new Label("Enter Old Guest Password: ");
+    public Label lblEditGuestPassword1 = new Label("Enter New Guest Password: ");
+    public Label lblEditGuestName = new Label("Enter Guest Full Name: ");
+    public TextField txtEditGuestPassword = new TextField();
+    public TextField txtEditGuestPassword1 = new TextField();
+    public TextField txtEditGuestName = new TextField();
+    public Button btnEditGuest = new Button("Edit Guest -> ");
+    public ListView lstEditGuest = new ListView(guestList);
     
     // Create Employee Account
     public Label lblEmployeeUsername = new Label("Enter Employee Username: ");
@@ -197,9 +205,9 @@ public class HotelMadisonUI extends Application
     public Tab tabGuest = new Tab("Guest Menu");
     public Tab tabValueGuest = new Tab("Value Guest Menu");
     public Tab tabBooking = new Tab("Booking Report");
-    public Tab tabCheckout = new Tab();
+    public Tab tabCheckout = new Tab("Checkout Guest Menu");
     public Tab tabAddGuest = new Tab("Add Guest Menu");
-    public Tab tabEditGuest = new Tab();
+    public Tab tabEditGuest = new Tab("Edit Guest Menu");
     public Tab tabAddEmployee = new Tab("Add Employee Menu");
     public Tab tabEditEmployee = new Tab();
     public Tab tabAddRoom = new Tab("Employee Add Room");
@@ -250,6 +258,7 @@ public class HotelMadisonUI extends Application
         //Tabs.getTabs().add(tabAddRoom);
         //Tabs.getTabs().add(tabBookRoom);
         Tabs.getTabs().add(tabRoomService);
+        Tabs.getTabs().add(tabEditGuest);
         
         primaryPane.add(Tabs, 0, 0);
         
