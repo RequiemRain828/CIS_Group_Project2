@@ -719,16 +719,28 @@ public class HotelMadisonUI extends Application
             String quantityOfService;
             quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
             roomServiceList.add(quantityOfService);
-            RoomService newOrder = new RoomService(txtServiceQuantity.getText(), Double.parseDouble(txtServiceQuantity.getText()));
-            for(int i = 0; i < booking.size();i++)
+           
+         
+                     
+            
+        });
+        
+        btnFinishOrderService.setOnAction(e -> {
+        double totalService = Double.parseDouble(txtServiceQuantity.getText());
+        RoomService newOrder = new RoomService(cmboServices.getValue().toString(), Double.parseDouble(txtServiceQuantity.getText()));
+                
+          for(int i = 0; i < booking.size();i++)
             {
                 if(booking.get(i).getBookingGuest() == currentVGuest.get(0))
                 {
                     booking.get(0).getArrayList().add(newOrder);   
                 }
             }
-                     
-            
+        
+          double totalCost;
+          
+          
+        
         });
         
         
