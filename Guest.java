@@ -85,6 +85,34 @@ public class Guest
         return x;
     }
      
+     
+     public int createNewPassword(String newP)
+    {
+        int x = 0;
+        
+        if (newP.matches(".*[A-Z].*") && (newP.matches(".*[0-9].*")))
+        { 
+            x = 1;
+            if (Character.getNumericValue(newP.charAt(0)) != 0 &&
+                            Character.getNumericValue(newP.charAt(0)) != 1 &&
+                            Character.getNumericValue(newP.charAt(0)) != 2 &&
+                            Character.getNumericValue(newP.charAt(0)) != 3 &&
+                            Character.getNumericValue(newP.charAt(0)) != 4 &&
+                            Character.getNumericValue(newP.charAt(0)) != 5 &&
+                            Character.getNumericValue(newP.charAt(0)) != 6 &&
+                            Character.getNumericValue(newP.charAt(0)) != 7 &&
+                            Character.getNumericValue(newP.charAt(0)) != 8 &&
+                            Character.getNumericValue(newP.charAt(0)) != 9)
+                    { 
+                        x = 2;
+                        this.password = newP;
+                    }    
+                }
+        
+        
+        return x;
+    }
+     
     @Override
      public String toString()
     {

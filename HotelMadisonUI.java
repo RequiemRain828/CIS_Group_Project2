@@ -273,13 +273,13 @@ public class HotelMadisonUI extends Application
         employeePane.add(new Label("Welcome to the Employee Menu"), 0, 0);
         cmboEmployeeMenu.getItems().addAll(
                 ("Run a Booking Report"),
-                ("Check a Guest Room Out"),
-                ("Create Guest Account"),
+                ("Checkout Guest"),
+                ("Create New Guest Account"),
                 ("Edit Guest Account"),
-                ("Create Employee Account"),
+                ("Create New Employee Account"),
                 ("Edit Employee Account"),
-                ("Create Guest Rooms"),
-                ("Edit Guest Rooms")
+                ("Create New Room"),
+                ("Edit Rooms")
         );
         cmboEmployeeMenu.getSelectionModel().select(0);
         employeePane.add(cmboEmployeeMenu, 0, 1);
@@ -371,7 +371,7 @@ public class HotelMadisonUI extends Application
         
         tabCheckout.setContent(checkoutPane);
         checkoutPane.setAlignment(Pos.CENTER);
-        checkoutPane.add(new Label("Checkout Guest Room Menu"), 0, 0);
+        checkoutPane.add(new Label("Checkout Guest Menu"), 0, 0);
         checkoutPane.add(lblrule1, 0, 1);
         checkoutPane.add(lstCheckout, 1, 1, 2, 5);
         checkoutPane.add(btnCheckout, 0, 6);
@@ -404,7 +404,7 @@ public class HotelMadisonUI extends Application
         addGuestPane.add(lblGuestPassword, 0, 3);
         addGuestPane.add(lblGuestName, 0, 4);
         cmboGuestStatus.getItems().add("Guest");
-        cmboGuestStatus.getItems().add("Valued Guest");
+        cmboGuestStatus.getItems().add("ValueGuest");
         cmboGuestStatus.getSelectionModel().select(0);
         addGuestPane.add(cmboGuestStatus, 1, 1);
         addGuestPane.add(txtGuestUsername, 1, 2);
@@ -822,13 +822,13 @@ public class HotelMadisonUI extends Application
         switch(menuChoice) 
         {
             case "Run a Booking Report": Tabs.getTabs().add(tabBooking); Tabs.getSelectionModel().select(tabBooking); break;
-            case "Check a Guest Room Out": Tabs.getTabs().add(tabCheckout); Tabs.getSelectionModel().select(tabCheckout); break;
-            case "Create Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); break;
+            case "Checkout Guest": Tabs.getTabs().add(tabCheckout); Tabs.getSelectionModel().select(tabCheckout); break;
+            case "Create New Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); break;
             case "Edit Guest Account": ; break;
-            case "Create Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); break;
+            case "Create New Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); break;
             case "Edit Employee Account": ; break;
-            case "Create Guest Rooms": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); break;
-            case "Edit Guest Rooms": ; break;           
+            case "Create New Room": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); break;
+            case "Edit Rooms": ; break;           
             default: break;
         }
     }
@@ -1009,7 +1009,7 @@ public class HotelMadisonUI extends Application
         Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
                     ,txtGuestName.getText());
             
-        guest.add(tempGuest);
+        guest.add(tempGuest);        
             
         guestList.add(tempGuest.toString());
             
