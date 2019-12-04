@@ -25,6 +25,9 @@ public class Booking {
     public ArrayList <RoomService> roomServiceList = new ArrayList<>();
     public int i = 0;
     private static int nextID = 1;
+    public double roomCost;
+    public double roomServiceCost;
+    public double totalCost;
     
     public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, 
         int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
@@ -86,4 +89,54 @@ public class Booking {
         i++;
     }
     
+    public void roomCost(){
+        
+        this.roomCost = this.bookedRoom.roomCostPerNight * this.dayCount();
+        
+    }
+    
+    public void roomService(){
+        
+        for (i = 0; i < this.roomServiceList.size(); i++){
+            
+           this.roomServiceCost += roomServiceList.get(i).price;
+            
+        }
+}
+    
+    public void totalCost(){
+        
+        this.totalCost = this.roomCost + this.roomServiceCost;
+        
+    }
+    
+    
+    //setter for amount Spent in ValueGuest to Total Cost
+    
+    public void setValueGuestTotalCost(){
+        
+     this.valueGuest.amountSpentWithHotel = this.totalCost;   
+     
+    }
+    
+    public void setGuestTotalCost(){
+     
+        this.bookingGuest.amountSpentWithHotel = this.totalCost;
+       
+        
+    }
+    
+    // getter for total cost
+    
+    public double getTotalCost(){
+        return this.totalCost;
+        
+    }
+    
+    
+    
+    
+    
+    
+
 }
