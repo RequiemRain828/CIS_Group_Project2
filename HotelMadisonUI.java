@@ -29,6 +29,7 @@ public class HotelMadisonUI extends Application
     public static ObservableList bookList = FXCollections.observableArrayList();
     public static ObservableList ebookingList = FXCollections.observableArrayList();
     public static ObservableList selectRoomList = FXCollections.observableArrayList(room);
+    public static ObservableList checkoutList = FXCollections.observableArrayList();
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -71,6 +72,9 @@ public class HotelMadisonUI extends Application
     public Button btnDisplaySelect = new Button("Display Selected Room");
     
     // Employee Guest Room Checkout controls
+    public ListView lstCheckout = new ListView(checkoutList);
+    public Label lblrule1 = new Label("Select a room/guest to free");
+    public Button btnCheckout = new Button("Check Out this guest -> ");
     
     // Create Guest Account
     public Label lblGuestStatus = new Label("Guest or Valued Guest:");
@@ -214,6 +218,7 @@ public class HotelMadisonUI extends Application
         loginPane.add(txtPassword, 1, 2);
         cmboLogin.getItems().add("Employees");
         cmboLogin.getItems().add("Guests");
+        cmboLogin.getSelectionModel().select(0);
         loginPane.add(cmboLogin, 1, 3);
         loginPane.add(btnLogin, 1, 4);
         loginPane.add(invalid, 1, 5);
@@ -285,18 +290,30 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.add(new Label("Employee Booking Report Menu"), 0, 0);
         employeeBookingPane.add(lblSelectRoom, 0, 3);
         cmboSelectRoom.getItems().add("None");
-        cmboSelectRoom.getSelectionModel().select(0);
-        
+        cmboSelectRoom.getSelectionModel().select(0);       
         employeeBookingPane.add(cmboSelectRoom, 0, 4);
         employeeBookingPane.add(lstEmployeeBooking, 1, 1, 2, 5);
         employeeBookingPane.add(btnDisplayAll, 0, 6);
         employeeBookingPane.add(btnDisplaySelect, 0, 7);
         employeeBookingPane.add(btnEmployeeBack1, 1, 7);
         lstEmployeeBooking.setPrefWidth(600);
+        btnEmployeeBack1.setOnAction(e -> {
+                Tabs.getSelectionModel().select(tabEmployee);
+                Tabs.getTabs().remove(tabBooking);  
+        });
         
         tabCheckout.setContent(checkoutPane);
         checkoutPane.setAlignment(Pos.CENTER);
         checkoutPane.add(new Label("Checkout Guest Room Menu"), 0, 0);
+        checkoutPane.add(lblrule1, 0, 1);
+        checkoutPane.add(lstCheckout, 1, 1, 2, 5);
+        checkoutPane.add(btnCheckout, 0, 6);
+        checkoutPane.add(btnEmployeeBack2, 1, 6);
+        lstEmployeeBooking.setPrefWidth(400);
+        btnEmployeeBack2.setOnAction(e -> {
+                Tabs.getSelectionModel().select(tabEmployee);
+                Tabs.getTabs().remove(tabCheckout);  
+        });
         
         tabAddGuest.setContent(addGuestPane);
         addGuestPane.setAlignment(Pos.CENTER);
@@ -474,6 +491,7 @@ public class HotelMadisonUI extends Application
             room.add(tempRoom);
             
             selectRoomList.add(tempRoom.getRoomNumber());
+            selectRoomList.remove(tempRoom.getRoomNumber());
             
             lstRoom.getItems().remove(selectedInt);
             roomList.add(tempRoom.roomDescription());
@@ -612,8 +630,8 @@ public class HotelMadisonUI extends Application
     {
         switch(menuChoice) 
         {
-            case "Run a Booking Report":; break;
-            case "Check a Guest Room Out": ; break;
+            case "Run a Booking Report": Tabs.getTabs().add(tabBooking); Tabs.getSelectionModel().select(tabBooking); break;
+            case "Check a Guest Room Out": Tabs.getTabs().add(tabCheckout); Tabs.getSelectionModel().select(tabCheckout); break;
             case "Create Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); break;
             case "Edit Guest Account": ; break;
             case "Create Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); break;
