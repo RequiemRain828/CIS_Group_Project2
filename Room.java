@@ -10,16 +10,19 @@ public class Room
 {
     
     private int roomID;
+    
     public int bedOption;
     public int kitchenOption;
     public int coffeeOption;
     public int accessibleOption;
+    
     private int roomNumber;
     private int roomBookQuantity;
     private boolean roomBooked;
     public double roomCostPerNight;
-    private static int nextID = 0;
     public boolean roomStatus;
+    
+    private static int nextID = 0;
     
     // Constructor
     public Room (int bed, int kitch, int coffee, int accessibility, int roomNumber, double roomPrice) 
