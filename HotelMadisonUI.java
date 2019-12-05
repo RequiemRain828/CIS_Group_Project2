@@ -93,30 +93,34 @@ public class HotelMadisonUI extends Application
     public Label lblGuestUsername = new Label("Enter Guest Username: ");
     public Label lblGuestPassword = new Label("Enter Guest Password: ");
     public Label lblGuestName = new Label("Enter Guest Full Name: ");
+    public Label lblGuestPassword1 = new Label("Confirm Guest Password: ");
     public ComboBox cmboGuestStatus = new ComboBox();
     public TextField txtGuestUsername = new TextField();
     public TextField txtGuestPassword = new TextField();
+    public TextField txtGuestPassword1 = new TextField();
     public TextField txtGuestName = new TextField();
     public Button btnAddGuest = new Button("Add Guest -> ");
-
     public ListView lstGuest = new ListView(guestList);
     
     // Edit Guest Account
     public Label lblEditGuestPassword = new Label("Enter Old Guest Password: ");
     public Label lblEditGuestPassword1 = new Label("Enter New Guest Password: ");
-    public Label lblEditGuestName = new Label("Enter Guest Full Name: ");
+    public Label lblEditGuestName = new Label("Enter Guest Full Name: "); 
+    public Label lbleditGuest = new Label("");
     public TextField txtEditGuestPassword = new TextField();
     public TextField txtEditGuestPassword1 = new TextField();
     public TextField txtEditGuestName = new TextField();
     public Button btnEditGuest = new Button("Edit Guest -> ");
-    public ListView lstEditGuest = new ListView(editGuestList);
+    public ListView lstEditGuest = new ListView(guestList);
     
     // Create Employee Account
     public Label lblEmployeeUsername = new Label("Enter Employee Username: ");
     public Label lblEmployeePassword = new Label("Enter Employee Password: ");
     public Label lblEmployeeName = new Label("Enter Employee Full Name: ");
+    public Label lblEmployeePassword1 = new Label("Confirm Employee Password: ");
     public TextField txtEmployeeUsername = new TextField();
     public TextField txtEmployeePassword = new TextField();
+    public TextField txtEmployeePassword1 = new TextField();
     public TextField txtEmployeeName = new TextField();
     public Button btnAddEmployee = new Button("Add Employee -> ");
     public Button btnEditEmployee = new Button("Edit Employee -> ");
@@ -221,16 +225,16 @@ public class HotelMadisonUI extends Application
     @Override
     public void start(Stage primaryStage) 
     {
-        Employee e1 = new Employee ("admin" , "1234", "Austin Putnam");
+        Employee e1 = new Employee ("root" , "B1", "Austin Putnam");
         employee.add(e1);
         
-        Employee e2 = new Employee ("root","12345","Ben Carson");
+        Employee e2 = new Employee ("admin" , "B2" , "Ben Carson");
         employee.add(e2);
         
-        Guest g1 = new Guest("guest", "pass", "Jeremy Ezell");
+        Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
         guest.add(g1);
         
-        Guest g2 = new Guest("guest1" , "pass1", "Mike Thorton");
+        Guest g2 = new Guest("guest1" , "C2", "Mike Thorton");
         guest.add(g2);
         
         ValueGuest g3 = new ValueGuest("guest1" , "pass1", "Seth Ledger");
@@ -418,16 +422,18 @@ public class HotelMadisonUI extends Application
         addGuestPane.setAlignment(Pos.CENTER);
         addGuestPane.add(new Label("Guest Account Menu"), 0, 0);
         addGuestPane.add(lblGuestStatus, 0, 1);
-        addGuestPane.add(lblGuestUsername, 0, 2);
-        addGuestPane.add(lblGuestPassword, 0, 3);
-        addGuestPane.add(lblGuestName, 0, 4);
+        addGuestPane.add(lblGuestName, 0, 2);
+        addGuestPane.add(lblGuestUsername, 0, 3);
+        addGuestPane.add(lblGuestPassword, 0, 4);
+        addGuestPane.add(lblGuestPassword1, 0, 5);
         cmboGuestStatus.getItems().add("Guest");
         cmboGuestStatus.getItems().add("ValueGuest");
         cmboGuestStatus.getSelectionModel().select(0);
         addGuestPane.add(cmboGuestStatus, 1, 1);
-        addGuestPane.add(txtGuestUsername, 1, 2);
-        addGuestPane.add(txtGuestPassword, 1, 3);
-        addGuestPane.add(txtGuestName, 1, 4);
+        addGuestPane.add(txtGuestName, 1, 2);
+        addGuestPane.add(txtGuestUsername, 1, 3);
+        addGuestPane.add(txtGuestPassword, 1, 4);
+        addGuestPane.add(txtGuestPassword1, 1, 5);
         addGuestPane.add(btnAddGuest, 1, 7);
         addGuestPane.add(btnEmployeeBack3, 2, 7);
         addGuestPane.add(lstGuest, 2, 1, 3, 6);
@@ -461,26 +467,51 @@ public class HotelMadisonUI extends Application
         btnEditGuest.setOnAction(e -> {
            
             int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
-            for (int i = 0; i < guest.size(); i++)
-            {
-                if(i == selectedInt)
-                {
-                    
-                }
-            }
             Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
                     ,txtGuestName.getText());
+            //y=guest.get(guestID).setPassword(passWordold, passWordnew);
+
+            //guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+            int y = 0;
+            do
+            {                   
+                y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());;       
+                if (y == 0)
+                {
+                    lbleditGuest.setText("You entered the wrong password! "
+                        + "Please try again!");
+                }   
+                if (y == 1)
+                {
+                    lbleditGuest.setText("You entered the same password twice! "
+                        + "Please try again!");
+                }
+                
+                if ( y == 2)
+                {
+                    lbleditGuest.setText("Your password needs a capital letter and number! "
+                        + "Please try again!");
+                }
+                
+                if (y == 3)
+                {
+                    lbleditGuest.setText("Your password cannot start with a number! "
+                        + "Please try again!");
+                }
+                if (y == 4)
+                {
+                    guestList.remove(selectedInt);        
+                    guest.get(selectedInt).setGuestName(txtEditGuestName.getText());
+                    editGuestList.add(selectedInt, tempGuest.toString());
+                    txtEditGuestName.clear();
+                    txtEditGuestPassword.clear();
+                    txtEditGuestPassword1.clear();
+                    System.out.println("Your password has been changed successfully.");
+                } 
+            }while(y != 4);
+
             
-            lstEditGuest.getItems().remove(selectedInt);        
-            guest.get(selectedInt).setGuestName(txtEditGuestName.getText());
-            guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
             
-            guest.add(tempGuest);
-            editGuestList.add(tempGuest.toString());
-            
-            txtEditGuestName.clear();
-            txtEditGuestPassword.clear();
-            txtEditGuestPassword1.clear();
             
         });
         /*
