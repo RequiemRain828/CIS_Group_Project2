@@ -1213,22 +1213,74 @@ public class HotelMadisonUI extends Application
         }
         return result;     
     }
-    public boolean isValidEditGuest()
+    public boolean isValidAddGuest()
     {
         boolean result = false;
-        if (!(txtEditGuestPassword.getText() == null || txtRoomNum.getText().length() == 0)) 
+        if (!(txtGuestPassword.getText() == null || txtGuestPassword.getText().length() == 0
+                && txtGuestPassword1.getText() == null || txtGuestPassword1.getText().length() == 0
+                && txtGuestUsername.getText() == null || txtGuestUsername.getText().length() == 0
+                && txtGuestName.getText() == null || txtGuestName.getText().length() == 0)) 
         {
-        try {
-            // Do all the validation you need here such as
-            int d = Integer.parseInt(txtRoomNum.getText());
-            if ( d >= 1 && d < 999)
-                {
-                result = true;
-                }
-            } catch (NumberFormatException e) 
+            if(txtGuestPassword.equals(txtGuestPassword1))
             {
-            result = false;
+                result = true;
             }
+            else
+            {
+                result = false;
+            }
+        }
+        return result;     
+    }
+    
+    public boolean isValidEditGuest()
+    {
+        boolean result;
+        if (!(txtEditGuestPassword.getText() == null || txtEditGuestPassword.getText().length() == 0
+                && txtEditGuestPassword1.getText() == null || txtEditGuestPassword1.getText().length() == 0
+                && txtEditGuestName.getText() == null || txtEditGuestName.getText().length() == 0)) 
+        {
+            result = true; 
+        }
+        else
+        {
+            result = false;
+        }
+        return result;     
+    }
+    
+    public boolean isValidAddEmployee()
+    {
+        boolean result = false;
+        if (!(txtEmployeePassword.getText() == null || txtEmployeePassword.getText().length() == 0
+                && txtEmployeePassword1.getText() == null || txtEmployeePassword1.getText().length() == 0
+                && txtEmployeeUsername.getText() == null || txtEmployeeUsername.getText().length() == 0
+                && txtEmployeeName.getText() == null || txtEmployeeName.getText().length() == 0)) 
+        {
+            if(txtEmployeePassword.equals(txtEmployeePassword1))
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+        }
+        return result;     
+    }
+    
+    public boolean isValidEditEmployee()
+    {
+        boolean result;
+        if (!(txtEditEmployeePassword.getText() == null || txtEditEmployeePassword.getText().length() == 0
+                && txtEditEmployeePassword1.getText() == null || txtEditEmployeePassword1.getText().length() == 0
+                && txtEditEmployeeName.getText() == null || txtEditEmployeeName.getText().length() == 0)) 
+        {
+            result = true; 
+        }
+        else
+        {
+            result = false;
         }
         return result;     
     }
