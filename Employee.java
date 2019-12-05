@@ -120,4 +120,14 @@ public class Employee
     {
         return "Username: " + this.username + ", Password: ****** " + ", Employee name: " + this.employeeName;               
     }
+    
+    public String hashPassword()
+    {
+        String result = "";
+        for (int i = 0; i < this.password.length(); i++)
+        {
+            result += "*";
+        }
+        return result;
+    }
 }

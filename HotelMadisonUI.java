@@ -35,6 +35,7 @@ public class HotelMadisonUI extends Application
     public static ObservableList roomServiceList = FXCollections.observableArrayList();
     public static ObservableList guestName = FXCollections.observableArrayList(guest);
     public static ObservableList gBookingList = FXCollections.observableArrayList();
+    public static ObservableList guestEditList = FXCollections.observableArrayList();
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -182,6 +183,10 @@ public class HotelMadisonUI extends Application
     public ListView lstGBooking = new ListView(gBookingList);
     
     // Guest Edit Information Controls
+    public Label lblEditRule = new Label("You cannot edit Username/Password, only Name");
+    public Button btnEditInfo = new Button("Edit Name ->");
+    public ListView lstGuestInfo = new ListView(guestEditList);
+    public TextField txtEditName = new TextField();
     
     // Room Service Controls
     public Label lblServices = new Label("Available services: ");
@@ -279,16 +284,16 @@ public class HotelMadisonUI extends Application
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        Tabs.getTabs().add(tabEmployee);
-        Tabs.getTabs().add(tabGuest);
-        Tabs.getTabs().add(tabAddGuest);
-        Tabs.getTabs().add(tabAddEmployee);
-        Tabs.getTabs().add(tabBooking);
-        Tabs.getTabs().add(tabAddRoom);
-        Tabs.getTabs().add(tabBookRoom);
-        Tabs.getTabs().add(tabRoomService);
-        Tabs.getTabs().add(tabEditGuest);
-        Tabs.getTabs().add(tabEditEmployee);
+        //Tabs.getTabs().add(tabEmployee);
+        //Tabs.getTabs().add(tabGuest);
+        //Tabs.getTabs().add(tabAddGuest);
+        //Tabs.getTabs().add(tabAddEmployee);
+        //Tabs.getTabs().add(tabBooking);
+        //Tabs.getTabs().add(tabAddRoom);
+        //Tabs.getTabs().add(tabBookRoom);
+        //Tabs.getTabs().add(tabRoomService);
+        //Tabs.getTabs().add(tabEditGuest);
+        //Tabs.getTabs().add(tabEditEmployee);
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -312,7 +317,7 @@ public class HotelMadisonUI extends Application
         // Employee Menu Pane
         tabEmployee.setContent(employeePane);
         employeePane.setAlignment(Pos.CENTER);
-        employeePane.add(new Label("Welcome to the Employee Menu"), 0, 0);
+        employeePane.add(new Label("Welcome to the Employee Menu"), 0, 1);
         cmboEmployeeMenu.getItems().addAll(
                 ("Run a Booking Report"),
                 ("Checkout Guest"),
@@ -435,11 +440,13 @@ public class HotelMadisonUI extends Application
         
         tabCheckout.setContent(checkoutPane);
         checkoutPane.setAlignment(Pos.CENTER);
-        checkoutPane.add(new Label("Checkout Guest Menu"), 0, 0);
-        checkoutPane.add(lblrule1, 0, 1);
+        checkoutPane.add(new Label("Checkout Guest Menu"), 0, 1);
+        checkoutPane.add(lblrule1, 0, 2);
         checkoutPane.add(lstCheckout, 1, 1, 2, 5);
         checkoutPane.add(btnCheckout, 0, 6);
         checkoutPane.add(btnEmployeeBack2, 1, 6);
+        checkoutPane.setVgap(15);
+        checkoutPane.setHgap(15);
         lstCheckout.setPrefWidth(400);
         btnCheckout.setOnAction(e -> {
             int selectedInt = lstCheckout.getSelectionModel().getSelectedIndex();
@@ -515,14 +522,14 @@ public class HotelMadisonUI extends Application
         
         tabEditGuest.setContent(editGuestPane);
         editGuestPane.setAlignment(Pos.CENTER);
-        editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 0);
-        editGuestPane.add(lblEditGuestName, 0, 1);
-        editGuestPane.add(lblEditGuestPassword, 0, 2);
-        editGuestPane.add(lblEditGuestPassword1, 0, 3);
-        editGuestPane.add(txtEditGuestName, 1, 1);
-        editGuestPane.add(txtEditGuestPassword, 1, 2);
-        editGuestPane.add(txtEditGuestPassword1, 1, 3);
-        editGuestPane.add(lblEditGuest, 1, 4);
+        editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 1);
+        editGuestPane.add(lblEditGuestName, 0, 2);
+        editGuestPane.add(lblEditGuestPassword, 0, 3);
+        editGuestPane.add(lblEditGuestPassword1, 0, 4);
+        editGuestPane.add(txtEditGuestName, 1, 2);
+        editGuestPane.add(txtEditGuestPassword, 1, 3);
+        editGuestPane.add(txtEditGuestPassword1, 1, 4);
+        editGuestPane.add(lblEditGuest, 1, 5);
         editGuestPane.add(btnEmployeeBack4, 2, 6);
         editGuestPane.add(btnEditGuest, 1, 6);
         editGuestPane.add(lstEditGuest, 2, 1, 2, 5);
@@ -579,16 +586,16 @@ public class HotelMadisonUI extends Application
             
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
-        addEmployeePane.add(new Label("Employee Account Menu"), 0, 0);
-        addEmployeePane.add(lblEmployeeName, 0, 1);
-        addEmployeePane.add(lblEmployeeUsername, 0, 2);
-        addEmployeePane.add(lblEmployeePassword, 0, 3);
-        addEmployeePane.add(lblEmployeePassword1, 0, 4);
-        addEmployeePane.add(lblAddEmployee, 0, 5);
-        addEmployeePane.add(txtEmployeeName, 1, 1);
-        addEmployeePane.add(txtEmployeeUsername, 1, 2);
-        addEmployeePane.add(txtEmployeePassword, 1, 3);
-        addEmployeePane.add(txtEmployeePassword1, 1, 4);        
+        addEmployeePane.add(new Label("Employee Account Menu"), 0, 1);
+        addEmployeePane.add(lblEmployeeName, 0, 2);
+        addEmployeePane.add(lblEmployeeUsername, 0, 3);
+        addEmployeePane.add(lblEmployeePassword, 0, 4);
+        addEmployeePane.add(lblEmployeePassword1, 0, 5);
+        addEmployeePane.add(lblAddEmployee, 0, 6);
+        addEmployeePane.add(txtEmployeeName, 1, 2);
+        addEmployeePane.add(txtEmployeeUsername, 1, 3);
+        addEmployeePane.add(txtEmployeePassword, 1, 4);
+        addEmployeePane.add(txtEmployeePassword1, 1, 5);        
         addEmployeePane.add(btnAddEmployee, 1, 7);
         addEmployeePane.add(btnEmployeeBack5, 2, 7);       
         addEmployeePane.add(lstEmployee, 2, 1, 1, 6);
@@ -637,14 +644,14 @@ public class HotelMadisonUI extends Application
         
         tabEditEmployee.setContent(editEmployeePane);
         editEmployeePane.setAlignment(Pos.CENTER);
-        editEmployeePane.add(new Label("Welcome to the Edit an Employee Account Menu"), 0, 0);
-        editEmployeePane.add(lblEditEmployeeName, 0, 1);
-        editEmployeePane.add(lblEditEmployeePassword, 0, 2);
-        editEmployeePane.add(lblEditEmployeePassword1, 0, 3);
-        editEmployeePane.add(lblEditEmployee, 0, 4);
-        editEmployeePane.add(txtEditEmployeeName, 1, 1);
-        editEmployeePane.add(txtEditEmployeePassword, 1, 2);
-        editEmployeePane.add(txtEditEmployeePassword1, 1, 3);
+        editEmployeePane.add(new Label("Welcome to the Edit an Employee Account Menu"), 0, 1);
+        editEmployeePane.add(lblEditEmployeeName, 0, 2);
+        editEmployeePane.add(lblEditEmployeePassword, 0, 3);
+        editEmployeePane.add(lblEditEmployeePassword1, 0, 4);
+        editEmployeePane.add(lblEditEmployee, 0, 5);
+        editEmployeePane.add(txtEditEmployeeName, 1, 2);
+        editEmployeePane.add(txtEditEmployeePassword, 1, 3);
+        editEmployeePane.add(txtEditEmployeePassword1, 1, 4);
         editEmployeePane.add(btnEmployeeBack6, 2, 6);
         editEmployeePane.add(btnEditEmployee, 1, 6);
         editEmployeePane.add(lstEditEmployee, 2, 1, 2, 5);
@@ -695,6 +702,10 @@ public class HotelMadisonUI extends Application
                 lblEditEmployee.setText("Please try again. Passwords do not match or \n"
                 + "One or more TextFields are");
             }
+        });
+        btnEmployeeBack6.setOnAction(e -> {
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabEditEmployee);  
         });
         
         tabAddRoom.setContent(addRoomPane);
@@ -905,8 +916,7 @@ public class HotelMadisonUI extends Application
            {
                Tabs.getSelectionModel().select(tabGuest);
                Tabs.getTabs().remove(tabBookRoom); 
-           }
-                  
+           }        
         });
        
         tabDisplayBooking.setContent(guestBookingPane);
@@ -915,10 +925,91 @@ public class HotelMadisonUI extends Application
         guestBookingPane.add(lblDisplayGBooking, 0, 1);
         guestBookingPane.add(btnDisplyGBooking, 0, 2);
         guestBookingPane.add(lstGBooking, 1, 1, 2, 5);
+        lstGBooking.setPrefWidth(550);
+        guestBookingPane.add(btnGuestBack2, 1, 6);
+        guestBookingPane.setVgap(15);
+        guestBookingPane.setHgap(15);
+        btnDisplyGBooking.setOnAction(e -> {
+            if (!currentGuest.isEmpty())
+            {
+                for (int i = 0; i < booking.size(); i++)
+                {
+                    if (booking.get(i).getBookingGuest().getGuestName().equals(currentGuest.get(0).getGuestName()))
+                    {
+                    gBookingList.add(booking.get(i).toString());
+                    }
+                }
+            }
+            if (!currentVGuest.isEmpty())
+            {
+                for (int i = 0; i < booking.size(); i++)
+                {
+                    if (booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
+                    {
+                    gBookingList.add(booking.get(i).toString());
+                    }
+                }  
+            }
+        });
+        btnGuestBack2.setOnAction(e -> {
+           if (!currentVGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabValueGuest);
+               Tabs.getTabs().remove(tabDisplayBooking); 
+           }
+           if (!currentGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabGuest);
+               Tabs.getTabs().remove(tabDisplayBooking); 
+           }        
+        });
         
         tabEditGuestInfo.setContent(editGuestInfoPane);
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 0);
+        editGuestInfoPane.add(lblEditRule, 0, 1);
+        editGuestInfoPane.add(btnEditInfo, 0, 4);
+        editGuestInfoPane.add(txtEditName, 0, 3);
+        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
+        editGuestInfoPane.add(btnGuestBack3, 1, 4);
+        editGuestInfoPane.setVgap(15);
+        editGuestInfoPane.setHgap(15);
+        if (!currentVGuest.isEmpty())
+           {
+               guestEditList.add(currentGuest.get(0).toString());
+           }
+        if (!currentGuest.isEmpty())
+           {
+               guestEditList.add(currentVGuest.get(0).toString());
+           }
+        btnEditInfo.setOnAction(e -> {
+            if (!currentVGuest.isEmpty())
+            {
+               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               guest.get(selectedInt).setGuestName(txtEditName.getText());
+               checkoutList.remove(selectedInt);
+               guestEditList.add(guest.get(selectedInt).toString());
+            }
+            if (!currentGuest.isEmpty())
+            {
+               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               valueGuest.get(selectedInt).setGuestName(txtEditName.getText());
+               checkoutList.remove(selectedInt);
+               guestEditList.add(valueGuest.get(selectedInt).toString());
+            }    
+        });
+        btnGuestBack3.setOnAction(e -> {
+           if (!currentVGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabValueGuest);
+               Tabs.getTabs().remove(tabEditGuestInfo); 
+           }
+           if (!currentGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabGuest);
+               Tabs.getTabs().remove(tabEditGuestInfo); 
+           }        
+        });
         
         tabRoomService.setContent(roomServicePane);
         roomServicePane.setAlignment(Pos.CENTER);
