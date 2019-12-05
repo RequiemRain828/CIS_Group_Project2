@@ -231,6 +231,28 @@ public class Room
         return desc;
     }
     
+    public void setBed(int bed) // Setter for 
+    {
+        this.bedOption = bed;
+    }
+    
+    public void setKitch(int kitch) // Setter for 
+    {
+        this.kitchenOption = kitch;
+    }
+    public void setCoffee(int coffee) // Setter for 
+    {
+        this.coffeeOption = coffee;
+    }
+    public void setAccess(int access) // Setter for
+    {
+        this.accessibleOption = access;
+    }
+    public void setRoomPrice(double price) // Setter for 
+    {
+        this.roomCostPerNight = price;
+    }
+    
     public boolean setRoomNumber(int roomNumber) // Setter for room number
     {
         return false;
