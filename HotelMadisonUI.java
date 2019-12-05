@@ -461,10 +461,12 @@ public class HotelMadisonUI extends Application
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 0)
             {
                 lblAddGuest.setText("");
-                lblAddGuest.setText("Please try again. Password \n"
-                    + "does not contain at least one \n"
-                    + "uppercase letter and one number \n"
-                    );
+                lblAddGuest.setText("Please try again. \n"
+                        + "Password does not contain \n"
+                        + "at least one uppercase \n"
+                        + "letter and one number \n"
+                        + "or one or more TextFields \n"
+                        + "are empty");
             }
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 1)
             {
@@ -472,12 +474,11 @@ public class HotelMadisonUI extends Application
                 lblAddGuest.setText("Please try again. Password cannot \n"
                     + "start with a number");
             }
-            if (isValidAddGuest() == false && createNewPassword(txtGuestPassword.getText()) == 0)
+            if (isValidAddGuest() == false)
             {
                 lblAddGuest.setText("");
                 lblAddGuest.setText("Please try again. Passwords do not match or \n"
-                + "One or more TextFields are empty"
-                + "or one or more TextFields are empty");
+                );
             }
         });
         btnEmployeeBack3.setOnAction(e -> {
