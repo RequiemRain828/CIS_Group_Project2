@@ -72,9 +72,22 @@ public class Booking {
     @Override
     public String toString(){
         String result = "";
-        result += this.bookingGuest.getGuestName() + " booked room " + this.bookedRoom.getRoomNumber() 
-                + " from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.checkInYear+" to "+
+        result += this.bookingGuest.getGuestName() + " booked Room# " + this.bookedRoom.getRoomNumber() 
+                + "\n from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.checkInYear+" to "+
                 this.checkOutDay+"/"+this.checkOutMonth+"/"+this.checkOutYear ;
+        return result; 
+    }
+     public String toStringValue(){
+        String result = "";
+        
+        result += this.bookingGuest.getGuestName() + " booked Room# " + this.bookedRoom.getRoomNumber() 
+                + "\n from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.checkInYear+" to "+
+                this.checkOutDay+"/"+this.checkOutMonth+"/"+this.checkOutYear
+                +"\nRoom Price per Day: $"+this.bookedRoom.roomCostPerNight
+                +"\nTotal Days Room Prive: $"+this.roomCost
+                +"\nRoom Service List: "+this.roomServiceList+
+                "\nRoom Service Cost: $"+this.roomServiceCost
+                +"\nTotal Combined Price: $"+this.totalCost;
         return result; 
     }
     
