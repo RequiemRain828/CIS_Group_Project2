@@ -244,8 +244,11 @@ public class HotelMadisonUI extends Application
         Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
         employee.add(e1);
         
-//        Employee e2 = new Employee ("admin" , "B2" , "Ben Carson");
-//        employee.add(e2);
+        Employee emp = new Employee ("admin" , "Pool2", "Boston Putnam");
+        employee.add(emp);
+        
+        Employee emp1 = new Employee ("blah" , "Bleep3", "Costin Putnam");
+        employee.add(emp1);
         
         Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
         guest.add(g1);
@@ -1074,11 +1077,13 @@ public class HotelMadisonUI extends Application
     {
         String username = txtUsername.getText();
         String password = txtPassword.getText(); 
+        int count = 0;
                
         switch(login)
         {
-            case "Employees": for(int i = 0; i < employee.size(); i++)
-            {
+            case "Employees": 
+                
+            for(int i = 0; i < employee.size(); i++) {
                 if (employee.get(i).checkCredentials(username, password))
                 {
                     //System.out.println("Welcome " + employee.get(i).getEmployeeName());
@@ -1086,14 +1091,14 @@ public class HotelMadisonUI extends Application
                     txtUsername.clear();
                     txtPassword.clear();                    
                     invalid.setText("");
-                    break;
+                    count++;
                 }
-                else
-                {
-                    invalid.setText("Invalid Credentials! Please try again!");
-                    break;
-                }
-            }            
+            }   
+            
+            if (count == 0){
+                invalid.setText("Invalid Credentials! Please try again!");
+            }
+            
             break;
             case "Guests":
             for(int i =0; i< guest.size(); i++)

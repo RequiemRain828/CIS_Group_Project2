@@ -118,7 +118,7 @@ public class Employee
     @Override
     public String toString()
     {
-        return "Username: " + this.username + ", Password: ****** " + ", Employee name: " + this.employeeName;               
+        return "Username: " + this.username + ", Password: " + hashPassword() + ", Employee name: " + this.employeeName;               
     }
     
     public String hashPassword()
@@ -130,4 +130,5 @@ public class Employee
         }
         return result;
     }
+    
 }
