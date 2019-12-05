@@ -94,7 +94,7 @@ public class HotelMadisonUI extends Application
     public Label lblGuestPassword = new Label("Enter Guest Password: ");
     public Label lblGuestName = new Label("Enter Guest Full Name: ");
     public Label lblGuestPassword1 = new Label("Confirm Guest Password: ");
-    public Label lbladdGuest = new Label("");
+    public Label lblAddGuest = new Label("");
     public ComboBox cmboGuestStatus = new ComboBox();
     public TextField txtGuestUsername = new TextField();
     public TextField txtGuestPassword = new TextField();
@@ -119,7 +119,7 @@ public class HotelMadisonUI extends Application
     public Label lblEmployeePassword = new Label("Enter Employee Password: ");
     public Label lblEmployeeName = new Label("Enter Employee Full Name: ");
     public Label lblEmployeePassword1 = new Label("Confirm Employee Password: ");
-    public Label lbladdEmployee = new Label("");
+    public Label lblAddEmployee = new Label("");
     public TextField txtEmployeeUsername = new TextField();
     public TextField txtEmployeePassword = new TextField();
     public TextField txtEmployeePassword1 = new TextField();
@@ -441,6 +441,7 @@ public class HotelMadisonUI extends Application
         addGuestPane.add(lblGuestUsername, 0, 3);
         addGuestPane.add(lblGuestPassword, 0, 4);
         addGuestPane.add(lblGuestPassword1, 0, 5);
+        addGuestPane.add(lblAddEmployee, 0, 6);
         cmboGuestStatus.getItems().add("Guest");
         cmboGuestStatus.getItems().add("ValueGuest");
         cmboGuestStatus.getSelectionModel().select(0);
@@ -457,11 +458,10 @@ public class HotelMadisonUI extends Application
         addGuestPane.setHgap(10);
         btnAddGuest.setOnAction(e -> {
             handleAddGuest(cmboGuestStatus.getValue().toString());
-    
         });
         btnEmployeeBack3.setOnAction(e -> {
-                Tabs.getSelectionModel().select(tabEmployee);
-                Tabs.getTabs().remove(tabAddGuest);  
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabAddGuest);  
         });
         
         tabEditGuest.setContent(editGuestPane);
@@ -524,18 +524,6 @@ public class HotelMadisonUI extends Application
                     lblEditGuest.setText("Your psssword has been changed successfully");
                 }
         });
-        /*
-        Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
-                    ,txtGuestName.getText());
-            
-        guest.add(tempGuest);        
-            
-        guestList.add(tempGuest.toString());
-        guestName.add(tempGuest.getGuestName());
-        txtGuestUsername.clear();
-        txtGuestPassword.clear();
-        txtGuestName.clear();
-        */
             
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
@@ -544,7 +532,7 @@ public class HotelMadisonUI extends Application
         addEmployeePane.add(lblEmployeeUsername, 0, 2);
         addEmployeePane.add(lblEmployeePassword, 0, 3);
         addEmployeePane.add(lblEmployeePassword1, 0, 4);
-        addEmployeePane.add(lbladdEmployee, 0, 5);
+        addEmployeePane.add(lblAddEmployee, 0, 5);
         addEmployeePane.add(txtEmployeeName, 1, 1);
         addEmployeePane.add(txtEmployeeUsername, 1, 2);
         addEmployeePane.add(txtEmployeePassword, 1, 3);
