@@ -1,11 +1,8 @@
 package CIS_Group_Project2;
 
 import javafx.application.Application;
-import javafx.event.*;
-import javafx.collections.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.*; 
 import javafx.stage.Stage;
 
