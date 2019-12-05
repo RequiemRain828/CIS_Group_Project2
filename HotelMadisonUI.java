@@ -487,14 +487,12 @@ public class HotelMadisonUI extends Application
 
             //guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
             int y = 0;
+                y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText()); 
                 if (y == 0)
                 {
                     lblEditGuest.setText("You entered the wrong password! "
-                        + "Please try again!");
-                    
-                }
-                y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());       
-                   
+                        + "Please try again!"); 
+                }    
                 if (y == 1)
                 {
                     lblEditGuest.setText("You entered the same password twice! "
@@ -512,8 +510,6 @@ public class HotelMadisonUI extends Application
                 }
                 if (y == 4)
                 {
-                    //Guest tempGuest = new Guest(guest.get(selectedInt).getGuestName(), txtGuestPassword.getText()
-                    //,txtGuestName.getText());
                     guestList.remove(selectedInt);        
                     guest.get(selectedInt).setGuestName(txtEditGuestName.getText());
                     guestList.add(selectedInt, guest.get(selectedInt).toString());
@@ -545,7 +541,7 @@ public class HotelMadisonUI extends Application
         addEmployeePane.setHgap(10);       
         btnAddEmployee.setOnAction(e -> {
             
-            if (!(txtEditGuestPassword.getText() == null || txtEmployeeUsername.getText().length() == 0));
+            if (isValidAddEmployee() == true)
             {
             Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
             employee.add(tempEmployee);
@@ -556,12 +552,11 @@ public class HotelMadisonUI extends Application
             txtEmployeePassword.clear();
             txtEmployeeName.clear();
             }
-            /*
             else
             {
-             lbladdEmployee.setText(Please try again);        
+             lblAddEmployee.setText("Please try again. Passwords do not match or \n"
+                + "One or more TextFields are");        
             }
-            */
                  
         });
         btnEmployeeBack5.setOnAction(e -> {
@@ -587,8 +582,9 @@ public class HotelMadisonUI extends Application
         editEmployeePane.setHgap(10);
         
         btnEditEmployee.setOnAction(e -> {
+            if (isValidEditEmployee() == true)
+            {    
             int selectedInt = lstEditEmployee.getSelectionModel().getSelectedIndex();
-
             int y = 0; 
                 y = employee.get(selectedInt).setPassword(txtEditEmployeePassword.getText(),txtEditEmployeePassword1.getText());
                 if (y == 0)
@@ -621,6 +617,11 @@ public class HotelMadisonUI extends Application
                     txtEditEmployeePassword1.clear();
                     lblEditEmployee.setText("Your password has been changed successfully.");
                 }
+            }
+            else
+            {
+                
+            }
         });
         
         tabAddRoom.setContent(addRoomPane);
@@ -1223,7 +1224,7 @@ public class HotelMadisonUI extends Application
     
     public boolean isValidEditGuest()
     {
-        boolean result;
+        boolean result = false;
         if (!(txtEditGuestPassword.getText() == null || txtEditGuestPassword.getText().length() == 0
                 && txtEditGuestPassword1.getText() == null || txtEditGuestPassword1.getText().length() == 0
                 && txtEditGuestName.getText() == null || txtEditGuestName.getText().length() == 0)) 
@@ -1259,7 +1260,7 @@ public class HotelMadisonUI extends Application
     
     public boolean isValidEditEmployee()
     {
-        boolean result;
+        boolean result = false;
         if (!(txtEditEmployeePassword.getText() == null || txtEditEmployeePassword.getText().length() == 0
                 && txtEditEmployeePassword1.getText() == null || txtEditEmployeePassword1.getText().length() == 0
                 && txtEditEmployeeName.getText() == null || txtEditEmployeeName.getText().length() == 0)) 
