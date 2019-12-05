@@ -259,9 +259,18 @@ public class HotelMadisonUI extends Application
         
         for(int i=0;i<guest.size();i++){
             guestList.add(guest.get(i));
-            guestName.add(guest.get(i).getGuestName());
+            guestName.add(guest.get(i).getGuestName()+
+                    " -"+guest.get(i).getStatus());
+            
+
+            
         }
-        
+        for(int i=0;i<valueGuest.size();i++)
+        {
+        guestName.add(valueGuest.get(i).getGuestName()+" -"+
+                valueGuest.get(i).getStatus());
+       
+        }
         for(int i = 0; i < employee.size(); i++){
             employeeList.add(employee.get(i));
         }
@@ -396,10 +405,18 @@ public class HotelMadisonUI extends Application
             { 
                if( cmboSelectRoom.getValue().toString().
                    equals(booking.get(i).getBookingGuest().
-                           getGuestName()))
+                           getGuestName()+" -V"))
                {
-                   ebookingList.add(booking.get(i).toString());
+                   
+                   ebookingList.add(booking.get(i).toStringValue());
                }
+               else if(cmboSelectRoom.getValue().toString().
+                   equals(booking.get(i).getBookingGuest().
+                           getGuestName()+" -G"))
+                       {
+                         ebookingList.add(booking.get(i).toString());
+ 
+                       }
             
             }
 
