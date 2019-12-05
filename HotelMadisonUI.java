@@ -251,13 +251,13 @@ public class HotelMadisonUI extends Application
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        //Tabs.getTabs().add(tabEmployee);
-        //Tabs.getTabs().add(tabGuest);
-        //Tabs.getTabs().add(tabAddGuest);
-        //Tabs.getTabs().add(tabAddEmployee);
-        //Tabs.getTabs().add(tabBooking);
-        //Tabs.getTabs().add(tabAddRoom);
-        //Tabs.getTabs().add(tabBookRoom);
+        Tabs.getTabs().add(tabEmployee);
+        Tabs.getTabs().add(tabGuest);
+        Tabs.getTabs().add(tabAddGuest);
+        Tabs.getTabs().add(tabAddEmployee);
+        Tabs.getTabs().add(tabBooking);
+        Tabs.getTabs().add(tabAddRoom);
+        Tabs.getTabs().add(tabBookRoom);
         Tabs.getTabs().add(tabRoomService);
         Tabs.getTabs().add(tabEditGuest);
         
@@ -548,12 +548,12 @@ public class HotelMadisonUI extends Application
             
             Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
                     
-            lstEmployee.getItems().remove(selectedInt);        
+            employeeList.remove(selectedInt);        
             employee.get(selectedInt).setEmployeeName(txtEmployeeName.getText());
             employee.get(selectedInt).setEmployeeName(txtEmployeeUsername.getText());
             employee.get(selectedInt).setPassword(txtEmployeePassword.getText(),txtEmployeePassword.getText());
             
-            employeeList.add(tempEmployee.toString());
+            employeeList.add(selectedInt, tempEmployee.toString());
             
             txtEmployeeUsername.clear();
             txtEmployeePassword.clear();
@@ -572,6 +572,11 @@ public class HotelMadisonUI extends Application
         tabAddRoom.setContent(addRoomPane);
         addRoomPane.setAlignment(Pos.CENTER);
         addRoomPane.add(new Label("Add Room Menu"), 0, 0);
+        addRoomPane.add(new Label("When Editing Rooms \n "
+                + "Retype same room Number \n "
+                + "(If you type a different room # \n"
+                + "It will not change room # \n"
+                + "You can try...)"), 0, 8);
         addRoomPane.add(lblBed, 0, 1);
         cmboBed.getItems().add("1 Queen Size Bed");
         cmboBed.getItems().add("2 Queen Size Beds");
@@ -611,11 +616,15 @@ public class HotelMadisonUI extends Application
         addRoomPane.add(lblRoomPrice, 1, 9);
         addRoomPane.add(lblRoomNumber, 1, 10);
         //cmboBed.getSelectionModel();
+        for (int i = 0; i < room.size(); i++)
+        {
+            roomList.add(room.get(i).roomDescription());
+        }
         btnAddRoom.setOnAction(e -> {
             if (isValidRoomPrice() == true && isValidRoomNumber() == true)
             {
                 handleAddRoom();
-                
+                lblRoomNumber.setText("");
             }
             else
             {
@@ -642,31 +651,29 @@ public class HotelMadisonUI extends Application
  
         });
         btnEditRoom.setOnAction(e -> {
-            int selectedInt = lstRoom.getSelectionModel().getSelectedIndex();
-            
-            int bed = handleBed(cmboBed.getValue().toString());
-            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
-            int coffee = handleCoffee(cmboCoffee.getValue().toString());
-            int access = handleAccess(cmboAccess.getValue().toString());
-            
-            Room tempRoom = new Room(bed, kitchen, coffee, access,  
-                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
-                   
-            room.add(tempRoom);
-            
-            //selectRoomList.add(tempRoom.getRoomNumber());
-            //selectRoomList.remove(tempRoom.getRoomNumber());
-            
-            //lstRoom.getItems().remove(selectedInt);
-            roomList.remove(selectedInt);
-            roomList.add(selectedInt, tempRoom.roomDescription());
-            
-            cmboBed.getSelectionModel().select(0);
-            cmboKitchen.getSelectionModel().select(0);
-            cmboCoffee.getSelectionModel().select(0);
-            cmboAccess.getSelectionModel().select(0);
-            txtRoomNum.clear();
-            txtPrice.clear();
+            if (isValidRoomPrice() == true && isValidRoomNumber() == true)
+            {
+                handleEditRoom();
+                lblRoomNumber.setText("");
+            }
+            else
+            {
+                if (isValidRoomPrice() == false)
+                {
+                    lblRoomPrice.setText("Please enter valid room price!");
+                    lblRoomNumber.setText("");
+                }
+                if (isValidRoomNumber() == false)
+                {
+                    lblRoomNumber.setText("Please enter valid room number!");
+                    lblRoomPrice.setText("");
+                }
+                if (isValidRoomPrice() == false && isValidRoomNumber() == false)
+                {
+                    lblRoomPrice.setText("Please enter valid room price!");
+                    lblRoomNumber.setText("Please enter valid room number!");
+                }
+            }
             
         });
         btnEmployeeBack7.setOnAction(e -> {
@@ -1049,28 +1056,63 @@ public class HotelMadisonUI extends Application
         return monthInt;
     }
     
-    public void handleAddRoom(){
+    public void handleAddRoom()
+    {
         int bed = handleBed(cmboBed.getValue().toString());
-            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
-            int coffee = handleCoffee(cmboCoffee.getValue().toString());
-            int access = handleAccess(cmboAccess.getValue().toString());
+        int kitchen = handleKitchen(cmboKitchen.getValue().toString());
+        int coffee = handleCoffee(cmboCoffee.getValue().toString());
+        int access = handleAccess(cmboAccess.getValue().toString());
             
-            Room tempRoom = new Room(bed, kitchen, coffee, access,  
-                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
+        Room tempRoom = new Room(bed, kitchen, coffee, access,  
+                Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
                    
-            room.add(tempRoom);
+        room.add(tempRoom);
             
-            //selectRoomList.add(tempRoom.getRoomNumber());
+        //selectRoomList.add(tempRoom.getRoomNumber());
             
-            roomList.add(tempRoom.roomDescription());
-            bookList.add(tempRoom.roomDescription());
+        roomList.add(tempRoom.roomDescription());
+        bookList.add(tempRoom.roomDescription());
             
-            cmboBed.getSelectionModel().select(0);
-            cmboKitchen.getSelectionModel().select(0);
-            cmboCoffee.getSelectionModel().select(0);
-            cmboAccess.getSelectionModel().select(0);
-            txtRoomNum.clear();
-            txtPrice.clear();
+        cmboBed.getSelectionModel().select(0);
+        cmboKitchen.getSelectionModel().select(0);
+        cmboCoffee.getSelectionModel().select(0);
+        cmboAccess.getSelectionModel().select(0);
+        txtRoomNum.clear();
+        txtPrice.clear();
+    }
+    public void handleEditRoom()
+    {
+        int selectedInt = lstRoom.getSelectionModel().getSelectedIndex();
+            
+        int bed = handleBed(cmboBed.getValue().toString());
+        int kitchen = handleKitchen(cmboKitchen.getValue().toString());
+        int coffee = handleCoffee(cmboCoffee.getValue().toString());
+        int access = handleAccess(cmboAccess.getValue().toString());
+            
+        Room tempRoom = new Room(bed, kitchen, coffee, access,  
+                room.get(selectedInt).getRoomNumber(), Double.valueOf(txtPrice.getText()));
+                    
+        room.get(selectedInt).setBed(bed);
+        room.get(selectedInt).setKitch(kitchen);
+        room.get(selectedInt).setCoffee(coffee);
+        room.get(selectedInt).setAccess(coffee);
+        room.get(selectedInt).setRoomPrice(Double.valueOf(txtPrice.getText()));
+            
+        System.out.print(room.get(selectedInt).roomDescription());
+            
+        //selectRoomList.add(tempRoom.getRoomNumber());
+        //selectRoomList.remove(tempRoom.getRoomNumber());
+            
+        //lstRoom.getItems().remove(selectedInt);
+        roomList.remove(selectedInt);
+        roomList.add(selectedInt, tempRoom.roomDescription());
+            
+        cmboBed.getSelectionModel().select(0);
+        cmboKitchen.getSelectionModel().select(0);
+        cmboCoffee.getSelectionModel().select(0);
+        cmboAccess.getSelectionModel().select(0);
+        txtRoomNum.clear();
+        txtPrice.clear();
     }
     
     public boolean isValidRoomPrice()
