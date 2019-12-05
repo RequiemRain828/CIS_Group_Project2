@@ -243,7 +243,7 @@ public class HotelMadisonUI extends Application
         Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
         guest.add(g1);
         
-        Guest g2 = new Guest("guest1" , "C2", "Mike Thorton");
+        Guest g2 = new Guest("guest2" , "C2", "Mike Thorton");
         guest.add(g2);
         
         ValueGuest g3 = new ValueGuest("guest1" , "pass1", "Seth Ledger");
