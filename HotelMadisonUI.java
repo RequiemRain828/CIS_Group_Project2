@@ -232,10 +232,10 @@ public class HotelMadisonUI extends Application
     public Tab tabAddEmployee = new Tab("Add Employee Menu");
     public Tab tabEditEmployee = new Tab("Edit Employee Menu");
     public Tab tabAddRoom = new Tab("Employee Add Room");
-    public Tab tabEditRoom = new Tab();
+    public Tab tabEditRoom = new Tab("Guest Edit Info");
     public Tab tabBookRoom = new Tab("Book Room Menu");
-    public Tab tabDisplayBooking = new Tab();
-    public Tab tabEditGuestInfo = new Tab();
+    public Tab tabDisplayBooking = new Tab("Guest Booking Report");
+    public Tab tabEditGuestInfo = new Tab("Guest Edit Info");
     public Tab tabRoomService = new Tab("Room Service Menu");
     
     @Override
