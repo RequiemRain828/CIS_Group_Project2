@@ -423,8 +423,8 @@ public class HotelMadisonUI extends Application
         
         tabCheckout.setContent(checkoutPane);
         checkoutPane.setAlignment(Pos.CENTER);
-        checkoutPane.add(new Label("Checkout Guest Menu"), 0, 0);
-        checkoutPane.add(lblrule1, 0, 1);
+        checkoutPane.add(new Label("Checkout Guest Menu"), 0, 1);
+        checkoutPane.add(lblrule1, 0, 2);
         checkoutPane.add(lstCheckout, 1, 1, 2, 5);
         checkoutPane.add(btnCheckout, 0, 6);
         checkoutPane.add(btnEmployeeBack2, 1, 6);
@@ -906,6 +906,8 @@ public class HotelMadisonUI extends Application
         guestBookingPane.add(lstGBooking, 1, 1, 2, 5);
         lstGBooking.setPrefWidth(550);
         guestBookingPane.add(btnGuestBack2, 1, 6);
+        guestBookingPane.setVgap(15);
+        guestBookingPane.setHgap(15);
         btnDisplyGBooking.setOnAction(e -> {
             if (!currentGuest.isEmpty())
             {
