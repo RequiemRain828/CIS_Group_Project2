@@ -232,10 +232,10 @@ public class HotelMadisonUI extends Application
     public Tab tabAddEmployee = new Tab("Add Employee Menu");
     public Tab tabEditEmployee = new Tab("Edit Employee Menu");
     public Tab tabAddRoom = new Tab("Employee Add Room");
-    public Tab tabEditRoom = new Tab();
+    public Tab tabEditRoom = new Tab("Guest Edit Info");
     public Tab tabBookRoom = new Tab("Book Room Menu");
-    public Tab tabDisplayBooking = new Tab();
-    public Tab tabEditGuestInfo = new Tab();
+    public Tab tabDisplayBooking = new Tab("Guest Booking Report");
+    public Tab tabEditGuestInfo = new Tab("Guest Edit Info");
     public Tab tabRoomService = new Tab("Room Service Menu");
     
     @Override
@@ -267,9 +267,18 @@ public class HotelMadisonUI extends Application
         
         for(int i=0;i<guest.size();i++){
             guestList.add(guest.get(i));
-            guestName.add(guest.get(i).getGuestName());
+            guestName.add(guest.get(i).getGuestName()+
+                    " -"+guest.get(i).getStatus());
+            
+
+            
         }
-        
+        for(int i=0;i<valueGuest.size();i++)
+        {
+        guestName.add(valueGuest.get(i).getGuestName()+" -"+
+                valueGuest.get(i).getStatus());
+       
+        }
         for(int i = 0; i < employee.size(); i++){
             employeeList.add(employee.get(i));
         }
@@ -311,7 +320,7 @@ public class HotelMadisonUI extends Application
         // Employee Menu Pane
         tabEmployee.setContent(employeePane);
         employeePane.setAlignment(Pos.CENTER);
-        employeePane.add(new Label("Welcome to the Employee Menu"), 0, 0);
+        employeePane.add(new Label("Welcome to the Employee Menu"), 0, 1);
         cmboEmployeeMenu.getItems().addAll(
                 ("Run a Booking Report"),
                 ("Checkout Guest"),
@@ -404,10 +413,18 @@ public class HotelMadisonUI extends Application
             { 
                if( cmboSelectRoom.getValue().toString().
                    equals(booking.get(i).getBookingGuest().
-                           getGuestName()))
+                           getGuestName()+" -V"))
                {
-                   ebookingList.add(booking.get(i).toString());
+                   
+                   ebookingList.add(booking.get(i).toStringValue());
                }
+               else if(cmboSelectRoom.getValue().toString().
+                   equals(booking.get(i).getBookingGuest().
+                           getGuestName()+" -G"))
+                       {
+                         ebookingList.add(booking.get(i).toString());
+ 
+                       }
             
             }
 
@@ -508,14 +525,14 @@ public class HotelMadisonUI extends Application
         
         tabEditGuest.setContent(editGuestPane);
         editGuestPane.setAlignment(Pos.CENTER);
-        editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 0);
-        editGuestPane.add(lblEditGuestName, 0, 1);
-        editGuestPane.add(lblEditGuestPassword, 0, 2);
-        editGuestPane.add(lblEditGuestPassword1, 0, 3);
-        editGuestPane.add(txtEditGuestName, 1, 1);
-        editGuestPane.add(txtEditGuestPassword, 1, 2);
-        editGuestPane.add(txtEditGuestPassword1, 1, 3);
-        editGuestPane.add(lblEditGuest, 1, 4);
+        editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 1);
+        editGuestPane.add(lblEditGuestName, 0, 2);
+        editGuestPane.add(lblEditGuestPassword, 0, 3);
+        editGuestPane.add(lblEditGuestPassword1, 0, 4);
+        editGuestPane.add(txtEditGuestName, 1, 2);
+        editGuestPane.add(txtEditGuestPassword, 1, 3);
+        editGuestPane.add(txtEditGuestPassword1, 1, 4);
+        editGuestPane.add(lblEditGuest, 1, 5);
         editGuestPane.add(btnEmployeeBack4, 2, 6);
         editGuestPane.add(btnEditGuest, 1, 6);
         editGuestPane.add(lstEditGuest, 2, 1, 2, 5);
@@ -688,6 +705,10 @@ public class HotelMadisonUI extends Application
                 lblEditEmployee.setText("Please try again. Passwords do not match or \n"
                 + "One or more TextFields are");
             }
+        });
+        btnEmployeeBack6.setOnAction(e -> {
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabEditEmployee);  
         });
         
         tabAddRoom.setContent(addRoomPane);
@@ -864,27 +885,19 @@ public class HotelMadisonUI extends Application
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
                 System.out.print(newBooking.toString());
-                System.out.print("Booked a guest");
                   
            }
            if (!currentVGuest.isEmpty())
            {
-               Guest aGuest = currentVGuest.get(0);
-               for (int i = 0; i < room.size(); i++)
-                { 
-                    if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
-                    {
-                    room.get(i).bookRoom();
-                    Room chosenRoom = room.get(i);
-                    //listBookRoom.getItems().remove(i);
-                    Booking newBooking = new Booking(aGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
-
-                    booking.add(newBooking);
-                    checkoutList.add(newBooking.toString());
-                    System.out.print(newBooking.toString());
-                    System.out.print("Booked a valued guest");
-                    }
-                }
+                Guest aGuest = currentVGuest.get(0);
+                room.get(selectedInt);              
+                room.get(selectedInt).bookRoom();
+                Room chosenRoom = room.get(selectedInt);
+                //listBookRoom.getItems().remove(i);
+                Booking newBooking = new Booking(aGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+                booking.add(newBooking);
+                checkoutList.add(newBooking.toString());
+                System.out.print(newBooking.toString());    
            }
                 
         });
