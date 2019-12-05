@@ -435,7 +435,7 @@ public class HotelMadisonUI extends Application
         addGuestPane.add(lblGuestUsername, 0, 3);
         addGuestPane.add(lblGuestPassword, 0, 4);
         addGuestPane.add(lblGuestPassword1, 0, 5);
-        addGuestPane.add(lblAddEmployee, 0, 6);
+        addGuestPane.add(lblAddGuest, 0, 6);
         cmboGuestStatus.getItems().add("Guest");
         cmboGuestStatus.getItems().add("ValueGuest");
         cmboGuestStatus.getSelectionModel().select(0);
@@ -460,19 +460,19 @@ public class HotelMadisonUI extends Application
             }
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 0)
             {
-                lblAddEmployee.setText("");
-                lblAddEmployee.setText("Please try again. Password \n"
+                lblAddGuest.setText("");
+                lblAddGuest.setText("Please try again. Password \n"
                     + "does not contain at least one \n"
                     + "uppercase letter and one number \n"
                     );
             }
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 1)
             {
-                lblAddEmployee.setText("");
-                lblAddEmployee.setText("Please try again. Password cannot \n"
+                lblAddGuest.setText("");
+                lblAddGuest.setText("Please try again. Password cannot \n"
                     + "start with a number");
             }
-            if (isValidAddGuest() == false)
+            if (isValidAddGuest() == false && createNewPassword(txtGuestPassword.getText()) == 0)
             {
                 lblAddGuest.setText("");
                 lblAddGuest.setText("Please try again. Passwords do not match or \n"
