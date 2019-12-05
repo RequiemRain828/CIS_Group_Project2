@@ -388,13 +388,27 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.add(cmboSelectRoom, 0, 4);
         employeeBookingPane.add(lstEmployeeBooking, 1, 1, 2, 5);
         employeeBookingPane.add(btnDisplayAll, 0, 6);
-        employeeBookingPane.add(btnDisplaySelect, 0, 7);
+        employeeBookingPane.add(btnDisplaySelect, 0, 5);
         employeeBookingPane.add(btnEmployeeBack1, 1, 7);
         lstEmployeeBooking.setPrefWidth(600);
+        btnDisplaySelect.setOnAction(e -> {
+        
+            for(int i=0; i<booking.size();i++)
+            { 
+               if( cmboSelectRoom.getValue().toString().
+                   equals(booking.get(i).getBookingGuest().
+                           getGuestName()))
+               {
+                   ebookingList.add(booking.get(i).toString());
+               }
+            
+            }
+
+        });
         btnDisplayAll.setOnAction(e -> {
-            for (int i = 0; i < room.size(); i++)
+            for (int i = 0; i < booking.size(); i++)
             {
-                ebookingList.add(room.get(i).roomDescription());
+                ebookingList.add(booking.get(i).toString());
             }
         });
         btnEmployeeBack1.setOnAction(e -> {
