@@ -124,9 +124,19 @@ public class Guest
     @Override
      public String toString()
     {
-        return "Username: " + this.username + ", Password: ****** " + ", Guest Name: " + this.guestName + ", Status: " 
+        return "Username: " + this.username + ", Password: " + hashPassword() + ", Guest Name: " + this.guestName + ", Status: " 
                 + this.getStatus();
         // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
                 
+    }
+    
+    public String hashPassword()
+    {
+        String result = "";
+        for (int i = 0; i < this.password.length(); i++)
+        {
+            result += "*";
+        }
+        return result;
     }
 }
