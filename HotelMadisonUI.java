@@ -1,11 +1,8 @@
 package CIS_Group_Project2;
 
 import javafx.application.Application;
-import javafx.event.*;
-import javafx.collections.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.*; 
 import javafx.stage.Stage;
 
@@ -142,7 +139,7 @@ public class HotelMadisonUI extends Application
     
     // Add Room Controls
     public Label lblBed = new Label("Bed: ");
-    public Label lblKitchen = new Label("Kitch: ");
+    public Label lblKitchen = new Label("Kitchen: ");
     public Label lblCoffee = new Label("Coffee: ");
     public Label lblAccess = new Label("Accessibility: ");
     public Label lblPrice = new Label("Price Per Night: ");
@@ -246,8 +243,8 @@ public class HotelMadisonUI extends Application
         Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
         employee.add(e1);
         
-        Employee e2 = new Employee ("admin" , "B2" , "Ben Carson");
-        employee.add(e2);
+//        Employee e2 = new Employee ("admin" , "B2" , "Ben Carson");
+//        employee.add(e2);
         
         Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
         guest.add(g1);
@@ -255,7 +252,7 @@ public class HotelMadisonUI extends Application
         Guest g2 = new Guest("guest2" , "C2", "Mike Thorton");
         guest.add(g2);
         
-        ValueGuest g3 = new ValueGuest("guest1" , "pass1", "Seth Ledger");
+        ValueGuest g3 = new ValueGuest("guest1" , "G1", "Seth Ledger");
         valueGuest.add(g3);
         
         Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
@@ -268,8 +265,8 @@ public class HotelMadisonUI extends Application
             guestList.add(guest.get(i));
             guestName.add(guest.get(i).getGuestName());
         }
-        for(int i = 0; i < employee.size(); i++)
-        {
+        
+        for(int i = 0; i < employee.size(); i++){
             employeeList.add(employee.get(i));
         }
         
@@ -318,8 +315,7 @@ public class HotelMadisonUI extends Application
                 ("Edit Guest Account"),
                 ("Create New Employee Account"),
                 ("Edit Employee Account"),
-                ("Create New Room"),
-                ("Edit Rooms")
+                ("Create or Edit a Room")
         );
         cmboEmployeeMenu.getSelectionModel().select(0);
         employeePane.add(cmboEmployeeMenu, 0, 1);
@@ -395,13 +391,27 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.add(cmboSelectRoom, 0, 4);
         employeeBookingPane.add(lstEmployeeBooking, 1, 1, 2, 5);
         employeeBookingPane.add(btnDisplayAll, 0, 6);
-        employeeBookingPane.add(btnDisplaySelect, 0, 7);
+        employeeBookingPane.add(btnDisplaySelect, 0, 5);
         employeeBookingPane.add(btnEmployeeBack1, 1, 7);
         lstEmployeeBooking.setPrefWidth(600);
+        btnDisplaySelect.setOnAction(e -> {
+        
+            for(int i=0; i<booking.size();i++)
+            { 
+               if( cmboSelectRoom.getValue().toString().
+                   equals(booking.get(i).getBookingGuest().
+                           getGuestName()))
+               {
+                   ebookingList.add(booking.get(i).toString());
+               }
+            
+            }
+
+        });
         btnDisplayAll.setOnAction(e -> {
-            for (int i = 0; i < room.size(); i++)
+            for (int i = 0; i < booking.size(); i++)
             {
-                ebookingList.add(room.get(i).roomDescription());
+                ebookingList.add(booking.get(i).toString());
             }
         });
         btnEmployeeBack1.setOnAction(e -> {
@@ -1115,8 +1125,7 @@ public class HotelMadisonUI extends Application
             case "Edit Guest Account": ; Tabs.getTabs().add(tabEditGuest); Tabs.getSelectionModel().select(tabEditGuest); break; 
             case "Create New Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); break;
             case "Edit Employee Account": Tabs.getTabs().add(tabEditEmployee); Tabs.getSelectionModel().select(tabEditEmployee); break;
-            case "Create New Room": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); break;
-            case "Edit Rooms": ; break;           
+            case "Create or Edit a Room": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); break;
             default: break;
         }
     }
