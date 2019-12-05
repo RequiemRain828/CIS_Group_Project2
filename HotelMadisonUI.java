@@ -253,11 +253,14 @@ public class HotelMadisonUI extends Application
         Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
         guest.add(g1);
         
-        Guest g2 = new Guest("guest2" , "C2", "Mike Thorton");
+        Guest g2 = new Guest("guest1" , "C2", "Mike Thorton");
         guest.add(g2);
         
-        ValueGuest g3 = new ValueGuest("guest1" , "G1", "Seth Ledger");
+        ValueGuest g3 = new ValueGuest("vguest" , "G0", "Seth Ledger");
         valueGuest.add(g3);
+        
+        ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Seth Ledger");
+        valueGuest.add(g4);
         
         Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
         room.add(r1);
@@ -1111,45 +1114,52 @@ public class HotelMadisonUI extends Application
             if (count == 0){
                 invalid.setText("Invalid Credentials! Please try again!");
             }
-            
+            count = 0; 
             break;
+            
             case "Guests":
-            for(int i =0; i< guest.size(); i++)
-            {
-                if (guest.get(i).checkCredentials(username, password))
+                for(int i =0; i< guest.size(); i++)
                 {
-                    currentGuest.add(guest.get(i));
-                    Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
-                    txtUsername.clear();
-                    txtPassword.clear();
-                    invalid.setText("");
-                    break;
+                    if (guest.get(i).checkCredentials(username, password))
+                    {
+                        currentGuest.add(guest.get(i));
+                        Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
+                        txtUsername.clear();
+                        txtPassword.clear();
+                        invalid.setText("");
+                        count++;
+                    }
+//                    if (guest.get(i).checkCredentials(username, password) == false && currentVGuest.isEmpty() == true)
+//                    {
+//                        invalid.setText("Invalid Credentials! Please try again!");
+//                        break;
+//                    }
                 }
-                if (guest.get(i).checkCredentials(username, password) == false && currentVGuest.isEmpty() == true)
-                {
-                    invalid.setText("Invalid Credentials! Please try again!");
-                    break;
-                }
-            }
             
-            for(int i =0; i< valueGuest.size(); i++)
-            {
-                if (valueGuest.get(i).checkCredentials(username, password))
+                for(int i =0; i< valueGuest.size(); i++)
                 {
-                    currentVGuest.add(valueGuest.get(i));
-                    Tabs.getTabs().add(tabValueGuest); Tabs.getSelectionModel().select(tabValueGuest);
-                    txtUsername.clear();
-                    txtPassword.clear();
-                    invalid.setText("");
-                    break;
+                    if (valueGuest.get(i).checkCredentials(username, password))
+                    {
+                        currentVGuest.add(valueGuest.get(i));
+                        Tabs.getTabs().add(tabValueGuest); Tabs.getSelectionModel().select(tabValueGuest);
+                        txtUsername.clear();
+                        txtPassword.clear();
+                        invalid.setText("");
+                        count++;
+                    }
+                    
+//                    if (valueGuest.get(i).checkCredentials(username, password) == false && currentGuest.isEmpty() == true)
+//                    {
+//                        invalid.setText("Invalid Credentials! Please try again!");
+//                        break;
+//                    }
                 }
-                if (valueGuest.get(i).checkCredentials(username, password) == false && currentGuest.isEmpty() == true)
-                {
+                
+                if (count == 0){
                     invalid.setText("Invalid Credentials! Please try again!");
-                    break;
                 }
-            }
-            break;
+                break;
+                
             default: break;
         }   
     }
