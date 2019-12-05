@@ -457,7 +457,15 @@ public class HotelMadisonUI extends Application
         addGuestPane.setVgap(10);
         addGuestPane.setHgap(10);
         btnAddGuest.setOnAction(e -> {
+            if (isValidAddGuest() == true)
+            {
             handleAddGuest(cmboGuestStatus.getValue().toString());
+            }
+            else
+            {
+                lblAddGuest.setText("Please try again. Passwords do not match or \n"
+                + "One or more TextFields are");
+            }
         });
         btnEmployeeBack3.setOnAction(e -> {
             Tabs.getSelectionModel().select(tabEmployee);
@@ -486,6 +494,8 @@ public class HotelMadisonUI extends Application
             //y=guest.get(guestID).setPassword(passWordold, passWordnew);
 
             //guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+            if (isValidEditGuest() == true)
+            {
             int y = 0;
                 y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText()); 
                 if (y == 0)
@@ -516,9 +526,14 @@ public class HotelMadisonUI extends Application
                     txtEditGuestName.clear();
                     txtEditGuestPassword.clear();
                     txtEditGuestPassword1.clear();
-                    System.out.println("Your password has been changed successfully.");
                     lblEditGuest.setText("Your psssword has been changed successfully");
                 }
+            }
+            else
+            {
+                lblEditGuest.setText("Please try again. Passwords do not match or \n"
+                + "One or more TextFields are");
+            }
         });
             
         tabAddEmployee.setContent(addEmployeePane);
@@ -570,10 +585,10 @@ public class HotelMadisonUI extends Application
         editEmployeePane.add(lblEditEmployeeName, 0, 1);
         editEmployeePane.add(lblEditEmployeePassword, 0, 2);
         editEmployeePane.add(lblEditEmployeePassword1, 0, 3);
+        editEmployeePane.add(lblEditEmployee, 0, 4);
         editEmployeePane.add(txtEditEmployeeName, 1, 1);
         editEmployeePane.add(txtEditEmployeePassword, 1, 2);
         editEmployeePane.add(txtEditEmployeePassword1, 1, 3);
-        editEmployeePane.add(lblEditEmployee, 1, 4);
         editEmployeePane.add(btnEmployeeBack6, 2, 6);
         editEmployeePane.add(btnEditEmployee, 1, 6);
         editEmployeePane.add(lstEditEmployee, 2, 1, 2, 5);
@@ -582,6 +597,7 @@ public class HotelMadisonUI extends Application
         editEmployeePane.setHgap(10);
         
         btnEditEmployee.setOnAction(e -> {
+            
             if (isValidEditEmployee() == true)
             {    
             int selectedInt = lstEditEmployee.getSelectionModel().getSelectedIndex();
@@ -620,7 +636,8 @@ public class HotelMadisonUI extends Application
             }
             else
             {
-                
+                lblEditEmployee.setText("Please try again. Passwords do not match or \n"
+                + "One or more TextFields are");
             }
         });
         
