@@ -38,6 +38,7 @@ public class HotelMadisonUI extends Application
     public static ObservableList roomServiceList = FXCollections.observableArrayList();
     public static ObservableList guestName = FXCollections.observableArrayList(guest);
     public static ObservableList gBookingList = FXCollections.observableArrayList();
+    public static ObservableList guestEditList = FXCollections.observableArrayList();
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -185,6 +186,9 @@ public class HotelMadisonUI extends Application
     public ListView lstGBooking = new ListView(gBookingList);
     
     // Guest Edit Information Controls
+    public Label lblEditRule = new Label("You cannot edit Username/Password, only Name");
+    public Button btnEditInfo = new Button("Edit Name ->");
+    public ListView lstGuestInfo = new ListView();
     
     // Room Service Controls
     public Label lblServices = new Label("Available services: ");
@@ -273,16 +277,16 @@ public class HotelMadisonUI extends Application
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        Tabs.getTabs().add(tabEmployee);
-        Tabs.getTabs().add(tabGuest);
-        Tabs.getTabs().add(tabAddGuest);
-        Tabs.getTabs().add(tabAddEmployee);
-        Tabs.getTabs().add(tabBooking);
-        Tabs.getTabs().add(tabAddRoom);
-        Tabs.getTabs().add(tabBookRoom);
-        Tabs.getTabs().add(tabRoomService);
-        Tabs.getTabs().add(tabEditGuest);
-        Tabs.getTabs().add(tabEditEmployee);
+        //Tabs.getTabs().add(tabEmployee);
+        //Tabs.getTabs().add(tabGuest);
+        //Tabs.getTabs().add(tabAddGuest);
+        //Tabs.getTabs().add(tabAddEmployee);
+        //Tabs.getTabs().add(tabBooking);
+        //Tabs.getTabs().add(tabAddRoom);
+        //Tabs.getTabs().add(tabBookRoom);
+        //Tabs.getTabs().add(tabRoomService);
+        //Tabs.getTabs().add(tabEditGuest);
+        //Tabs.getTabs().add(tabEditEmployee);
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -878,8 +882,7 @@ public class HotelMadisonUI extends Application
            {
                Tabs.getSelectionModel().select(tabGuest);
                Tabs.getTabs().remove(tabBookRoom); 
-           }
-                  
+           }        
         });
        
         tabDisplayBooking.setContent(guestBookingPane);
@@ -888,10 +891,73 @@ public class HotelMadisonUI extends Application
         guestBookingPane.add(lblDisplayGBooking, 0, 1);
         guestBookingPane.add(btnDisplyGBooking, 0, 2);
         guestBookingPane.add(lstGBooking, 1, 1, 2, 5);
+        lstGBooking.setPrefWidth(550);
+        guestBookingPane.add(btnGuestBack2, 1, 6);
+        btnDisplyGBooking.setOnAction(e -> {
+            if (!currentGuest.isEmpty())
+            {
+                for (int i = 0; i < booking.size(); i++)
+                {
+                    if (booking.get(i).getBookingGuest().getGuestName().equals(currentGuest.get(0).getGuestName()))
+                    {
+                    gBookingList.add(booking.get(i).toString());
+                    }
+                }
+            }
+            if (!currentVGuest.isEmpty())
+            {
+                for (int i = 0; i < booking.size(); i++)
+                {
+                    if (booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
+                    {
+                    gBookingList.add(booking.get(i).toString());
+                    }
+                }  
+            }
+        });
+        btnGuestBack2.setOnAction(e -> {
+           if (!currentVGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabValueGuest);
+               Tabs.getTabs().remove(tabDisplayBooking); 
+           }
+           if (!currentGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabGuest);
+               Tabs.getTabs().remove(tabDisplayBooking); 
+           }        
+        });
         
         tabEditGuestInfo.setContent(editGuestInfoPane);
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 0);
+        editGuestInfoPane.add(lblEditRule, 0, 1);
+        editGuestInfoPane.add(btnEditInfo, 0, 2);
+        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
+        editGuestInfoPane.add(btnGuestBack3, 1, 4);
+        if (!currentVGuest.isEmpty())
+           {
+               guestEditList.add(currentGuest.get(0).toString());
+           }
+        if (!currentGuest.isEmpty())
+           {
+               guestEditList.add(currentVGuest.get(0).toString());
+           }
+        btnEditInfo.setOnAction(e -> {
+            
+        });
+        btnGuestBack3.setOnAction(e -> {
+           if (!currentVGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabValueGuest);
+               Tabs.getTabs().remove(tabEditGuestInfo); 
+           }
+           if (!currentGuest.isEmpty())
+           {
+               Tabs.getSelectionModel().select(tabGuest);
+               Tabs.getTabs().remove(tabEditGuestInfo); 
+           }        
+        });
         
         tabRoomService.setContent(roomServicePane);
         roomServicePane.setAlignment(Pos.CENTER);
