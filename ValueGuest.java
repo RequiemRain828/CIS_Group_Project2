@@ -11,11 +11,13 @@ public class ValueGuest extends Guest
     //private String savingsNumber;
     private int valueClubID;
     private static int nextID;
+    private String status;
     
     public ValueGuest(String username, String password, String guestName) // Constructor
     {
         super(username, password, guestName);
         this.valueClubID = nextID++;
+        this.status = "V";
     }
     
     public double getAmountSpentWithHotel() // Getter for amount spent at hotel
@@ -36,5 +38,10 @@ public class ValueGuest extends Guest
     public int getValueClubId()
     {
         return this.valueClubID;
+    }
+    
+    public String getStatus()
+    {
+        return this.status;
     }
 }
