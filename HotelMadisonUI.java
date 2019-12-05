@@ -882,27 +882,19 @@ public class HotelMadisonUI extends Application
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
                 System.out.print(newBooking.toString());
-                System.out.print("Booked a guest");
                   
            }
            if (!currentVGuest.isEmpty())
            {
-               Guest aGuest = currentVGuest.get(0);
-               for (int i = 0; i < room.size(); i++)
-                { 
-                    if(listBookRoom.getSelectionModel().getSelectedIndex() == i);
-                    {
-                    room.get(i).bookRoom();
-                    Room chosenRoom = room.get(i);
-                    //listBookRoom.getItems().remove(i);
-                    Booking newBooking = new Booking(aGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
-
-                    booking.add(newBooking);
-                    checkoutList.add(newBooking.toString());
-                    System.out.print(newBooking.toString());
-                    System.out.print("Booked a valued guest");
-                    }
-                }
+                Guest aGuest = currentVGuest.get(0);
+                room.get(selectedInt);              
+                room.get(selectedInt).bookRoom();
+                Room chosenRoom = room.get(selectedInt);
+                //listBookRoom.getItems().remove(i);
+                Booking newBooking = new Booking(aGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+                booking.add(newBooking);
+                checkoutList.add(newBooking.toString());
+                System.out.print(newBooking.toString());    
            }
                 
         });
