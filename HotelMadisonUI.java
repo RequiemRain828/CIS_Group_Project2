@@ -187,6 +187,7 @@ public class HotelMadisonUI extends Application
     public Button btnEditInfo = new Button("Edit Name ->");
     public ListView lstGuestInfo = new ListView(guestEditList);
     public TextField txtEditName = new TextField();
+    public Button btnDisplayInfo = new Button("Display Info -> ");
     
     // Room Service Controls
     public Label lblServices = new Label("Available services: ");
@@ -961,34 +962,48 @@ public class HotelMadisonUI extends Application
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 0);
         editGuestInfoPane.add(lblEditRule, 0, 1);
         editGuestInfoPane.add(btnEditInfo, 0, 4);
+        editGuestInfoPane.add(btnDisplayInfo, 0, 2);
         editGuestInfoPane.add(txtEditName, 0, 3);
         editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
         editGuestInfoPane.add(btnGuestBack3, 1, 4);
+        lstGuestInfo.setPrefWidth(550);
         editGuestInfoPane.setVgap(15);
         editGuestInfoPane.setHgap(15);
-        if (!currentVGuest.isEmpty())
-           {
-               guestEditList.add(currentGuest.get(0).toString());
-           }
-        if (!currentGuest.isEmpty())
-           {
-               guestEditList.add(currentVGuest.get(0).toString());
-           }
-        btnEditInfo.setOnAction(e -> {
+        btnDisplayInfo.setOnAction(e -> {
             if (!currentVGuest.isEmpty())
             {
-               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               guest.get(selectedInt).setGuestName(txtEditName.getText());
-               checkoutList.remove(selectedInt);
-               guestEditList.add(guest.get(selectedInt).toString());
+               guestEditList.add(currentVGuest.get(0).toString());
             }
             if (!currentGuest.isEmpty())
             {
+               guestEditList.add(currentGuest.get(0).toString());
+            }
+        });
+        
+        btnEditInfo.setOnAction(e -> {
+            if (!currentGuest.isEmpty())
+            {
                int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               valueGuest.get(selectedInt).setGuestName(txtEditName.getText());
-               checkoutList.remove(selectedInt);
-               guestEditList.add(valueGuest.get(selectedInt).toString());
-            }    
+               currentGuest.get(selectedInt).setGuestName(txtEditName.getText());
+               guestEditList.remove(selectedInt);
+               guestEditList.add(currentGuest.get(selectedInt).toString());
+            }
+            if (!currentVGuest.isEmpty())
+            {
+               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               currentVGuest.get(selectedInt).setGuestName(txtEditName.getText());
+               guestEditList.remove(selectedInt);
+               guestEditList.add(currentVGuest.get(selectedInt).toString());
+               txtEditName.clear();
+            }
+            /*
+            employee.get(selectedInt).setEmployeeName(txtEditGuestName.getText());
+                    employeeList.add(selectedInt, employee.get(selectedInt).toString());
+                    employeeList.remove(selectedInt);  
+                    txtEditEmployeeName.clear();
+                    txtEditEmployeePassword.clear();
+                    txtEditEmployeePassword1.clear();
+            */
         });
         btnGuestBack3.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
@@ -1094,7 +1109,6 @@ public class HotelMadisonUI extends Application
             {
                 if (employee.get(i).checkCredentials(username, password))
                 {
-                    //System.out.println("Welcome " + employee.get(i).getEmployeeName());
                     Tabs.getTabs().add(tabEmployee); Tabs.getSelectionModel().select(tabEmployee);
                     txtUsername.clear();
                     txtPassword.clear();                    
@@ -1170,7 +1184,7 @@ public class HotelMadisonUI extends Application
         {
             case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
             case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
-            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuest); break; 
+            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuestInfo); break; 
             default: break;
         }
     }
@@ -1180,7 +1194,7 @@ public class HotelMadisonUI extends Application
         {
             case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
             case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
-            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuest); break;
+            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuestInfo); break;
             case "Order Room Service": Tabs.getTabs().add(tabRoomService); Tabs.getSelectionModel().select(tabRoomService); break;
             default: break;
         }
