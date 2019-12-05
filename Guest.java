@@ -14,7 +14,7 @@ public class Guest
     private String guestName;
     public double amountSpentWithHotel;
     public int numberOfBookings;
-    
+    private String status;
     private static int nextID = 0;
     
     
@@ -24,6 +24,7 @@ public class Guest
         this.username = username;
         this.password = password;
         this.guestName = guestName;
+        this.status = "G";
     }
     
     public boolean checkCredentials(String username, String password) // Checks login credentials
@@ -86,8 +87,7 @@ public class Guest
      
         return x;
     }
-     
-     
+    
      public int createNewPassword(String newP)
     {
         int x = 0;
@@ -115,10 +115,17 @@ public class Guest
         return x;
     }
      
+     public String getStatus()
+    {
+        return this.status;
+    }
+      
+
     @Override
      public String toString()
     {
-        return "Username: " + this.username + ", Password: ******" + ", Guest Name: " + this.guestName;
+        return "Username: " + this.username + ", Password: ****** " + ", Guest Name: " + this.guestName + ", Status: " 
+                + this.getStatus();
         // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
                 
     }
