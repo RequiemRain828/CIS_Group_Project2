@@ -185,7 +185,8 @@ public class HotelMadisonUI extends Application
     // Guest Edit Information Controls
     public Label lblEditRule = new Label("You cannot edit Username/Password, only Name");
     public Button btnEditInfo = new Button("Edit Name ->");
-    public ListView lstGuestInfo = new ListView();
+    public ListView lstGuestInfo = new ListView(guestEditList);
+    public TextField txtEditName = new TextField();
     
     // Room Service Controls
     public Label lblServices = new Label("Available services: ");
@@ -427,6 +428,8 @@ public class HotelMadisonUI extends Application
         checkoutPane.add(lstCheckout, 1, 1, 2, 5);
         checkoutPane.add(btnCheckout, 0, 6);
         checkoutPane.add(btnEmployeeBack2, 1, 6);
+        checkoutPane.setVgap(15);
+        checkoutPane.setHgap(15);
         lstCheckout.setPrefWidth(400);
         btnCheckout.setOnAction(e -> {
             int selectedInt = lstCheckout.getSelectionModel().getSelectedIndex();
@@ -942,9 +945,12 @@ public class HotelMadisonUI extends Application
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 0);
         editGuestInfoPane.add(lblEditRule, 0, 1);
-        editGuestInfoPane.add(btnEditInfo, 0, 2);
+        editGuestInfoPane.add(btnEditInfo, 0, 4);
+        editGuestInfoPane.add(txtEditName, 0, 3);
         editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
         editGuestInfoPane.add(btnGuestBack3, 1, 4);
+        editGuestInfoPane.setVgap(15);
+        editGuestInfoPane.setHgap(15);
         if (!currentVGuest.isEmpty())
            {
                guestEditList.add(currentGuest.get(0).toString());
@@ -954,7 +960,20 @@ public class HotelMadisonUI extends Application
                guestEditList.add(currentVGuest.get(0).toString());
            }
         btnEditInfo.setOnAction(e -> {
-            
+            if (!currentVGuest.isEmpty())
+            {
+               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               guest.get(selectedInt).setGuestName(txtEditName.getText());
+               checkoutList.remove(selectedInt);
+               guestEditList.add(guest.get(selectedInt).toString());
+            }
+            if (!currentGuest.isEmpty())
+            {
+               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               valueGuest.get(selectedInt).setGuestName(txtEditName.getText());
+               checkoutList.remove(selectedInt);
+               guestEditList.add(valueGuest.get(selectedInt).toString());
+            }    
         });
         btnGuestBack3.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
