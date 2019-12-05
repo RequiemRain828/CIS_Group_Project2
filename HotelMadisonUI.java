@@ -459,8 +459,15 @@ public class HotelMadisonUI extends Application
         editGuestPane.setVgap(10);
         editGuestPane.setHgap(10);
         btnEditGuest.setOnAction(e -> {
+           
             int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
-            
+            for (int i = 0; i < guest.size(); i++)
+            {
+                if(i == selectedInt)
+                {
+                    
+                }
+            }
             Guest tempGuest = new Guest(txtGuestUsername.getText(), txtGuestPassword.getText()
                     ,txtGuestName.getText());
             
@@ -608,8 +615,7 @@ public class HotelMadisonUI extends Application
             if (isValidRoomPrice() == true && isValidRoomNumber() == true)
             {
                 handleAddRoom();
-                lblRoomPrice.setText("");
-                lblRoomNumber.setText("");
+                
             }
             else
             {
@@ -648,11 +654,12 @@ public class HotelMadisonUI extends Application
                    
             room.add(tempRoom);
             
-            selectRoomList.add(tempRoom.getRoomNumber());
-            selectRoomList.remove(tempRoom.getRoomNumber());
+            //selectRoomList.add(tempRoom.getRoomNumber());
+            //selectRoomList.remove(tempRoom.getRoomNumber());
             
-            lstRoom.getItems().remove(selectedInt);
-            roomList.add(tempRoom.roomDescription());
+            //lstRoom.getItems().remove(selectedInt);
+            roomList.remove(selectedInt);
+            roomList.add(selectedInt, tempRoom.roomDescription());
             
             cmboBed.getSelectionModel().select(0);
             cmboKitchen.getSelectionModel().select(0);
@@ -1053,7 +1060,7 @@ public class HotelMadisonUI extends Application
                    
             room.add(tempRoom);
             
-            selectRoomList.add(tempRoom.getRoomNumber());
+            //selectRoomList.add(tempRoom.getRoomNumber());
             
             roomList.add(tempRoom.roomDescription());
             bookList.add(tempRoom.roomDescription());
@@ -1122,7 +1129,9 @@ public class HotelMadisonUI extends Application
                     ,txtGuestName.getText());
             
         guest.add(tempGuest);        
-            
+        
+        editGuestList.add(tempGuest.toString());
+               
         guestList.add(tempGuest.toString());
         guestName.add(tempGuest.getGuestName());
         txtGuestUsername.clear();
