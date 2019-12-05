@@ -118,7 +118,7 @@ public class Guest
     @Override
      public String toString()
     {
-        return "Username: " + this.username + ", Password: " + this.password + ", Guest Name: " + this.guestName;
+        return "Username: " + this.username + ", Password: ******" + ", Guest Name: " + this.guestName;
         // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
                 
     }
