@@ -112,14 +112,12 @@ public class Employee
                         this.password = newP;
                     }    
                 }
-        
-        
         return x;
     }
     
     @Override
     public String toString()
     {
-        return "Username: " + this.username + ", Password: " + this.password + ", Employee name: " + this.employeeName;               
+        return "Username: " + this.username + ", Password: ****** " + ", Employee name: " + this.employeeName;               
     }
 }
