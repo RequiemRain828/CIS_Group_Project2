@@ -308,7 +308,7 @@ public class HotelMadisonUI extends Application
         // Employee Menu Pane
         tabEmployee.setContent(employeePane);
         employeePane.setAlignment(Pos.CENTER);
-        employeePane.add(new Label("Welcome to the Employee Menu"), 0, 0);
+        employeePane.add(new Label("Welcome to the Employee Menu"), 0, 1);
         cmboEmployeeMenu.getItems().addAll(
                 ("Run a Booking Report"),
                 ("Checkout Guest"),
@@ -505,14 +505,14 @@ public class HotelMadisonUI extends Application
         
         tabEditGuest.setContent(editGuestPane);
         editGuestPane.setAlignment(Pos.CENTER);
-        editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 0);
-        editGuestPane.add(lblEditGuestName, 0, 1);
-        editGuestPane.add(lblEditGuestPassword, 0, 2);
-        editGuestPane.add(lblEditGuestPassword1, 0, 3);
-        editGuestPane.add(txtEditGuestName, 1, 1);
-        editGuestPane.add(txtEditGuestPassword, 1, 2);
-        editGuestPane.add(txtEditGuestPassword1, 1, 3);
-        editGuestPane.add(lblEditGuest, 1, 4);
+        editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 1);
+        editGuestPane.add(lblEditGuestName, 0, 2);
+        editGuestPane.add(lblEditGuestPassword, 0, 3);
+        editGuestPane.add(lblEditGuestPassword1, 0, 4);
+        editGuestPane.add(txtEditGuestName, 1, 2);
+        editGuestPane.add(txtEditGuestPassword, 1, 3);
+        editGuestPane.add(txtEditGuestPassword1, 1, 4);
+        editGuestPane.add(lblEditGuest, 1, 5);
         editGuestPane.add(btnEmployeeBack4, 2, 6);
         editGuestPane.add(btnEditGuest, 1, 6);
         editGuestPane.add(lstEditGuest, 2, 1, 2, 5);
@@ -685,6 +685,10 @@ public class HotelMadisonUI extends Application
                 lblEditEmployee.setText("Please try again. Passwords do not match or \n"
                 + "One or more TextFields are");
             }
+        });
+        btnEmployeeBack6.setOnAction(e -> {
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabEditEmployee);  
         });
         
         tabAddRoom.setContent(addRoomPane);
