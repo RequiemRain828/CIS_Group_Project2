@@ -13,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Booking {
+    public int bookingID; 
     public Room bookedRoom;
     public Guest bookingGuest;
     public ValueGuest valueGuest;
@@ -42,7 +43,9 @@ public class Booking {
         this.checkInYear = checkInYear;
         this.checkInDay = checkInDay;
         this.checkOutDay = checkOutDay;
-        this.checkOutYear = checkOutYear;    
+        this.checkOutYear = checkOutYear;  
+        this.bookingID = nextID++; 
+        
     }
     
     public Booking(ValueGuest valueGuest, Room bookedRoom, int checkInYear, int checkIn, 
@@ -54,7 +57,8 @@ public class Booking {
         this.checkInYear = checkInYear;
         this.checkInDay = checkIn;
         this.checkOutDay = checkOut;
-        this.checkOutYear = checkOutYear;
+        this.checkOutYear = checkOutYear;  
+        this.bookingID = nextID++; 
     }
     
     public Guest getBookingGuest(){
