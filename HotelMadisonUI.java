@@ -185,6 +185,7 @@ public class HotelMadisonUI extends Application
     
     // Guest Edit Information Controls
     public Label lblEditRule = new Label("You cannot edit Username/Password, only Name");
+    public Label lblNamePrompt = new Label("Enter a new name: ");
     public Button btnEditInfo = new Button("Edit Name ->");
     public ListView lstGuestInfo = new ListView(guestEditList);
     public TextField txtEditName = new TextField();
@@ -1006,11 +1007,13 @@ public class HotelMadisonUI extends Application
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 1);
         editGuestInfoPane.add(lblEditRule, 0, 2);
-        editGuestInfoPane.add(btnEditInfo, 0, 5);
         editGuestInfoPane.add(btnDisplayInfo, 0, 3);
-        editGuestInfoPane.add(txtEditName, 0, 4);
-        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 4);
-        editGuestInfoPane.add(btnGuestBack3, 1, 5);
+        editGuestInfoPane.add(lblNamePrompt, 0, 4);
+        editGuestInfoPane.add(txtEditName, 0, 5);
+        editGuestInfoPane.add(btnEditInfo, 0, 6);
+        
+        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
+        editGuestInfoPane.add(btnGuestBack3, 1, 4);
         lstGuestInfo.setPrefWidth(550);
         editGuestInfoPane.setVgap(15);
         editGuestInfoPane.setHgap(15);
