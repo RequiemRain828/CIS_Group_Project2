@@ -72,17 +72,22 @@ public class Booking {
     @Override
     public String toString(){
         String result = "";
-        result += this.bookingGuest.getGuestName() + " booked Room# " + this.bookedRoom.getRoomNumber() 
-                + "\n from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.checkInYear+" to "+
-                this.checkOutDay+"/"+this.checkOutMonth+"/"+this.checkOutYear ;
+        result += this.bookingGuest.getGuestName() + " booked Room# " +
+                this.bookedRoom.getRoomNumber() 
+                + "\n from " +this.checkInMonth+"/"
+                +this.checkInDay+"/"+ this.checkInYear+" to "+
+                this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
         return result; 
     }
      public String toStringValue(){
         String result = "";
         
-        result += this.bookingGuest.getGuestName() + " booked Room# " + this.bookedRoom.getRoomNumber() 
-                + "\n from " +this.checkInDay+"/"+this.checkInMonth+"/"+ this.checkInYear+" to "+
-                this.checkOutDay+"/"+this.checkOutMonth+"/"+this.checkOutYear
+        result += this.bookingGuest.getGuestName() + " booked Room# " 
+                + this.bookedRoom.getRoomNumber() 
+                + this.checkInMonth+"/"
+                + this.checkInDay+"/"+ this.checkInYear+" to "
+                + this.checkOutMonth+"/"+this.checkOutDay+"/"
+                + this.checkOutYear
                 +"\nRoom Price per Day: $"+this.bookedRoom.roomCostPerNight
                 +"\nTotal Days Room Prive: $"+this.roomCost
                 +"\nRoom Service List: "+this.roomServiceList+
