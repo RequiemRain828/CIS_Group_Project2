@@ -272,10 +272,7 @@ public class HotelMadisonUI extends Application
         for(int i=0;i<guest.size();i++){
             guestList.add(guest.get(i));
             guestName.add(guest.get(i).getGuestName()+
-                    " -"+guest.get(i).getStatus());
-            
-
-            
+                    " -"+guest.get(i).getStatus()); 
         }
         for(int i=0;i<valueGuest.size();i++)
         {
@@ -345,6 +342,7 @@ public class HotelMadisonUI extends Application
         });
         btnEmployeeLogout.setOnAction(e -> {
             invalid.setText("");
+            Tabs.getTabs().add(tabLogin);
             Tabs.getSelectionModel().select(tabLogin);
             Tabs.getTabs().remove(tabEmployee);
                 
@@ -370,6 +368,7 @@ public class HotelMadisonUI extends Application
         btnGuestLogout.setOnAction(e -> {            
             currentGuest.remove(0);
             invalid.setText("");
+            Tabs.getTabs().add(tabLogin);
             Tabs.getSelectionModel().select(tabLogin);
             Tabs.getTabs().remove(tabGuest);  
         });
@@ -395,6 +394,7 @@ public class HotelMadisonUI extends Application
         btnVGuestLogout.setOnAction(e -> {
             currentVGuest.remove(0);
             invalid.setText("");
+            Tabs.getTabs().add(tabLogin);
             Tabs.getSelectionModel().select(tabLogin);
             Tabs.getTabs().remove(tabValueGuest);  
         });
@@ -515,10 +515,10 @@ public class HotelMadisonUI extends Application
                 lblAddGuest.setText("Please try again. Password cannot \n"
                     + "start with a number");
             }
-            if (isValidAddGuest() == false)
+            if (isValidAddGuest() == false && createNewPassword(txtGuestPassword.getText()) == 0)
             {
                 lblAddGuest.setText("");
-                lblAddGuest.setText("Please try again. Passwords do not match or \n"
+                lblAddGuest.setText("Please try again. Passwords do not match\n"
                 );
             }
         });
@@ -1122,6 +1122,7 @@ public class HotelMadisonUI extends Application
                 if (employee.get(i).checkCredentials(username, password))
                 {
                     Tabs.getTabs().add(tabEmployee); Tabs.getSelectionModel().select(tabEmployee);
+                    Tabs.getTabs().remove(tabLogin);
                     txtUsername.clear();
                     txtPassword.clear();                    
                     invalid.setText("");
@@ -1141,6 +1142,7 @@ public class HotelMadisonUI extends Application
                     if (guest.get(i).checkCredentials(username, password))
                     {
                         currentGuest.add(guest.get(i));
+                        Tabs.getTabs().remove(tabLogin);
                         Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
                         txtUsername.clear();
                         txtPassword.clear();
@@ -1159,6 +1161,7 @@ public class HotelMadisonUI extends Application
                     if (valueGuest.get(i).checkCredentials(username, password))
                     {
                         currentVGuest.add(valueGuest.get(i));
+                        Tabs.getTabs().remove(tabLogin);
                         Tabs.getTabs().add(tabValueGuest); Tabs.getSelectionModel().select(tabValueGuest);
                         txtUsername.clear();
                         txtPassword.clear();
