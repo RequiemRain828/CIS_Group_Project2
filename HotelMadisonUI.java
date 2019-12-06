@@ -260,7 +260,7 @@ public class HotelMadisonUI extends Application
         ValueGuest g3 = new ValueGuest("vguest" , "G0", "Seth Ledger");
         valueGuest.add(g3);
         
-        ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Seth Ledger");
+        ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Bob Solid");
         valueGuest.add(g4);
         
         Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
@@ -403,7 +403,7 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.setAlignment(Pos.CENTER);
         employeeBookingPane.add(new Label("Employee Booking Report Menu"), 0, 0);
         employeeBookingPane.add(lblSelectRoom, 0, 3);
-        cmboSelectRoom.getItems().add("None");
+//        cmboSelectRoom.getItems().add("None");
         cmboSelectRoom.getSelectionModel().select(0);       
         employeeBookingPane.add(cmboSelectRoom, 0, 4);
         employeeBookingPane.add(lstEmployeeBooking, 1, 1, 2, 5);
