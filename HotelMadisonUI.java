@@ -883,7 +883,7 @@ public class HotelMadisonUI extends Application
         bookRoomPane.add(lblThankYou, 4, 6);
         listBookRoom.setPrefWidth(500);
         bookRoomPane.setVgap(10);
-        bookRoomPane.setHgap(5);
+        bookRoomPane.setHgap(10);
         for (int i = 0; i < room.size(); i++)
         {
             bookList.add(room.get(i).roomDescription());
@@ -955,9 +955,9 @@ public class HotelMadisonUI extends Application
        
         tabDisplayBooking.setContent(guestBookingPane);
         guestBookingPane.setAlignment(Pos.CENTER);
-        guestBookingPane.add(new Label("Welcome to the Display Guest Booking Report Menu"), 0, 0);
-        guestBookingPane.add(lblDisplayGBooking, 0, 1);
-        guestBookingPane.add(btnDisplyGBooking, 0, 2);
+        guestBookingPane.add(new Label("Welcome to the Display Guest Booking Report Menu"), 0, 1);
+        guestBookingPane.add(lblDisplayGBooking, 0, 3);
+        guestBookingPane.add(btnDisplyGBooking, 0, 4);
         guestBookingPane.add(lstGBooking, 1, 1, 2, 5);
         lstGBooking.setPrefWidth(550);
         guestBookingPane.add(btnGuestBack2, 1, 6);
@@ -1004,13 +1004,13 @@ public class HotelMadisonUI extends Application
         
         tabEditGuestInfo.setContent(editGuestInfoPane);
         editGuestInfoPane.setAlignment(Pos.CENTER);
-        editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 0);
-        editGuestInfoPane.add(lblEditRule, 0, 1);
-        editGuestInfoPane.add(btnEditInfo, 0, 4);
-        editGuestInfoPane.add(btnDisplayInfo, 0, 2);
-        editGuestInfoPane.add(txtEditName, 0, 3);
-        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
-        editGuestInfoPane.add(btnGuestBack3, 1, 4);
+        editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 1);
+        editGuestInfoPane.add(lblEditRule, 0, 2);
+        editGuestInfoPane.add(btnEditInfo, 0, 5);
+        editGuestInfoPane.add(btnDisplayInfo, 0, 3);
+        editGuestInfoPane.add(txtEditName, 0, 4);
+        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 4);
+        editGuestInfoPane.add(btnGuestBack3, 1, 5);
         lstGuestInfo.setPrefWidth(550);
         editGuestInfoPane.setVgap(15);
         editGuestInfoPane.setHgap(15);
