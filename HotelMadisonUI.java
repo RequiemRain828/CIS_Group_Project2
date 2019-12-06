@@ -412,14 +412,13 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.add(btnEmployeeBack1, 1, 7);
         lstEmployeeBooking.setPrefWidth(600);
         btnDisplaySelect.setOnAction(e -> {
-        
+            lstEmployeeBooking.getItems().clear();
             for(int i=0; i<booking.size();i++)
             { 
                if( cmboSelectRoom.getValue().toString().
                    equals(booking.get(i).getBookingGuest().
                            getGuestName()+" -V"))
-               {
-                   
+               {                   
                    ebookingList.add(booking.get(i).toStringValue());
                }
                else if(cmboSelectRoom.getValue().toString().
@@ -427,13 +426,11 @@ public class HotelMadisonUI extends Application
                            getGuestName()+" -G"))
                        {
                          ebookingList.add(booking.get(i).toString());
- 
-                       }
-            
+                       }          
             }
-
         });
         btnDisplayAll.setOnAction(e -> {
+            lstEmployeeBooking.getItems().clear();
             for (int i = 0; i < booking.size(); i++)
             {
                 ebookingList.add(booking.get(i).toString());
@@ -520,7 +517,7 @@ public class HotelMadisonUI extends Application
             {
                 lblAddGuest.setText("");
                 lblAddGuest.setText("Please try again. Passwords do not match\n"
-                );
+                        + "All Textfields are empty");
             }
         });
         btnEmployeeBack3.setOnAction(e -> {
@@ -871,7 +868,6 @@ public class HotelMadisonUI extends Application
         for (int i = 0; i < room.size(); i++)
         {
             bookList.add(room.get(i).roomDescription());
-            //bookList.remove(room.get(i));
         }
         btnBookRoom.setOnAction(e -> {
            int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
@@ -1059,8 +1055,6 @@ public class HotelMadisonUI extends Application
         ArrayList <RoomService> tempServiceList = new ArrayList<>();
         btnAddToOrder.setOnAction(e -> {
         
-            //double quantityOfService; 
-            //quantityOfService = Double.parseDouble(txtServiceQuantity.getText())
             String quantityOfService;
             quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
             roomServiceList.add(quantityOfService);
@@ -1203,13 +1197,20 @@ public class HotelMadisonUI extends Application
     {
         switch(menuChoice) 
         {
-            case "Run a Booking Report": Tabs.getTabs().add(tabBooking); Tabs.getSelectionModel().select(tabBooking); break;
-            case "Checkout Guest": Tabs.getTabs().add(tabCheckout); Tabs.getSelectionModel().select(tabCheckout); break;
-            case "Create New Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); break;
-            case "Edit Guest Account": ; Tabs.getTabs().add(tabEditGuest); Tabs.getSelectionModel().select(tabEditGuest); break; 
-            case "Create New Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); break;
-            case "Edit Employee Account": Tabs.getTabs().add(tabEditEmployee); Tabs.getSelectionModel().select(tabEditEmployee); break;
-            case "Create or Edit a Room": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); break;
+            case "Run a Booking Report": Tabs.getTabs().add(tabBooking); Tabs.getSelectionModel().select(tabBooking); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
+            case "Checkout Guest": Tabs.getTabs().add(tabCheckout); Tabs.getSelectionModel().select(tabCheckout); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
+            case "Create New Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
+            case "Edit Guest Account": ; Tabs.getTabs().add(tabEditGuest); Tabs.getSelectionModel().select(tabEditGuest); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break; 
+            case "Create New Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
+            case "Edit Employee Account": Tabs.getTabs().add(tabEditEmployee); Tabs.getSelectionModel().select(tabEditEmployee); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
+            case "Create or Edit a Room": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
             default: break;
         }
     }
@@ -1343,6 +1344,8 @@ public class HotelMadisonUI extends Application
         int kitchen = handleKitchen(cmboKitchen.getValue().toString());
         int coffee = handleCoffee(cmboCoffee.getValue().toString());
         int access = handleAccess(cmboAccess.getValue().toString());
+        
+        int status = handleInactive(cmboStatus.getValue().toString());
             
         Room tempRoom = new Room(bed, kitchen, coffee, access,  
                 room.get(selectedInt).getRoomNumber(), Double.valueOf(txtPrice.getText()));
@@ -1352,6 +1355,14 @@ public class HotelMadisonUI extends Application
         room.get(selectedInt).setCoffee(coffee);
         room.get(selectedInt).setAccess(coffee);
         room.get(selectedInt).setRoomPrice(Double.valueOf(txtPrice.getText()));
+        if (status == 2)
+        {
+            bookList.remove(selectedInt);
+        }
+        else if (status == 1)
+        {
+            bookList.add(selectedInt, room.get(selectedInt).roomDescription());
+        }
             
         System.out.print(room.get(selectedInt).roomDescription());
             
@@ -1368,6 +1379,17 @@ public class HotelMadisonUI extends Application
         cmboAccess.getSelectionModel().select(0);
         txtRoomNum.clear();
         txtPrice.clear();
+    }
+    
+    public int handleInactive(String status)
+    {
+        int num = 0;
+        switch (status)
+        {
+            case "Active": num = 1; break;
+            case "InActive": num = 2; break;
+        }
+        return num;
     }
     
     public boolean isValidRoomPrice()
