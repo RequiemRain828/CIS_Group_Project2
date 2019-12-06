@@ -197,6 +197,7 @@ public class HotelMadisonUI extends Application
     public Button btnAddToOrder = new Button("Add to Order");
     public Button btnFinishOrderService = new Button("Complete Order");
     public Button btnBack = new Button("Back");
+    public Button btnClearOrder = new Button("Clear Order");
     public ComboBox cmboServices = new ComboBox();
     public TextField txtQuantity = new TextField();
     public ListView listOrder = new ListView(roomServiceList); 
@@ -976,6 +977,7 @@ public class HotelMadisonUI extends Application
         guestBookingPane.setVgap(15);
         guestBookingPane.setHgap(15);
         btnDisplyGBooking.setOnAction(e -> {
+            lstGBooking.getItems().clear();
             if (!currentGuest.isEmpty())
             {
                 for (int i = 0; i < booking.size(); i++)
@@ -1101,6 +1103,7 @@ public class HotelMadisonUI extends Application
         roomServicePane.add(listOrder, 2, 1, 2, 5);
         roomServicePane.add(btnAddToOrder, 0, 4);
         roomServicePane.add(btnFinishOrderService, 0, 7);
+        roomServicePane.add(btnClearOrder, 1, 7);
         roomServicePane.add(btnBack, 2, 7);
         roomServicePane.add(lblQuantity, 1, 1);
         roomServicePane.add(lblTotalPrice, 2, 6); 
@@ -1123,14 +1126,14 @@ public class HotelMadisonUI extends Application
             
             RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService, quantity);
             tempServiceList.add(newOrder);
-            System.out.println(newOrder.toString());
-            System.out.println(tempServiceList.get(0).toString());          
+            txtServiceQuantity.clear();
+            //System.out.println(tempServiceList.get(0).toString());          
         });
         
         btnFinishOrderService.setOnAction(e -> {
-          
-          double totalCost = 0;
-          for(int i = 0; i < booking.size();i++)
+            
+            double totalCost = 0;
+            for(int i = 0; i < booking.size();i++)
             {
                 if(booking.get(i).getBookingGuest() == currentVGuest.get(0))
                 {
@@ -1144,7 +1147,16 @@ public class HotelMadisonUI extends Application
                 }
                 break; 
             }
-          
+            
+        });
+        btnClearOrder.setOnAction(e -> {
+            listOrder.getItems().clear();
+            lblTotalPrice.setText("Total Price: ");
+            txtServiceQuantity.clear();
+            for (int j = 0; j < tempServiceList.size(); j++)
+            {
+                tempServiceList.remove(j);
+            }
         });
         btnBack.setOnAction(e -> {
             Tabs.getTabs().remove(tabRoomService);
