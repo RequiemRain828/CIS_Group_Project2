@@ -68,10 +68,7 @@ public class Booking {
     public void endBooking(){
         this.bookedRoom.freeThisRoom();
     }
-    
-   
-    
-    
+
     public long dayCount(){
         long numberOfDays;
         LocalDate firstYear= LocalDate.of(checkInYear, Month.JANUARY, 1);
@@ -83,8 +80,8 @@ public class Booking {
         return numberOfDays;
     }
     
-    public void RoomService(String description, double price){
-        this.roomServiceList.add(new RoomService(description, price));
+    public void RoomService(String description, double price, int quantity){
+        this.roomServiceList.add(new RoomService(description, price, quantity));
     }
     
     public double roomCost(){
@@ -147,8 +144,8 @@ public class Booking {
           String roomService="";
          for (int i = 0; i < this.roomServiceList.size(); i++){
             
-           roomService += "\n"+roomServiceList.get(i).description+",\n " ;
-            
+           roomService += "\n" + roomServiceList.get(i).description + " x " + roomServiceList.get(i).quantity ;
+        // +  ",\n "     
         }
          return roomService;
     }
@@ -172,7 +169,7 @@ public class Booking {
                 + this.checkOutMonth+"/"+this.checkOutDay+"/"
                 + this.checkOutYear
                 +"\nRoom Price per Day: $"+this.bookedRoom.roomCostPerNight
-                +"\nTotal Days Room Prive: $"+roomCost()
+                +"\nTotal Days Room Price: $"+roomCost()
                 +"\nRoom Service List: "+getRoomServiceList()+
                 "\nRoom Service Cost: $"+roomService()
                 +"\nTotal Combined Price: $"+totalCost();
