@@ -163,12 +163,12 @@ public class HotelMadisonUI extends Application
     
     // Guest Book a Room Controls
     public Label lblFreeRooms = new Label("Free Rooms: ");
-    public Label lblCheckinYear = new Label("Check In Year: ");
-    public Label lblCheckinDate = new Label("Check In Month/Day: ");
-    public Label lblCheckoutDate = new Label("Check Out Month/Day: ");
+    public Label lblCheckinDate = new Label("Check In Month/Day/Year: ");
+    public Label lblCheckoutDate = new Label("Check Out Month/Day/Year: ");
     public Button btnBookRoom = new Button("Book Room -> "); 
     public ListView listBookRoom = new ListView(bookList);
-    public ComboBox cmboYear = new ComboBox();
+    public ComboBox cmboYearIn = new ComboBox();
+    public ComboBox cmboYearOut = new ComboBox();
     public ComboBox cmboDayIn = new ComboBox();
     public ComboBox cmboDayOut = new ComboBox();
     public ComboBox cmboMonthIn = new ComboBox();
@@ -828,14 +828,17 @@ public class HotelMadisonUI extends Application
         tabBookRoom.setContent(bookRoomPane);
         bookRoomPane.setAlignment(Pos.CENTER);
         bookRoomPane.add(new Label("Welcome to the Book a Room Menu"), 0, 0);
-        bookRoomPane.add(lblFreeRooms, 0, 4);
-        bookRoomPane.add(lblCheckinYear, 0, 5);
+        bookRoomPane.add(lblFreeRooms, 0, 4); 
         bookRoomPane.add(lblCheckinDate, 0, 6);
         bookRoomPane.add(lblCheckoutDate, 0, 7);
-        cmboYear.getItems().addAll((2019), (2020),
+        cmboYearIn.getItems().addAll((2019), (2020),
                 (2021), (2022), (2023));
-        bookRoomPane.add(cmboYear, 1, 5);
-        cmboYear.getSelectionModel().select(0);
+        cmboYearOut.getItems().addAll((2019),(2020),
+                (2021),(2022),(2023));
+        bookRoomPane.add(cmboYearOut, 3, 7);
+        bookRoomPane.add(cmboYearIn, 3, 6);
+        cmboYearIn.getSelectionModel().select(0);
+        cmboYearOut.getSelectionModel().select(0);
         for (int i = 1; i < 32; i++)
         {
         cmboDayIn.getItems().add(i);
@@ -857,8 +860,8 @@ public class HotelMadisonUI extends Application
         bookRoomPane.add(cmboMonthOut, 1, 7);
         cmboMonthOut.getSelectionModel().select(0);
         bookRoomPane.add(btnBookRoom, 1, 8);
-        bookRoomPane.add(btnGuestBack1, 2, 8);
-        bookRoomPane.add(listBookRoom, 1, 1, 2, 4);
+        bookRoomPane.add(btnGuestBack1, 3, 8);
+        bookRoomPane.add(listBookRoom, 1, 1, 4, 4);
         listBookRoom.setPrefWidth(500);
         bookRoomPane.setVgap(10);
         bookRoomPane.setHgap(5);
@@ -873,7 +876,8 @@ public class HotelMadisonUI extends Application
            
            int dayIn = ((Integer)cmboDayIn.getValue());
            int dayOut = ((Integer)cmboDayOut.getValue());
-           int year = ((Integer)cmboYear.getValue());
+           int yearIn = ((Integer)cmboYearIn.getValue());
+           int yearOut = ((Integer)cmboYearOut.getValue());
            int monthIn = handleMonth(cmboMonthIn.getValue().toString());
            int monthOut = handleMonth(cmboMonthOut.getValue().toString());
            
@@ -884,7 +888,7 @@ public class HotelMadisonUI extends Application
                 room.get(selectedInt).bookRoom();
                 Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
-                Booking newBooking = new Booking(myGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+                Booking newBooking = new Booking(myGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
 
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
