@@ -588,6 +588,11 @@ public class HotelMadisonUI extends Application
                 + "One or more TextFields are");
             }
         });
+        btnEmployeeBack4.setOnAction(e -> {
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabEditGuest);
+            cmboEmployeeMenu.getSelectionModel().select(0);
+        });
             
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
@@ -1353,7 +1358,7 @@ public class HotelMadisonUI extends Application
         room.get(selectedInt).setBed(bed);
         room.get(selectedInt).setKitch(kitchen);
         room.get(selectedInt).setCoffee(coffee);
-        room.get(selectedInt).setAccess(coffee);
+        room.get(selectedInt).setAccess(access);
         room.get(selectedInt).setRoomPrice(Double.valueOf(txtPrice.getText()));
         if (status == 2)
         {
