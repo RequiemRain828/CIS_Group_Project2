@@ -893,7 +893,6 @@ public class HotelMadisonUI extends Application
 
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
-                System.out.print(newBooking.toString());
                   
            }
            if (!currentVGuest.isEmpty())
@@ -905,8 +904,7 @@ public class HotelMadisonUI extends Application
                 //listBookRoom.getItems().remove(i);
                 Booking newBooking = new Booking(aGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
                 booking.add(newBooking);
-                checkoutList.add(newBooking.toString());
-                System.out.print(newBooking.toString());    
+                checkoutList.add(newBooking.toString());   
            }
            cmboDayIn.getSelectionModel().select(0);
            cmboDayOut.getSelectionModel().select(0);
@@ -1094,10 +1092,12 @@ public class HotelMadisonUI extends Application
                     {
                     booking.get(0).getArrayList().add(tempServiceList.get(j));
                     totalCost += tempServiceList.get(j).getPrice();
-                    lblTotalPrice.setText("Price: $" + totalCost / 2);
+                    lblTotalPrice.setText("Price: $" + totalCost );
                     }
                 }
-            }    
+                break; 
+            }
+          
         });
         btnBack.setOnAction(e -> {
             Tabs.getTabs().remove(tabRoomService);
@@ -1105,6 +1105,7 @@ public class HotelMadisonUI extends Application
             cmboVGuestMenu.getSelectionModel().select(0);
             cmboVGuestMenu.getSelectionModel().select(0);
             listOrder.getItems().clear();
+            lblTotalPrice.setText("Total Price: ");
               
         });
         
