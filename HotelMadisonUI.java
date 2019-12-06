@@ -638,11 +638,12 @@ public class HotelMadisonUI extends Application
                 lblAddEmployee.setText("Please try again. Password cannot \n"
                     + "start with a number");
             }
+            /*
             if (isValidAddEmployee() == false && createNewPassword(txtEmployeePassword.getText()) == 0)
             {
                 lblAddEmployee.setText("");
                 lblAddEmployee.setText("Please try again. Passwords do not match \n");                            
-            }   
+            }*/   
         });
         btnEmployeeBack5.setOnAction(e -> {
             Tabs.getSelectionModel().select(tabEmployee);
@@ -902,7 +903,7 @@ public class HotelMadisonUI extends Application
                 room.get(selectedInt).bookRoom();
                 Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
-                Booking newBooking = new Booking(aGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+                Booking newBooking = new Booking(aGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
                 System.out.print(newBooking.toString());    
