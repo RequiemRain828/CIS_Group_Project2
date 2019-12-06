@@ -559,10 +559,12 @@ public class HotelMadisonUI extends Application
             //y=guest.get(guestID).setPassword(passWordold, passWordnew);
 
             //guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+            
             if (isValidEditGuest() == true)
             {
             int y = 0;
-                y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText()); 
+                y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                y = valueGuest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
                 if (y == 0)
                 {
                     lblEditGuest.setText("You entered the wrong password! "
@@ -1588,7 +1590,7 @@ public class HotelMadisonUI extends Application
         switch(status)
         {
             case "Guest": addGuest(); break; 
-            case "ValueGuest": addValueGuest(); System.out.print("This is valued Guest"); break;
+            case "ValueGuest": addValueGuest(); break;
             default: break;
         }
     }
