@@ -222,10 +222,8 @@ public class Room
         }
         
         
-        desc = ("Room Number: " + this.getRoomNumber() + " has \n" 
-                + bed + ", a " + kitchen + ", a " + coffee + "\n"
-                + "and is a " + access + "\n"
-                + "Room Price Per Night is $" + this.roomCostPerNight + "\n"
+        desc = ("Room Number # " + this.getRoomNumber() + " has " + bed  +  ",a " + kitchen + ", a " + coffee + ",\n" 
+                + "and is a " + access + ", Room Price Per Night is $" + this.roomCostPerNight + ", "
                 );
         
         return desc;

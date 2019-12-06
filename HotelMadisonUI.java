@@ -459,6 +459,8 @@ public class HotelMadisonUI extends Application
         checkoutPane.setVgap(15);
         checkoutPane.setHgap(15);
         lstCheckout.setPrefWidth(400);
+        btnCheckout.disableProperty()
+        .bind(lstCheckout.getSelectionModel().selectedItemProperty().isNull());
         btnCheckout.setOnAction(e -> {
             int selectedInt = lstCheckout.getSelectionModel().getSelectedIndex();
             booking.get(selectedInt).bookedRoom.freeThisRoom();
@@ -734,12 +736,13 @@ public class HotelMadisonUI extends Application
         
         tabAddRoom.setContent(addRoomPane);
         addRoomPane.setAlignment(Pos.CENTER);
+        addRoomPane.add(new Label(""), 0, 0);
         addRoomPane.add(new Label("Add Room Menu"), 0, 1);
         addRoomPane.add(new Label("When Editing Rooms \n "
                 + "Retype same room Number \n "
                 + "(If you type a different room # \n"
                 + "It will not change room # \n"
-                + "You can try...)"), 0, 8);
+                + "You can try...)"), 0, 9);
         addRoomPane.add(lblBed, 0, 2);
         cmboBed.getItems().add("1 Queen Size Bed");
         cmboBed.getItems().add("2 Queen Size Beds");
@@ -778,6 +781,7 @@ public class HotelMadisonUI extends Application
         addRoomPane.setHgap(10);
         addRoomPane.add(lblRoomPrice, 1, 10);
         addRoomPane.add(lblRoomNumber, 1, 11);
+        addRoomPane.setVgap(10);
         //cmboBed.getSelectionModel();
         for (int i = 0; i < room.size(); i++)
         {
