@@ -147,7 +147,7 @@ public class Booking {
           String roomService="";
          for (int i = 0; i < this.roomServiceList.size(); i++){
             
-           roomService = roomServiceList.get(i).description+", " ;
+           roomService += "\n"+roomServiceList.get(i).description+",\n " ;
             
         }
          return roomService;
