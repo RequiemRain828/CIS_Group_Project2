@@ -48,7 +48,12 @@ public void setPrice(double price){
 public int getID() {
     return this.roomServiceID;
 }
-    
+
+@Override
+public String toString()
+{
+    return "Purchased Items" + this.getDescription() + "Price: " + this.getPrice();
+}
 
     
 }
