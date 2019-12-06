@@ -184,8 +184,9 @@ public class HotelMadisonUI extends Application
     public ListView lstGBooking = new ListView(gBookingList);
     
     // Guest Edit Information Controls
-    public Label lblEditRule = new Label("You cannot edit Username/Password, only Name");
+    public Label lblGuestEditDisplayPrompt = new Label("Click \"Display Info\" to see your information");
     public Label lblNamePrompt = new Label("Enter a new name: ");
+    public Label lblEditRule = new Label("*(As a Guest, you can only edit your name)*");
     public Button btnEditInfo = new Button("Edit Name ->");
     public ListView lstGuestInfo = new ListView(guestEditList);
     public TextField txtEditName = new TextField();
@@ -369,6 +370,12 @@ public class HotelMadisonUI extends Application
         guestPane.setVgap(10);
         btnGuestSelect.setOnAction(e -> {            
             handleGuestChoice(cmboGuestMenu.getValue().toString());
+            if(cmboGuestMenu.getValue().toString().equals("Edit Guest Information")) {
+                if (!currentGuest.isEmpty())
+                {
+                   guestEditList.add(currentGuest.get(0).toString());
+                }
+            }
         });
         btnGuestLogout.setOnAction(e -> {            
             currentGuest.remove(0);
@@ -395,6 +402,10 @@ public class HotelMadisonUI extends Application
         btnVGuestSelect.setOnAction(e -> {            
             handleVGuestChoice(cmboVGuestMenu.getValue().toString());
             //Tabs.getTabs().remove(tabValueGuest);
+            if (!currentVGuest.isEmpty()){
+                guestEditList.add(currentVGuest.get(0).toString());
+            }
+                
         });
         btnVGuestLogout.setOnAction(e -> {
             currentVGuest.remove(0);
@@ -1010,14 +1021,15 @@ public class HotelMadisonUI extends Application
         tabEditGuestInfo.setContent(editGuestInfoPane);
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 1);
-        editGuestInfoPane.add(lblEditRule, 0, 2);
+        editGuestInfoPane.add(lblGuestEditDisplayPrompt, 0, 2);
         editGuestInfoPane.add(btnDisplayInfo, 0, 3);
         editGuestInfoPane.add(lblNamePrompt, 0, 4);
         editGuestInfoPane.add(txtEditName, 0, 5);
         editGuestInfoPane.add(btnEditInfo, 0, 6);
+        editGuestInfoPane.add(lblEditRule, 0, 7);
         
-        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 3);
-        editGuestInfoPane.add(btnGuestBack3, 1, 4);
+        editGuestInfoPane.add(lstGuestInfo, 1, 1, 2, 8);
+        editGuestInfoPane.add(btnGuestBack3, 1, 9);
         lstGuestInfo.setPrefWidth(550);
         editGuestInfoPane.setVgap(15);
         editGuestInfoPane.setHgap(15);
@@ -1037,33 +1049,33 @@ public class HotelMadisonUI extends Application
                }
             }
         
-        btnDisplayInfo.setOnAction(e -> {
-            if (!currentVGuest.isEmpty())
-            {
-               guestEditList.add(currentVGuest.get(0).toString());
-            }
-            if (!currentGuest.isEmpty())
-            {
-               guestEditList.add(currentGuest.get(0).toString());
-            }
-        });
+//        btnDisplayInfo.setOnAction(e -> {
+//            if (!currentVGuest.isEmpty())
+//            {
+//               guestEditList.add(currentVGuest.get(0).toString());
+//            }
+//            if (!currentGuest.isEmpty())
+//            {
+//               guestEditList.add(currentGuest.get(0).toString());
+//            }
+//        });
         
         
         btnEditInfo.setOnAction(e -> {
             if (!currentGuest.isEmpty())
             {
-               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               currentGuest.get(selectedInt).setGuestName(txtEditName.getText());
-               guestEditList.remove(selectedInt);
-               guestEditList.add(currentGuest.get(selectedInt).toString());
+               //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               currentGuest.get(0).setGuestName(txtEditName.getText());
+               guestEditList.remove(0);
+               guestEditList.add(currentGuest.get(0).toString());
                txtEditName.clear();
             }
             if (!currentVGuest.isEmpty())
             {
-               int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               currentVGuest.get(selectedInt).setGuestName(txtEditName.getText());
-               guestEditList.remove(selectedInt);
-               guestEditList.add(currentVGuest.get(selectedInt).toString());
+               //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+               currentVGuest.get(0).setGuestName(txtEditName.getText());
+               guestEditList.remove(0);
+               guestEditList.add(currentVGuest.get(0).toString());
                txtEditName.clear();
             }
         });
