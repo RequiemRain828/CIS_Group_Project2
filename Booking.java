@@ -69,32 +69,8 @@ public class Booking {
         this.bookedRoom.freeThisRoom();
     }
     
-    @Override
-    public String toString(){
-        String result = "";
-        result += this.bookingGuest.getGuestName() + " booked Room# " +
-                this.bookedRoom.getRoomNumber() 
-                + "\n from " +this.checkInMonth+"/"
-                +this.checkInDay+"/"+ this.checkInYear+" to "+
-                this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
-        return result; 
-    }
-     public String toStringValue(){
-        String result = "";
-        
-        result += this.bookingGuest.getGuestName() + " booked Room# " 
-                + this.bookedRoom.getRoomNumber() 
-                + this.checkInMonth+"/"
-                + this.checkInDay+"/"+ this.checkInYear+" to "
-                + this.checkOutMonth+"/"+this.checkOutDay+"/"
-                + this.checkOutYear
-                +"\nRoom Price per Day: $"+this.bookedRoom.roomCostPerNight
-                +"\nTotal Days Room Prive: $"+this.roomCost
-                +"\nRoom Service List: "+this.roomServiceList+
-                "\nRoom Service Cost: $"+this.roomServiceCost
-                +"\nTotal Combined Price: $"+this.totalCost;
-        return result; 
-    }
+   
+    
     
     public long dayCount(){
         long numberOfDays;
@@ -111,24 +87,27 @@ public class Booking {
         this.roomServiceList.add(new RoomService(description, price));
     }
     
-    public void roomCost(){
+    public double roomCost(){
         
         this.roomCost = this.bookedRoom.roomCostPerNight * this.dayCount();
-        
+        return this.roomCost;
     }
     
-    public void roomService(){
+    public double roomService(){
         
         for (int i = 0; i < this.roomServiceList.size(); i++){
             
            this.roomServiceCost += roomServiceList.get(i).price;
             
         }
+        return this.roomServiceCost;
 }
     
-    public void totalCost(){
+    public double totalCost(){
         
         this.totalCost = this.roomCost + this.roomServiceCost;
+        
+        return this.totalCost;
         
     }
     
@@ -159,10 +138,46 @@ public class Booking {
     
     public ArrayList getArrayList(){
         
+      
         return this.roomServiceList;
        
     }
-    
+    public String getRoomServiceList()
+    {
+          String roomService="";
+         for (int i = 0; i < this.roomServiceList.size(); i++){
+            
+           roomService = roomServiceList.get(i).description+", " ;
+            
+        }
+         return roomService;
+    }
+     @Override
+    public String toString(){
+        String result = "";
+        result += this.bookingGuest.getGuestName() + " booked Room# " +
+                this.bookedRoom.getRoomNumber() 
+                + "\n from " +this.checkInMonth+"/"
+                +this.checkInDay+"/"+ this.checkInYear+" to "+
+                this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
+        return result; 
+    }
+     public String toStringValue(){
+        String result = "";
+        
+        result += this.bookingGuest.getGuestName() + " booked Room# " 
+                + this.bookedRoom.getRoomNumber() +" from "
+                + this.checkInMonth+"/"
+                + this.checkInDay+"/"+ this.checkInYear+" to "
+                + this.checkOutMonth+"/"+this.checkOutDay+"/"
+                + this.checkOutYear
+                +"\nRoom Price per Day: $"+this.bookedRoom.roomCostPerNight
+                +"\nTotal Days Room Prive: $"+roomCost()
+                +"\nRoom Service List: "+getRoomServiceList()+
+                "\nRoom Service Cost: $"+roomService()
+                +"\nTotal Combined Price: $"+totalCost();
+        return result; 
+    }
     
 
 }
