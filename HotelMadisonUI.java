@@ -876,7 +876,8 @@ public class HotelMadisonUI extends Application
            
            int dayIn = ((Integer)cmboDayIn.getValue());
            int dayOut = ((Integer)cmboDayOut.getValue());
-           int year = ((Integer)cmboYear.getValue());
+           int yearIn = ((Integer)cmboYearIn.getValue());
+           int yearOut = ((Integer)cmboYearOut.getValue());
            int monthIn = handleMonth(cmboMonthIn.getValue().toString());
            int monthOut = handleMonth(cmboMonthOut.getValue().toString());
            
@@ -887,7 +888,7 @@ public class HotelMadisonUI extends Application
                 room.get(selectedInt).bookRoom();
                 Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
-                Booking newBooking = new Booking(myGuest, chosenRoom, year, dayIn, dayOut, monthIn, monthOut, year);
+                Booking newBooking = new Booking(myGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
 
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
