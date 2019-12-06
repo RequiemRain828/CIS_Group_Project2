@@ -9,13 +9,14 @@ public class RoomService {
     public int roomServiceID;
     public String description;
     public double price;
-    
+    public int quantity;
     public static int nextInt = 0;
     
 //Constructor
-public RoomService(String description, double price){
+public RoomService(String description, double price, int amount){
     this.description = description;
     this.price = price;
+    this.quantity = amount;
     this.roomServiceID = nextInt++;
 }    
     
