@@ -396,7 +396,7 @@ public class HotelMadisonUI extends Application
             invalid.setText("");
             Tabs.getTabs().add(tabLogin);
             Tabs.getSelectionModel().select(tabLogin);
-            Tabs.getTabs().remove(tabValueGuest);  
+            Tabs.getTabs().remove(tabValueGuest);            
         });
         
         tabBooking.setContent(employeeBookingPane);
@@ -1137,6 +1137,7 @@ public class HotelMadisonUI extends Application
             for(int i = 0; i < employee.size(); i++) {
                 if (employee.get(i).checkCredentials(username, password))
                 {
+                    cmboLogin.getSelectionModel().select(0);
                     Tabs.getTabs().add(tabEmployee); Tabs.getSelectionModel().select(tabEmployee);
                     Tabs.getTabs().remove(tabLogin);
                     txtUsername.clear();
@@ -1157,6 +1158,7 @@ public class HotelMadisonUI extends Application
                 {
                     if (guest.get(i).checkCredentials(username, password))
                     {
+                        cmboLogin.getSelectionModel().select(0);
                         currentGuest.add(guest.get(i));
                         Tabs.getTabs().remove(tabLogin);
                         Tabs.getTabs().add(tabGuest); Tabs.getSelectionModel().select(tabGuest);
@@ -1176,6 +1178,7 @@ public class HotelMadisonUI extends Application
                 {
                     if (valueGuest.get(i).checkCredentials(username, password))
                     {
+                        cmboLogin.getSelectionModel().select(0);
                         currentVGuest.add(valueGuest.get(i));
                         Tabs.getTabs().remove(tabLogin);
                         Tabs.getTabs().add(tabValueGuest); Tabs.getSelectionModel().select(tabValueGuest);
