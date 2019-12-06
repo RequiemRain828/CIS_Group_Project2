@@ -124,8 +124,15 @@ public class Guest
     @Override
      public String toString()
     {
+        String tempStatus = "";
+        if (this.getStatus().equals("G")) {
+            tempStatus = " (Guest)";
+        } else if (this.getStatus().equals("V")) {
+            tempStatus = " (Value Guest)";
+        }
+        
         return "Username: " + this.username + ", Password: " + hashPassword() + ", Guest Name: " + this.guestName + ", Status: " 
-                + this.getStatus();
+                + this.getStatus() + tempStatus;
         // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
                 
     }
