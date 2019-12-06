@@ -165,6 +165,7 @@ public class HotelMadisonUI extends Application
     public Label lblFreeRooms = new Label("Free Rooms: ");
     public Label lblCheckinDate = new Label("Check In Month/Day/Year: ");
     public Label lblCheckoutDate = new Label("Check Out Month/Day/Year: ");
+    public Label lblThankYou = new Label("");
     public Button btnBookRoom = new Button("Book Room -> "); 
     public ListView listBookRoom = new ListView(bookList);
     public ComboBox cmboYearIn = new ComboBox();
@@ -832,7 +833,7 @@ public class HotelMadisonUI extends Application
         
         tabBookRoom.setContent(bookRoomPane);
         bookRoomPane.setAlignment(Pos.CENTER);
-        bookRoomPane.add(new Label("Welcome to the Book a Room Menu"), 0, 0);
+        bookRoomPane.add(new Label("Welcome to the Book a Room Menu"), 0, 1);
         bookRoomPane.add(lblFreeRooms, 0, 4); 
         bookRoomPane.add(lblCheckinDate, 0, 6);
         bookRoomPane.add(lblCheckoutDate, 0, 7);
@@ -867,6 +868,7 @@ public class HotelMadisonUI extends Application
         bookRoomPane.add(btnBookRoom, 1, 8);
         bookRoomPane.add(btnGuestBack1, 3, 8);
         bookRoomPane.add(listBookRoom, 1, 1, 4, 4);
+        bookRoomPane.add(lblThankYou, 4, 6);
         listBookRoom.setPrefWidth(500);
         bookRoomPane.setVgap(10);
         bookRoomPane.setHgap(5);
@@ -893,7 +895,8 @@ public class HotelMadisonUI extends Application
                 Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
                 Booking newBooking = new Booking(myGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
-
+                lblThankYou.setText("*Thank you for booking a room!*");
+                
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString());
                   
@@ -906,8 +909,10 @@ public class HotelMadisonUI extends Application
                 Room chosenRoom = room.get(selectedInt);
                 //listBookRoom.getItems().remove(i);
                 Booking newBooking = new Booking(aGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
+                
                 booking.add(newBooking);
-                checkoutList.add(newBooking.toString());   
+                checkoutList.add(newBooking.toString()); 
+                bookRoomPane.add(new Label("*Thank you for booking a room!*"), 4, 6);
            }
            cmboDayIn.getSelectionModel().select(0);
            cmboDayOut.getSelectionModel().select(0);
@@ -923,13 +928,15 @@ public class HotelMadisonUI extends Application
                Tabs.getSelectionModel().select(tabValueGuest);
                Tabs.getTabs().remove(tabBookRoom);
                cmboVGuestMenu.getSelectionModel().select(0);
+               
            }
            if (!currentGuest.isEmpty())
            {
                Tabs.getSelectionModel().select(tabGuest);
                Tabs.getTabs().remove(tabBookRoom);
                cmboGuestMenu.getSelectionModel().select(0);
-           }        
+           }  
+           lblThankYou.setText("");
         });
        
         tabDisplayBooking.setContent(guestBookingPane);
