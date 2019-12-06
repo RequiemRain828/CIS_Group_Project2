@@ -880,7 +880,7 @@ public class HotelMadisonUI extends Application
            int yearIn = ((Integer)cmboYearIn.getValue());
            int yearOut = ((Integer)cmboYearOut.getValue());
            int monthIn = handleMonth(cmboMonthIn.getValue().toString());
-           int monthOut = handleMonth(cmboMonthOut.getValue().toString());
+           int monthOut = handleMonth(cmboMonthOut.getValue().toString());          
            
            if (!currentGuest.isEmpty())
            {
@@ -908,18 +908,26 @@ public class HotelMadisonUI extends Application
                 checkoutList.add(newBooking.toString());
                 System.out.print(newBooking.toString());    
            }
+           cmboDayIn.getSelectionModel().select(0);
+           cmboDayOut.getSelectionModel().select(0);
+           cmboMonthIn.getSelectionModel().select(0);
+           cmboMonthOut.getSelectionModel().select(0);
+           cmboYearIn.getSelectionModel().select(0);
+           cmboYearOut.getSelectionModel().select(0);
                 
         });
         btnGuestBack1.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
            {
                Tabs.getSelectionModel().select(tabValueGuest);
-               Tabs.getTabs().remove(tabBookRoom); 
+               Tabs.getTabs().remove(tabBookRoom);
+               cmboVGuestMenu.getSelectionModel().select(0);
            }
            if (!currentGuest.isEmpty())
            {
                Tabs.getSelectionModel().select(tabGuest);
-               Tabs.getTabs().remove(tabBookRoom); 
+               Tabs.getTabs().remove(tabBookRoom);
+               cmboGuestMenu.getSelectionModel().select(0);
            }        
         });
        
@@ -958,13 +966,17 @@ public class HotelMadisonUI extends Application
         btnGuestBack2.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
            {
+               lstGBooking.getItems().clear();
                Tabs.getSelectionModel().select(tabValueGuest);
-               Tabs.getTabs().remove(tabDisplayBooking); 
+               Tabs.getTabs().remove(tabDisplayBooking);
+               cmboVGuestMenu.getSelectionModel().select(0);
            }
            if (!currentGuest.isEmpty())
            {
+               lstGBooking.getItems().clear();
                Tabs.getSelectionModel().select(tabGuest);
-               Tabs.getTabs().remove(tabDisplayBooking); 
+               Tabs.getTabs().remove(tabDisplayBooking);
+               cmboGuestMenu.getSelectionModel().select(0);
            }        
         });
         
@@ -998,6 +1010,7 @@ public class HotelMadisonUI extends Application
                currentGuest.get(selectedInt).setGuestName(txtEditName.getText());
                guestEditList.remove(selectedInt);
                guestEditList.add(currentGuest.get(selectedInt).toString());
+               txtEditName.clear();
             }
             if (!currentVGuest.isEmpty())
             {
@@ -1019,13 +1032,17 @@ public class HotelMadisonUI extends Application
         btnGuestBack3.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
            {
+               lstGuestInfo.getItems().clear();
                Tabs.getSelectionModel().select(tabValueGuest);
-               Tabs.getTabs().remove(tabEditGuestInfo); 
+               Tabs.getTabs().remove(tabEditGuestInfo);
+               cmboVGuestMenu.getSelectionModel().select(0);
            }
            if (!currentGuest.isEmpty())
            {
+               lstGuestInfo.getItems().clear();
                Tabs.getSelectionModel().select(tabGuest);
-               Tabs.getTabs().remove(tabEditGuestInfo); 
+               Tabs.getTabs().remove(tabEditGuestInfo);
+               cmboGuestMenu.getSelectionModel().select(0);
            }        
         });
         
@@ -1066,11 +1083,6 @@ public class HotelMadisonUI extends Application
         });
         
         btnFinishOrderService.setOnAction(e -> {
-        /*
-        double num = handleRoomService(cmboServices.getValue().toString());
-        double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
-        RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService);
-        */
           
           double totalCost = 0;
           for(int i = 0; i < booking.size();i++)
@@ -1091,6 +1103,8 @@ public class HotelMadisonUI extends Application
             Tabs.getTabs().remove(tabRoomService);
             Tabs.getSelectionModel().select(tabValueGuest);
             cmboVGuestMenu.getSelectionModel().select(0);
+            cmboVGuestMenu.getSelectionModel().select(0);
+            listOrder.getItems().clear();
               
         });
         
