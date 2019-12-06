@@ -164,8 +164,8 @@ public class HotelMadisonUI extends Application
     // Guest Book a Room Controls
     public Label lblFreeRooms = new Label("Free Rooms: ");
     public Label lblCheckinYear = new Label("Check In Year: ");
-    public Label lblCheckinDate = new Label("Check In Month/Day/Year: ");
-    public Label lblCheckoutDate = new Label("Check Out Month/Day/Year: ");
+    public Label lblCheckinDate = new Label("Check In Month/Day: ");
+    public Label lblCheckoutDate = new Label("Check Out Month/Day: ");
     public Button btnBookRoom = new Button("Book Room -> "); 
     public ListView listBookRoom = new ListView(bookList);
     public ComboBox cmboYear = new ComboBox();
