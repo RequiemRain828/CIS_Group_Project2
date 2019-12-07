@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*; 
 import javafx.stage.Stage;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 
 // For ArrayList
 import java.util.*;
@@ -1165,8 +1167,13 @@ public class HotelMadisonUI extends Application
         );
         cmboServices.getSelectionModel().select(0);
         ArrayList <RoomService> tempServiceList = new ArrayList<>();
+        //btnAddToOrder.disableProperty()
+        //.bind(Bindings.isEmpty(txtServiceQuantity.textProperty())
+        BooleanBinding isTextFieldEmpty = Bindings.isEmpty(txtServiceQuantity.textProperty());
+        btnAddToOrder.disableProperty().bind(isTextFieldEmpty);
         btnAddToOrder.setOnAction(e -> {
-        
+            if (isValidAddOrder() == true)
+            {       
             String quantityOfService;
             quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
             roomServiceList.add(quantityOfService);
@@ -1178,12 +1185,18 @@ public class HotelMadisonUI extends Application
             RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService, quantity);
             tempServiceList.add(newOrder);
             txtServiceQuantity.clear();
-            //System.out.println(tempServiceList.get(0).toString());          
+            for(int i = 0; i < booking.size();i++)
+            {
+            System.out.println(newOrder.toString());
+            }
+            }
+            cmboServices.getSelectionModel().select(0);
         });
         
         btnFinishOrderService.setOnAction(e -> {
             
             double totalCost = 0;
+            int count = 0;
             for(int i = 0; i < booking.size();i++)
             {
                 if(booking.get(i).getBookingGuest() == currentVGuest.get(0))
@@ -1191,14 +1204,22 @@ public class HotelMadisonUI extends Application
                     //booking.get(0).getArrayList().add(newOrder);
                     for (int j = 0; j < tempServiceList.size(); j++)
                     {
-                    booking.get(0).getArrayList().add(tempServiceList.get(j));
+                    booking.get(i).getArrayList().add(tempServiceList.get(j));
                     totalCost += tempServiceList.get(j).getPrice();
                     lblTotalPrice.setText("Total Price: $" + totalCost );
                     }
                 }
-                break; 
+                count++; break; 
             }
-            
+            if (count == 1)
+            {
+                System.out.print("Loop through");
+            }
+            for(int i = 0; i < booking.size();i++)
+            {
+            System.out.println(booking.get(i).getRoomServiceList());
+            }
+            cmboServices.getSelectionModel().select(0);
         });
         btnClearOrder.setOnAction(e -> {
             listOrder.getItems().clear();
@@ -1208,15 +1229,19 @@ public class HotelMadisonUI extends Application
             {
                 tempServiceList.remove(j);
             }
+            cmboServices.getSelectionModel().select(0);
         });
         btnBack.setOnAction(e -> {
             Tabs.getTabs().remove(tabRoomService);
             Tabs.getSelectionModel().select(tabValueGuest);
             cmboVGuestMenu.getSelectionModel().select(0);
-            cmboVGuestMenu.getSelectionModel().select(0);
+            cmboServices.getSelectionModel().select(0);
             listOrder.getItems().clear();
             lblTotalPrice.setText("Total Price: ");
-              
+            for (int j = 0; j < tempServiceList.size(); j++)
+            {
+                tempServiceList.remove(j);
+            }       
         });
         
         // Create a scene
@@ -1339,7 +1364,19 @@ public class HotelMadisonUI extends Application
             case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
             case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
             case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuestInfo); break;
-            case "Order Room Service": Tabs.getTabs().add(tabRoomService); Tabs.getSelectionModel().select(tabRoomService); break;
+            case "Order Room Service": 
+                for (int i = 0; i < room.size(); i++)
+                {
+                    if ((room.get(i).bookedRoom()))
+                    {
+                        Tabs.getTabs().add(tabRoomService); Tabs.getSelectionModel().select(tabRoomService); break;
+                    }
+                    else
+                    {
+                        System.out.println("Book is not booked");
+                    }
+                }
+                
             default: break;
         }
     }
@@ -1574,6 +1611,27 @@ public class HotelMadisonUI extends Application
         }
         return result;     
     }
+    
+    public boolean isValidAddOrder()
+    {
+        boolean result = false;
+        if (!(txtServiceQuantity.getText() == null || txtServiceQuantity.getText().length() == 0)) 
+        {
+        try {
+            // Do all the validation you need here such as
+            int d = Integer.parseInt(txtServiceQuantity.getText());
+            if ( d >= 1 && d < 999)
+                {
+                result = true;
+                }
+            } catch (NumberFormatException e) 
+            {
+            result = false;
+            }
+        }
+        return result;     
+    }
+    
     public boolean isValidAddGuest()
     {
         boolean result = false;
