@@ -53,7 +53,7 @@ public int getID() {
 @Override
 public String toString()
 {
-    return "Purchased Items" + this.getDescription() + "Price: " + this.getPrice();
+    return "Purchased Items" + this.getDescription() + "Price: " + this.getPrice() + "Quantity: " + this.quantity;
 }
 
     
