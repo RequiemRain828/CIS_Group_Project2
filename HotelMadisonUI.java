@@ -1113,21 +1113,25 @@ public class HotelMadisonUI extends Application
         
         
         btnEditInfo.setOnAction(e -> {
-            if (!currentGuest.isEmpty())
-            {
-               //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               currentGuest.get(0).setGuestName(txtEditName.getText());
-               guestEditList.remove(0);
-               guestEditList.add(currentGuest.get(0).toString());
-               txtEditName.clear();
-            }
-            if (!currentVGuest.isEmpty())
-            {
-               //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               currentVGuest.get(0).setGuestName(txtEditName.getText());
-               guestEditList.remove(0);
-               guestEditList.add(currentVGuest.get(0).toString());
-               txtEditName.clear();
+            if (isValidEditGuestName()){
+                if (!currentGuest.isEmpty())
+                {
+                   //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+                   currentGuest.get(0).setGuestName(txtEditName.getText());
+                   guestEditList.remove(0);
+                   guestEditList.add(currentGuest.get(0).toString());
+                   txtEditName.clear();
+                }
+                if (!currentVGuest.isEmpty())
+                {
+                   //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+                   currentVGuest.get(0).setGuestName(txtEditName.getText());
+                   guestEditList.remove(0);
+                   guestEditList.add(currentVGuest.get(0).toString());
+                   txtEditName.clear();
+                }
+            } else {
+                System.out.println("No name was entered!");
             }
         });
         btnGuestBack3.setOnAction(e -> {
@@ -1661,11 +1665,17 @@ public class HotelMadisonUI extends Application
         {
             result = true; 
         }
-        else
-        {
-            result = false;
-        }
         return result;     
+    }
+    
+    public boolean isValidEditGuestName() {
+        boolean result = false;
+        
+        if(!((txtEditName.getText() == null) || (txtEditName.getText().trim().length() == 0))) {
+            result = true; 
+        } 
+        
+        return result; 
     }
     
     public boolean isValidAddEmployee()
