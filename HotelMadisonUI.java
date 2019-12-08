@@ -84,7 +84,7 @@ public class HotelMadisonUI extends Application
     public ComboBox cmboSelectRoom = new ComboBox(guestName);
     public ListView lstEmployeeBooking = new ListView(ebookingList);
     public Button btnDisplayAll = new Button("Display All");
-    public Button btnDisplaySelect = new Button("Display Selected Room");
+    public Button btnDisplaySelect = new Button("Display Selected Guest Info");
     
     // Employee Guest Room Checkout controls
     public ListView lstCheckout = new ListView(checkoutList);
@@ -98,6 +98,10 @@ public class HotelMadisonUI extends Application
     public Label lblGuestName = new Label("Enter Guest Full Name: ");
     public Label lblGuestPassword1 = new Label("Confirm Guest Password: ");
     public Label lblAddGuest = new Label("");
+    public Label lblAddGuestPasswordMustHaves = new Label("The Password Must:"
+            + "\n * Contain at least one capital letter"
+            + "\n * Contain at least one number"
+            + "\n * Not begin with a number");
     public ComboBox cmboGuestStatus = new ComboBox();
     public TextField txtGuestUsername = new TextField();
     public TextField txtGuestPassword = new TextField();
@@ -107,9 +111,14 @@ public class HotelMadisonUI extends Application
     public ListView lstGuest = new ListView(guestList);
     
     // Edit Guest Account
+    public Label lblSelectGuest = new Label("*** Select a guest from the list to edit.***");
     public Label lblEditGuestName = new Label("Enter Guest Full Name: ");
     public Label lblEditGuestPassword = new Label("Enter Old Guest Password: ");
     public Label lblEditGuestPassword1 = new Label("Enter New Guest Password: ");
+    public Label lblEditGuestForEmpPasswordMustHaves = new Label("The Password Must:"
+            + "\n * Contain at least one capital letter"
+            + "\n * Contain at least one number"
+            + "\n * Not begin with a number");
     public Label lblEditGuest = new Label("");
     public TextField txtEditGuestPassword = new TextField();
     public TextField txtEditGuestPassword1 = new TextField();
@@ -122,6 +131,10 @@ public class HotelMadisonUI extends Application
     public Label lblEmployeePassword = new Label("Enter Employee Password: ");
     public Label lblEmployeeName = new Label("Enter Employee Full Name: ");
     public Label lblEmployeePassword1 = new Label("Confirm Employee Password: ");
+    public Label lblAddEmployeePasswordMustHaves = new Label("The Password Must:"
+            + "\n * Contain at least one capital letter"
+            + "\n * Contain at least one number"
+            + "\n * Not begin with a number");
     public Label lblAddEmployee = new Label("");
     public TextField txtEmployeeUsername = new TextField();
     public TextField txtEmployeePassword = new TextField();
@@ -131,9 +144,14 @@ public class HotelMadisonUI extends Application
     public ListView lstEmployee = new ListView(employeeList);
     
     // Edit Employee Account
+    public Label lblSelectEmployee = new Label("*** Select an employee from the list to edit.***");
     public Label lblEditEmployeeName = new Label("Enter Employee Full Name: ");
     public Label lblEditEmployeePassword = new Label("Enter Old Employee Password: ");
     public Label lblEditEmployeePassword1 = new Label("Enter New Employee Password: ");
+    public Label lblEditEmployeePasswordMustHaves = new Label("The Password Must:"
+            + "\n * Contain at least one capital letter"
+            + "\n * Contain at least one number"
+            + "\n * Not begin with a number");
     public Label lblEditEmployee = new Label("");
     public TextField txtEditEmployeeName = new TextField();
     public TextField txtEditEmployeePassword = new TextField();
@@ -499,7 +517,8 @@ public class HotelMadisonUI extends Application
         addGuestPane.add(lblGuestUsername, 0, 4);
         addGuestPane.add(lblGuestPassword, 0, 5);
         addGuestPane.add(lblGuestPassword1, 0, 6);
-        addGuestPane.add(lblAddGuest, 0, 7);
+        addGuestPane.add(lblAddGuestPasswordMustHaves, 0, 8);
+        addGuestPane.add(lblAddGuest, 0, 8);
         cmboGuestStatus.getItems().add("Guest");
         cmboGuestStatus.getItems().add("ValueGuest");
         cmboGuestStatus.getSelectionModel().select(0);
@@ -508,9 +527,9 @@ public class HotelMadisonUI extends Application
         addGuestPane.add(txtGuestUsername, 1, 4);
         addGuestPane.add(txtGuestPassword, 1, 5);
         addGuestPane.add(txtGuestPassword1, 1, 6);
-        addGuestPane.add(btnAddGuest, 1, 8);
-        addGuestPane.add(btnEmployeeBack3, 2, 8);
-        addGuestPane.add(lstGuest, 2, 1, 3, 7);
+        addGuestPane.add(btnAddGuest, 1, 10);
+        addGuestPane.add(btnEmployeeBack3, 2, 10);
+        addGuestPane.add(lstGuest, 2, 1, 3, 9);
         lstGuest.setPrefWidth(500);
         addGuestPane.setVgap(10);
         addGuestPane.setHgap(10);
@@ -547,6 +566,7 @@ public class HotelMadisonUI extends Application
             }
         });
         btnEmployeeBack3.setOnAction(e -> {
+            lblAddGuest.setText("");
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabAddGuest);  
         });
@@ -554,16 +574,18 @@ public class HotelMadisonUI extends Application
         tabEditGuest.setContent(editGuestPane);
         editGuestPane.setAlignment(Pos.CENTER);
         editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 1);
-        editGuestPane.add(lblEditGuestName, 0, 2);
-        editGuestPane.add(lblEditGuestPassword, 0, 3);
-        editGuestPane.add(lblEditGuestPassword1, 0, 4);
-        editGuestPane.add(txtEditGuestName, 1, 2);
-        editGuestPane.add(txtEditGuestPassword, 1, 3);
-        editGuestPane.add(txtEditGuestPassword1, 1, 4);
-        editGuestPane.add(lblEditGuest, 1, 5);
-        editGuestPane.add(btnEmployeeBack4, 2, 6);
-        editGuestPane.add(btnEditGuest, 1, 6);
-        editGuestPane.add(lstEditGuest, 2, 1, 2, 5);
+        editGuestPane.add(lblSelectGuest, 0, 2);
+        editGuestPane.add(lblEditGuestName, 0, 3);
+        editGuestPane.add(lblEditGuestPassword, 0, 4);
+        editGuestPane.add(lblEditGuestPassword1, 0, 5);
+        editGuestPane.add(txtEditGuestName, 1, 3);
+        editGuestPane.add(txtEditGuestPassword, 1, 4);
+        editGuestPane.add(txtEditGuestPassword1, 1, 5);
+        editGuestPane.add(lblEditGuestForEmpPasswordMustHaves, 0, 6);
+        editGuestPane.add(lblEditGuest, 1, 7);
+        editGuestPane.add(btnEmployeeBack4, 2, 8);
+        editGuestPane.add(btnEditGuest, 1, 8);
+        editGuestPane.add(lstEditGuest, 2, 1, 2, 7);
         lstEditGuest.setPrefWidth(500);
         editGuestPane.setVgap(10);
         editGuestPane.setHgap(10);
@@ -665,6 +687,7 @@ public class HotelMadisonUI extends Application
             }
             }
         });
+        
         btnEmployeeBack4.setOnAction(e -> {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabEditGuest);
@@ -677,15 +700,16 @@ public class HotelMadisonUI extends Application
         addEmployeePane.add(lblEmployeeName, 0, 2);
         addEmployeePane.add(lblEmployeeUsername, 0, 3);
         addEmployeePane.add(lblEmployeePassword, 0, 4);
-        addEmployeePane.add(lblEmployeePassword1, 0, 5);
-        addEmployeePane.add(lblAddEmployee, 0, 6);
+        addEmployeePane.add(lblEmployeePassword1, 0, 5);  
+        addEmployeePane.add(lblAddEmployeePasswordMustHaves, 0, 6);
+        addEmployeePane.add(lblAddEmployee, 0, 7);
         addEmployeePane.add(txtEmployeeName, 1, 2);
         addEmployeePane.add(txtEmployeeUsername, 1, 3);
         addEmployeePane.add(txtEmployeePassword, 1, 4);
-        addEmployeePane.add(txtEmployeePassword1, 1, 5);        
-        addEmployeePane.add(btnAddEmployee, 1, 7);
-        addEmployeePane.add(btnEmployeeBack5, 2, 7);       
-        addEmployeePane.add(lstEmployee, 2, 1, 1, 6);
+        addEmployeePane.add(txtEmployeePassword1, 1, 5);
+        addEmployeePane.add(btnAddEmployee, 1, 8);
+        addEmployeePane.add(btnEmployeeBack5, 2, 8);       
+        addEmployeePane.add(lstEmployee, 2, 1, 1, 7);
         lstEmployee.setPrefWidth(400);
         addEmployeePane.setVgap(10);
         addEmployeePane.setHgap(10);       
@@ -736,16 +760,18 @@ public class HotelMadisonUI extends Application
         tabEditEmployee.setContent(editEmployeePane);
         editEmployeePane.setAlignment(Pos.CENTER);
         editEmployeePane.add(new Label("Welcome to the Edit an Employee Account Menu"), 0, 1);
-        editEmployeePane.add(lblEditEmployeeName, 0, 2);
-        editEmployeePane.add(lblEditEmployeePassword, 0, 3);
-        editEmployeePane.add(lblEditEmployeePassword1, 0, 4);
-        editEmployeePane.add(lblEditEmployee, 0, 5);
-        editEmployeePane.add(txtEditEmployeeName, 1, 2);
-        editEmployeePane.add(txtEditEmployeePassword, 1, 3);
-        editEmployeePane.add(txtEditEmployeePassword1, 1, 4);
-        editEmployeePane.add(btnEmployeeBack6, 2, 6);
-        editEmployeePane.add(btnEditEmployee, 1, 6);
-        editEmployeePane.add(lstEditEmployee, 2, 1, 2, 5);
+        editEmployeePane.add(lblSelectEmployee, 0, 2);
+        editEmployeePane.add(lblEditEmployeeName, 0, 3);
+        editEmployeePane.add(lblEditEmployeePassword, 0, 4);
+        editEmployeePane.add(lblEditEmployeePassword1, 0, 5);
+        editEmployeePane.add(lblEditEmployeePasswordMustHaves, 0, 6);
+        editEmployeePane.add(lblEditEmployee, 0, 7);
+        editEmployeePane.add(txtEditEmployeeName, 1, 3);
+        editEmployeePane.add(txtEditEmployeePassword, 1, 4);
+        editEmployeePane.add(txtEditEmployeePassword1, 1, 5);
+        editEmployeePane.add(btnEmployeeBack6, 2, 8);
+        editEmployeePane.add(btnEditEmployee, 1, 8);
+        editEmployeePane.add(lstEditEmployee, 2, 1, 2, 7);
         lstEditEmployee.setPrefWidth(400);
         editEmployeePane.setVgap(10);
         editEmployeePane.setHgap(10);
@@ -1114,21 +1140,25 @@ public class HotelMadisonUI extends Application
         
         
         btnEditInfo.setOnAction(e -> {
-            if (!currentGuest.isEmpty())
-            {
-               //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               currentGuest.get(0).setGuestName(txtEditName.getText());
-               guestEditList.remove(0);
-               guestEditList.add(currentGuest.get(0).toString());
-               txtEditName.clear();
-            }
-            if (!currentVGuest.isEmpty())
-            {
-               //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
-               currentVGuest.get(0).setGuestName(txtEditName.getText());
-               guestEditList.remove(0);
-               guestEditList.add(currentVGuest.get(0).toString());
-               txtEditName.clear();
+            if (isValidEditGuestName()){
+                if (!currentGuest.isEmpty())
+                {
+                   //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+                   currentGuest.get(0).setGuestName(txtEditName.getText());
+                   guestEditList.remove(0);
+                   guestEditList.add(currentGuest.get(0).toString());
+                   txtEditName.clear();
+                }
+                if (!currentVGuest.isEmpty())
+                {
+                   //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
+                   currentVGuest.get(0).setGuestName(txtEditName.getText());
+                   guestEditList.remove(0);
+                   guestEditList.add(currentVGuest.get(0).toString());
+                   txtEditName.clear();
+                }
+            } else {
+                System.out.println("No name was entered!");
             }
         });
         btnGuestBack3.setOnAction(e -> {
@@ -1663,11 +1693,17 @@ public class HotelMadisonUI extends Application
         {
             result = true; 
         }
-        else
-        {
-            result = false;
-        }
         return result;     
+    }
+    
+    public boolean isValidEditGuestName() {
+        boolean result = false;
+        
+        if(!((txtEditName.getText() == null) || (txtEditName.getText().trim().length() == 0))) {
+            result = true; 
+        } 
+        
+        return result; 
     }
     
     public boolean isValidAddEmployee()
