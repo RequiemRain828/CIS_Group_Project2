@@ -98,10 +98,10 @@ public class HotelMadisonUI extends Application
     public Label lblGuestName = new Label("Enter Guest Full Name: ");
     public Label lblGuestPassword1 = new Label("Confirm Guest Password: ");
     public Label lblAddGuest = new Label("");
-    public Label lblAddGuestPasswordMustHaves = new Label("The Password Must:"
-            + "\n * Contain at least one capital letter"
-            + "\n * Contain at least one number"
-            + "\n * Not begin with a number");
+    public Label lblAddGuestPasswordMustHaves = new Label("Password Requirements:"
+            + "\n * Must contain at least one capital letter"
+            + "\n * Must contain at least one number"
+            + "\n * Cannot begin with a number");
     public ComboBox cmboGuestStatus = new ComboBox();
     public TextField txtGuestUsername = new TextField();
     public TextField txtGuestPassword = new TextField();
@@ -115,10 +115,10 @@ public class HotelMadisonUI extends Application
     public Label lblEditGuestName = new Label("Enter Guest Full Name: ");
     public Label lblEditGuestPassword = new Label("Enter Old Guest Password: ");
     public Label lblEditGuestPassword1 = new Label("Enter New Guest Password: ");
-    public Label lblEditGuestForEmpPasswordMustHaves = new Label("The Password Must:"
-            + "\n * Contain at least one capital letter"
-            + "\n * Contain at least one number"
-            + "\n * Not begin with a number");
+    public Label lblEditGuestForEmpPasswordMustHaves = new Label("Password Requirements:"
+            + "\n * Must contain at least one capital letter"
+            + "\n * Must contain at least one number"
+            + "\n * Cannot begin with a number");
     public Label lblEditGuest = new Label("");
     public TextField txtEditGuestPassword = new TextField();
     public TextField txtEditGuestPassword1 = new TextField();
@@ -131,10 +131,10 @@ public class HotelMadisonUI extends Application
     public Label lblEmployeePassword = new Label("Enter Employee Password: ");
     public Label lblEmployeeName = new Label("Enter Employee Full Name: ");
     public Label lblEmployeePassword1 = new Label("Confirm Employee Password: ");
-    public Label lblAddEmployeePasswordMustHaves = new Label("The Password Must:"
-            + "\n * Contain at least one capital letter"
-            + "\n * Contain at least one number"
-            + "\n * Not begin with a number");
+    public Label lblAddEmployeePasswordMustHaves = new Label("Password Requirements:"
+            + "\n * Must contain at least one capital letter"
+            + "\n * Must contain at least one number"
+            + "\n * Cannot begin with a number");
     public Label lblAddEmployee = new Label("");
     public TextField txtEmployeeUsername = new TextField();
     public TextField txtEmployeePassword = new TextField();
@@ -148,10 +148,10 @@ public class HotelMadisonUI extends Application
     public Label lblEditEmployeeName = new Label("Enter Employee Full Name: ");
     public Label lblEditEmployeePassword = new Label("Enter Old Employee Password: ");
     public Label lblEditEmployeePassword1 = new Label("Enter New Employee Password: ");
-    public Label lblEditEmployeePasswordMustHaves = new Label("The Password Must:"
-            + "\n * Contain at least one capital letter"
-            + "\n * Contain at least one number"
-            + "\n * Not begin with a number");
+    public Label lblEditEmployeePasswordMustHaves = new Label("Password Requirements:"
+            + "\n * Must contain at least one capital letter"
+            + "\n * Must contain at least one number"
+            + "\n * Cannot begin with a number");
     public Label lblEditEmployee = new Label("");
     public TextField txtEditEmployeeName = new TextField();
     public TextField txtEditEmployeePassword = new TextField();
@@ -518,7 +518,7 @@ public class HotelMadisonUI extends Application
         addGuestPane.add(lblGuestPassword, 0, 5);
         addGuestPane.add(lblGuestPassword1, 0, 6);
         addGuestPane.add(lblAddGuestPasswordMustHaves, 0, 8);
-        addGuestPane.add(lblAddGuest, 0, 8);
+        addGuestPane.add(lblAddGuest, 0, 9);
         cmboGuestStatus.getItems().add("Guest");
         cmboGuestStatus.getItems().add("ValueGuest");
         cmboGuestStatus.getSelectionModel().select(0);
@@ -535,35 +535,66 @@ public class HotelMadisonUI extends Application
         addGuestPane.setHgap(10);
         btnAddGuest.setOnAction(e -> {
   
-            int x = 0;
+            // int x = 0;
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 2)
             {
                 handleAddGuest(cmboGuestStatus.getValue().toString());
                 lblAddGuest.setText("");
+            } else {
+                
+                String errorMessage = "Please try again.";
+                String temp = addGuestErrorMessages();
+                
+                // Textfield empty
+                if(addGuestErrorMessages().contains("1")) {
+                    errorMessage += "\n- All text fields must be filled";
+                }
+    
+                // Passwords don't match
+                if(addGuestErrorMessages().contains("2")) {
+                    errorMessage += "\n- The password entries don't match ";
+                }
+                
+                // No capital
+                if(addGuestErrorMessages().contains("3")) {
+                    errorMessage += "\n- The password must contain a captial letter";
+                }
+                
+                // No number
+                if(addGuestErrorMessages().contains("4")) {
+                    errorMessage += "\n- The password must contain a number";
+                }
+                
+                // Number at the front 
+                if(addGuestErrorMessages().contains("5")) {
+                    errorMessage += "\n- The password cannot begin with a number";
+                }
+                
+                lblAddGuest.setText(errorMessage);
             }
-            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 0)
-            {
-                lblAddGuest.setText("");
-                lblAddGuest.setText("Please try again. \n"
-                        + "Password does not contain \n"
-                        + "at least one uppercase \n"
-                        + "letter and one number \n"
-                        + "or one or more TextFields \n"
-                        + "are empty");
-            }
-            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 1)
-            {
-                lblAddGuest.setText("");
-                lblAddGuest.setText("Please try again. Password cannot \n"
-                    + "start with a number");
-            }
-            //if (isValidAddGuest() == false && createNewPassword(txtGuestPassword.getText()) == 0)
-            else
-            {
-                lblAddGuest.setText("");
-                lblAddGuest.setText("Please try again. Passwords do not match\n"
-                        + "or All Textfields are empty");
-            }
+//            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 0)
+//            {
+//                lblAddGuest.setText("");
+//                lblAddGuest.setText("Please try again. \n"
+//                        + "Password does not contain \n"
+//                        + "at least one uppercase \n"
+//                        + "letter and one number \n"
+//                        + "or one or more TextFields \n"
+//                        + "are empty");
+//            }
+//            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 1)
+//            {
+//                lblAddGuest.setText("");
+//                lblAddGuest.setText("Please try again. Password cannot \n"
+//                    + "start with a number");
+//            }
+//            //if (isValidAddGuest() == false && createNewPassword(txtGuestPassword.getText()) == 0)
+//            else
+//            {
+//                lblAddGuest.setText("");
+//                lblAddGuest.setText("Please try again. Passwords do not match\n"
+//                        + "or All Textfields are empty");
+//            }
         });
         btnEmployeeBack3.setOnAction(e -> {
             lblAddGuest.setText("");
@@ -591,6 +622,7 @@ public class HotelMadisonUI extends Application
         editGuestPane.setHgap(10);
         btnEditGuest.disableProperty()
         .bind(lstEditGuest.getSelectionModel().selectedItemProperty().isNull());
+        
         btnEditGuest.setOnAction(e -> {
             int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
             
@@ -1682,6 +1714,47 @@ public class HotelMadisonUI extends Application
             }
         }
         return result;     
+    }
+    
+    public String addGuestErrorMessages()
+    {
+        String result = "";
+        
+        // if a textfield is empty, concat 1 to result
+        if (txtGuestPassword.getText() == null || txtGuestPassword.getText().length() == 0
+                || txtGuestPassword1.getText() == null || txtGuestPassword1.getText().length() == 0
+                || txtGuestUsername.getText() == null || txtGuestUsername.getText().length() == 0
+                || txtGuestName.getText() == null || txtGuestName.getText().length() == 0) {
+            result += 1;
+        } else {
+            // if the passwords don't match, concat 2 to result
+            if(!txtGuestPassword.getText().equals(txtGuestPassword1.getText())) {
+             result += 2;
+            }
+
+            // if the password doesn't contain a capital, concat 3 to result
+            if (!(txtGuestPassword.getText().matches(".*[A-Z].*"))
+                    || !(txtGuestPassword1.getText().matches(".*[A-Z].*"))) {
+                result += 3;
+            }
+
+            // if the password doesn't contain a number, concat 4 to result
+            if (!(txtGuestPassword.getText().matches(".*[0-9].*"))
+                    || !(txtGuestPassword1.getText().matches(".*[0-9].*"))) {
+                result += 4;
+            }
+
+            // if the password starts with a number, concat 5 to result
+            String firstChar = txtGuestPassword.getText().substring(0, 1);
+            if (firstChar.equals("0") || firstChar.equals("1") || firstChar.equals(2)
+                    || firstChar.equals("3") || firstChar.equals("4") || firstChar.equals("5")
+                    || firstChar.equals("6") || firstChar.equals("7") || firstChar.equals("8")
+                    || firstChar.equals("9")) {
+                result += 5;
+            }
+        }
+        
+        return result;
     }
     
     public boolean isValidEditGuest()
