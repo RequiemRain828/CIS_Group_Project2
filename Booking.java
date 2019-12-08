@@ -157,7 +157,7 @@ public class Booking {
     public String toString(){
         String result = "";
         result += this.bookingGuest.getGuestName() + " booked Room# " +
-                this.bookedRoom.getRoomNumber() 
+                this.getBookedRoom().getRoomNumber()
                 + "\n from " +this.checkInMonth+"/"
                 +this.checkInDay+"/"+ this.checkInYear+" to "+
                 this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
@@ -167,7 +167,7 @@ public class Booking {
         String result = "";
         
         result += this.bookingGuest.getGuestName() + " booked Room# " 
-                + this.bookedRoom.getRoomNumber() +" from "
+                + this.getBookedRoom().getRoomNumber() +" from "
                 + this.checkInMonth+"/"
                 + this.checkInDay+"/"+ this.checkInYear+" to "
                 + this.checkOutMonth+"/"+this.checkOutDay+"/"
@@ -180,5 +180,9 @@ public class Booking {
         return result; 
     }
     
+     public void addRoomService(RoomService newRoomService)
+     {
+         this.roomServiceList.add(newRoomService);
+     }
 
 }

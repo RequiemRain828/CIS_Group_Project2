@@ -255,6 +255,11 @@ public class Room
     {
         return false;
     }
+    
+    public String toStringRoomNum()
+    {
+        return "Room Number" + this.getRoomNumber();
+    }
        
     @Override
     public String toString()
@@ -265,5 +270,5 @@ public class Room
                 + " and is classifed as a " + this.accessibleOption + 
                 " Room Price Per Night is $" + this.roomCostPerNight;              
     }
-        
+    
 }
