@@ -32,12 +32,13 @@ public class HotelMadisonUI extends Application
     public static ObservableList employeeList = FXCollections.observableArrayList();
     public static ObservableList bookList = FXCollections.observableArrayList();
     public static ObservableList ebookingList = FXCollections.observableArrayList();
-    public static ObservableList selectRoomList = FXCollections.observableArrayList(room);
+    //public static ObservableList selectRoomList = FXCollections.observableArrayList();
     public static ObservableList checkoutList = FXCollections.observableArrayList();
     public static ObservableList roomServiceList = FXCollections.observableArrayList();
-    public static ObservableList guestName = FXCollections.observableArrayList(guest);
+    public static ObservableList guestName = FXCollections.observableArrayList();
     public static ObservableList gBookingList = FXCollections.observableArrayList();
     public static ObservableList guestEditList = FXCollections.observableArrayList();
+    //public static int count;
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -76,6 +77,7 @@ public class HotelMadisonUI extends Application
     public ComboBox cmboVGuestMenu = new ComboBox();
     public Button btnVGuestSelect = new Button("Select -> ");
     public Button btnVGuestLogout = new Button("Logout^ ");
+    public Label lblNotBooked = new Label("");
     
     // Employee Room Summary controls
     public Label lblSelectRoom = new Label("Select Guest: ");
@@ -198,8 +200,8 @@ public class HotelMadisonUI extends Application
     public Label lblServices = new Label("Available services: ");
     public Button btnAddToOrder = new Button("Add to Order");
     public Button btnFinishOrderService = new Button("Complete Order");
-    public Button btnBack = new Button("Back");
-    public Button btnClearOrder = new Button("Clear Order");
+    public Button btnBack = new Button("Back to Menu");
+    public Button btnClearOrder = new Button("Make Another Order");
     public ComboBox cmboServices = new ComboBox();
     public TextField txtQuantity = new TextField();
     public ListView listOrder = new ListView(roomServiceList); 
@@ -277,14 +279,12 @@ public class HotelMadisonUI extends Application
         
         for(int i=0;i<guest.size();i++){
             guestList.add(guest.get(i));
-            guestName.add(guest.get(i).getGuestName()+
-                    " -"+guest.get(i).getStatus()); 
+            guestName.add(guest.get(i).toStringName()); 
         }
         for(int i=0;i<valueGuest.size();i++)
         {
             guestList.add(valueGuest.get(i));
-            guestName.add(valueGuest.get(i).getGuestName()+" -"+
-                valueGuest.get(i).getStatus());
+            guestName.add(valueGuest.get(i).toStringName());
        
         }
         for(int i = 0; i < employee.size(); i++){
@@ -402,6 +402,7 @@ public class HotelMadisonUI extends Application
         cmboVGuestMenu.getSelectionModel().select(0);
         valueGuestPane.add(btnVGuestSelect, 0, 3);
         valueGuestPane.add(btnVGuestLogout, 1, 3);
+        valueGuestPane.add(lblNotBooked, 0, 4);
         valueGuestPane.setVgap(10);
         btnVGuestSelect.setOnAction(e -> {            
             handleVGuestChoice(cmboVGuestMenu.getValue().toString());
@@ -440,13 +441,13 @@ public class HotelMadisonUI extends Application
             { 
                if( cmboSelectRoom.getValue().toString().
                    equals(booking.get(i).getBookingGuest().
-                           getGuestName()+" -V"))
+                           getGuestName()+ " (Value Guest)"))
                {                   
                    ebookingList.add(booking.get(i).toStringValue());
                }
                else if(cmboSelectRoom.getValue().toString().
                    equals(booking.get(i).getBookingGuest().
-                           getGuestName()+" -G"))
+                           getGuestName() + " (Guest)"))
                        {
                          ebookingList.add(booking.get(i).toString());
                        }          
@@ -1000,7 +1001,7 @@ public class HotelMadisonUI extends Application
            cmboMonthOut.getSelectionModel().select(0);
            cmboYearIn.getSelectionModel().select(0);
            cmboYearOut.getSelectionModel().select(0);
-                
+           lblNotBooked.setText("");             
         });
         btnGuestBack1.setOnAction(e -> {
            if (!currentVGuest.isEmpty())
@@ -1169,6 +1170,7 @@ public class HotelMadisonUI extends Application
         ArrayList <RoomService> tempServiceList = new ArrayList<>();
         //btnAddToOrder.disableProperty()
         //.bind(Bindings.isEmpty(txtServiceQuantity.textProperty())
+        btnFinishOrderService.setDisable(true);
         BooleanBinding isTextFieldEmpty = Bindings.isEmpty(txtServiceQuantity.textProperty());
         btnAddToOrder.disableProperty().bind(isTextFieldEmpty);
         btnAddToOrder.setOnAction(e -> {
@@ -1187,38 +1189,36 @@ public class HotelMadisonUI extends Application
             txtServiceQuantity.clear();
             for(int i = 0; i < booking.size();i++)
             {
+                if(booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
+                {
+                    booking.get(i).addRoomService(newOrder);
+                }
             System.out.println(newOrder.toString());
             }
             }
-            cmboServices.getSelectionModel().select(0);
+            cmboServices.getSelectionModel().select(0);           
+            btnFinishOrderService.setDisable(false);
         });
         
         btnFinishOrderService.setOnAction(e -> {
-            
             double totalCost = 0;
-            int count = 0;
-            for(int i = 0; i < booking.size();i++)
             {
-                if(booking.get(i).getBookingGuest() == currentVGuest.get(0))
+                //if(booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
                 {
                     //booking.get(0).getArrayList().add(newOrder);
                     for (int j = 0; j < tempServiceList.size(); j++)
                     {
-                    booking.get(i).getArrayList().add(tempServiceList.get(j));
                     totalCost += tempServiceList.get(j).getPrice();
                     lblTotalPrice.setText("Total Price: $" + totalCost );
                     }
+                    System.out.print(tempServiceList.size()); 
                 }
-                count++; break; 
             }
-            if (count == 1)
+            for (int j = 0; j < tempServiceList.size(); j++)
             {
-                System.out.print("Loop through");
+                tempServiceList.remove(j);
             }
-            for(int i = 0; i < booking.size();i++)
-            {
-            System.out.println(booking.get(i).getRoomServiceList());
-            }
+            cmboServices.getSelectionModel().select(0);
             cmboServices.getSelectionModel().select(0);
         });
         btnClearOrder.setOnAction(e -> {
@@ -1241,7 +1241,8 @@ public class HotelMadisonUI extends Application
             for (int j = 0; j < tempServiceList.size(); j++)
             {
                 tempServiceList.remove(j);
-            }       
+            }
+            lblNotBooked.setText("");
         });
         
         // Create a scene
@@ -1369,14 +1370,15 @@ public class HotelMadisonUI extends Application
                 {
                     if ((room.get(i).bookedRoom()))
                     {
-                        Tabs.getTabs().add(tabRoomService); Tabs.getSelectionModel().select(tabRoomService); break;
+                        Tabs.getTabs().add(tabRoomService); Tabs.getSelectionModel().select(tabRoomService); 
+                        lblNotBooked.setText("");
                     }
                     else
                     {
-                        System.out.println("Book is not booked");
+                        lblNotBooked.setText("You have not yet booked a Room");
                     }
                 }
-                
+                break;
             default: break;
         }
     }
@@ -1724,7 +1726,7 @@ public class HotelMadisonUI extends Application
         editGuestList.add(tempGuest.toString());
                
         guestList.add(tempGuest.toString());
-        guestName.add(tempGuest.getGuestName());
+        guestName.add(tempGuest.toStringName());
         txtGuestUsername.clear();
         txtGuestPassword.clear();
         txtGuestPassword1.clear();
@@ -1739,7 +1741,7 @@ public class HotelMadisonUI extends Application
         valueGuest.add(tempValueGuest);
         
         guestList.add(tempValueGuest.toString());
-        
+        guestName.add(tempValueGuest.toStringName());
         txtGuestUsername.clear();
         txtGuestPassword.clear();
         txtGuestPassword.clear();
