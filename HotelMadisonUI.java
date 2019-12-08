@@ -535,7 +535,7 @@ public class HotelMadisonUI extends Application
         addGuestPane.setHgap(10);
         btnAddGuest.setOnAction(e -> {
   
-            int x = 0;
+            // int x = 0;
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 2)
             {
                 handleAddGuest(cmboGuestStatus.getValue().toString());
@@ -571,8 +571,6 @@ public class HotelMadisonUI extends Application
                 }
                 
                 lblAddGuest.setText(errorMessage);
-                System.out.println(errorMessage);
-                System.out.println(temp);
             }
 //            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 0)
 //            {
@@ -624,6 +622,7 @@ public class HotelMadisonUI extends Application
         editGuestPane.setHgap(10);
         btnEditGuest.disableProperty()
         .bind(lstEditGuest.getSelectionModel().selectedItemProperty().isNull());
+        
         btnEditGuest.setOnAction(e -> {
             int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
             
@@ -1747,7 +1746,6 @@ public class HotelMadisonUI extends Application
 
             // if the password starts with a number, concat 5 to result
             String firstChar = txtGuestPassword.getText().substring(0, 1);
-            System.out.println("The first character is "+txtGuestPassword.getText().substring(0, 1));
             if (firstChar.equals("0") || firstChar.equals("1") || firstChar.equals(2)
                     || firstChar.equals("3") || firstChar.equals("4") || firstChar.equals("5")
                     || firstChar.equals("6") || firstChar.equals("7") || firstChar.equals("8")
