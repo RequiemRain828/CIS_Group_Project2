@@ -15,7 +15,6 @@ public class Room
     public int kitchenOption;
     public int coffeeOption;
     public int accessibleOption;
-    
     private int roomNumber;
     private int roomBookQuantity;
     private boolean roomBooked;
