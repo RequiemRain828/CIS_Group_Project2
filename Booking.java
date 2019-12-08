@@ -153,11 +153,11 @@ public class Booking {
         }
          return roomService;
     }
-     @Override
+    @Override
     public String toString(){
         String result = "";
         result += this.bookingGuest.getGuestName() + " booked Room# " +
-                this.getBookedRoom().getRoomNumber()
+                bookedRoom.getRoomNumber()
                 + "\n from " +this.checkInMonth+"/"
                 +this.checkInDay+"/"+ this.checkInYear+" to "+
                 this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
