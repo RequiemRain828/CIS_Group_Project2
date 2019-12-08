@@ -122,7 +122,7 @@ public class Guest
       
 
     @Override
-     public String toString()
+    public String toString()
     {
         String tempStatus = "";
         if (this.getStatus().equals("G")) {
@@ -132,9 +132,19 @@ public class Guest
         }
         
         return "Username: " + this.username + ", Password: " + hashPassword() + ", Guest Name: " + this.guestName + ", Status: " 
-                + this.getStatus() + tempStatus;
-        // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
-                
+                + this.getStatus() + tempStatus;               
+    }
+    
+    public String toStringName()
+    {
+        String tempStatus = "";
+        if (this.getStatus().equals("G")) {
+            tempStatus = " (Guest)";
+        } else if (this.getStatus().equals("V")) {
+            tempStatus = " (Value Guest)";
+        }
+        
+        return this.getGuestName() + tempStatus;           
     }
     
     public String hashPassword()
