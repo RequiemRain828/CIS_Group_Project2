@@ -1,9 +1,10 @@
 /*
  * Author: Marin Walters
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create a booking - The Booking class acts as a “cross-table” object 
-            and creates a link between a Guest object and a Room object. 
+            and creates a link between a Guest object, Room object, and Room Service object
+            for Value Guests. 
 */
 package CIS_Group_Project2;
 
@@ -48,6 +49,7 @@ public class Booking {
         
     }
     
+    // Author: Marin Walters
     public Booking(ValueGuest valueGuest, Room bookedRoom, int checkInYear, int checkIn, 
             int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
         this.checkOutMonth = checkOutMonth;
