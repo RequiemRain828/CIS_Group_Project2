@@ -191,15 +191,15 @@ public class Booking {
         return result; 
     }
     
-<<<<<<< HEAD
+
   
      
      
-=======
+
      public void addRoomService(RoomService newRoomService)
      {
-         this.roomServiceList.add(newRoomService);
+         this.roomServiceArray.add(newRoomService);
      }
->>>>>>> ba139186de221c07e3a69a998608e6771140f85c
+
 
 }
