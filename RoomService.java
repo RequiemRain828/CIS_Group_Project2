@@ -1,9 +1,11 @@
 package CIS_Group_Project2;
-
-/**
- *
+/*
  * @author Dylan Jones
- */
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
+ * Purpose: To create a Guest object. 
+*/
+
 public class RoomService {
     
     public int roomServiceID;
@@ -53,7 +55,7 @@ public int getID() {
 @Override
 public String toString()
 {
-    return "Purchased Items" + this.getDescription() + "Price: " + this.getPrice();
+    return "Purchased Items" + this.getDescription() + "Price: " + this.getPrice() + "Quantity: " + this.quantity;
 }
 
     
