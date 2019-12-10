@@ -23,7 +23,6 @@ public class HotelMadisonUI extends Application
     public static ArrayList<Room> room = new ArrayList<Room>();
     public static ArrayList<ValueGuest> valueGuest = new ArrayList();
     public static ArrayList<Booking> booking = new ArrayList();
-    //public static ArrayList<Booking> tempBooking = new ArrayList();
     public static ArrayList<Guest> currentGuest = new ArrayList();
     public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
@@ -32,7 +31,6 @@ public class HotelMadisonUI extends Application
     public static ObservableList employeeList = FXCollections.observableArrayList();
     public static ObservableList bookList = FXCollections.observableArrayList();
     public static ObservableList ebookingList = FXCollections.observableArrayList();
-    //public static ObservableList selectRoomList = FXCollections.observableArrayList();
     public static ObservableList checkoutList = FXCollections.observableArrayList();
     public static ObservableList roomServiceList = FXCollections.observableArrayList();
     public static ObservableList guestName = FXCollections.observableArrayList();
@@ -310,11 +308,13 @@ public class HotelMadisonUI extends Application
         Room r2 = new Room(1, 1, 1 ,1 , 4, 100.00);
         room.add(r2);
         
-        for(int i=0;i<guest.size();i++){
+        for(int i=0;i<guest.size();i++)
+        {
             guestList.add(guest.get(i));
             editGuestList.add(guest.get(i));
             guestName.add(guest.get(i).toStringName()); 
         }
+        
         for(int i=0;i<valueGuest.size();i++)
         {
             guestList.add(valueGuest.get(i));
@@ -322,25 +322,16 @@ public class HotelMadisonUI extends Application
             guestName.add(valueGuest.get(i).toStringName());
        
         }
-        for(int i = 0; i < employee.size(); i++){
+        
+        for(int i = 0; i < employee.size(); i++)
+        {
             employeeList.add(employee.get(i));
         }
-        
         
         primaryPane.setAlignment(Pos.TOP_LEFT);
         
         // Add each individual Tab to the TabPane
         Tabs.getTabs().add(tabLogin);
-        //Tabs.getTabs().add(tabEmployee);
-        //Tabs.getTabs().add(tabGuest);
-        //Tabs.getTabs().add(tabAddGuest);
-        //Tabs.getTabs().add(tabAddEmployee);
-        //Tabs.getTabs().add(tabBooking);
-        //Tabs.getTabs().add(tabAddRoom);
-        //Tabs.getTabs().add(tabBookRoom);
-        //Tabs.getTabs().add(tabRoomService);
-        //Tabs.getTabs().add(tabEditGuest);
-        //Tabs.getTabs().add(tabEditEmployee);
         
         primaryPane.add(Tabs, 0, 0);
         
@@ -382,11 +373,14 @@ public class HotelMadisonUI extends Application
         employeePane.add(btnEmployeeSelect, 0, 3);
         employeePane.add(btnEmployeeLogout, 1, 3);
         employeePane.setVgap(10);
-        btnEmployeeSelect.setOnAction(e -> {
+        btnEmployeeSelect.setOnAction(e -> 
+        {
             
             handleEmployeeChoice(cmboEmployeeMenu.getValue().toString());
         });
-        btnEmployeeLogout.setOnAction(e -> {
+        
+        btnEmployeeLogout.setOnAction(e -> 
+        {
             invalid.setText("");
             Tabs.getTabs().add(tabLogin);
             Tabs.getSelectionModel().select(tabLogin);
@@ -408,16 +402,19 @@ public class HotelMadisonUI extends Application
         guestPane.add(btnGuestSelect, 0, 3);
         guestPane.add(btnGuestLogout, 1, 3);
         guestPane.setVgap(10);
-        btnGuestSelect.setOnAction(e -> {            
+        btnGuestSelect.setOnAction(e -> 
+        {            
             handleGuestChoice(cmboGuestMenu.getValue().toString());
-            if(cmboGuestMenu.getValue().toString().equals("Edit Guest Information")) {
+            if(cmboGuestMenu.getValue().toString().equals("Edit Guest Information")) 
+            {
                 if (!currentGuest.isEmpty())
                 {
                    guestEditList.add(currentGuest.get(0).toString());
                 }
             }
         });
-        btnGuestLogout.setOnAction(e -> {            
+        btnGuestLogout.setOnAction(e -> 
+        {            
             currentGuest.remove(0);
             invalid.setText("");
             Tabs.getTabs().add(tabLogin);
@@ -440,15 +437,17 @@ public class HotelMadisonUI extends Application
         valueGuestPane.add(btnVGuestLogout, 1, 3);
         valueGuestPane.add(lblNotBooked, 0, 4);
         valueGuestPane.setVgap(10);
-        btnVGuestSelect.setOnAction(e -> {            
+        btnVGuestSelect.setOnAction(e -> 
+        {            
             handleVGuestChoice(cmboVGuestMenu.getValue().toString());
-            //Tabs.getTabs().remove(tabValueGuest);
-            if (!currentVGuest.isEmpty()){
+            if (!currentVGuest.isEmpty())
+            {
                 guestEditList.add(currentVGuest.get(0).toString());
             }
                 
         });
-        btnVGuestLogout.setOnAction(e -> {
+        btnVGuestLogout.setOnAction(e -> 
+        {
             currentVGuest.remove(0);
             invalid.setText("");
             Tabs.getTabs().add(tabLogin);
@@ -461,7 +460,6 @@ public class HotelMadisonUI extends Application
         employeeBookingPane.add(new Label(""), 0, 0);
         employeeBookingPane.add(new Label("Employee Booking Report Menu"), 0, 1);
         employeeBookingPane.add(lblSelectRoom, 0, 3);
-//        cmboSelectRoom.getItems().add("None");
         cmboSelectRoom.getSelectionModel().select(0);       
         employeeBookingPane.add(cmboSelectRoom, 0, 4);
         employeeBookingPane.add(lstEmployeeBooking, 1, 1, 2, 5);
@@ -471,7 +469,8 @@ public class HotelMadisonUI extends Application
         lstEmployeeBooking.setPrefWidth(600);
         employeeBookingPane.setVgap(10);
         employeeBookingPane.setHgap(10);
-        btnDisplaySelect.setOnAction(e -> {
+        btnDisplaySelect.setOnAction(e -> 
+        {
             lstEmployeeBooking.getItems().clear();
             for(int i=0; i<booking.size();i++)
             { 
@@ -489,14 +488,16 @@ public class HotelMadisonUI extends Application
                        }          
             }
         });
-        btnDisplayAll.setOnAction(e -> {
+        btnDisplayAll.setOnAction(e -> 
+        {
             lstEmployeeBooking.getItems().clear();
             for (int i = 0; i < booking.size(); i++)
             {
                 ebookingList.add(booking.get(i).toString());
             }
         });
-        btnEmployeeBack1.setOnAction(e -> {
+        btnEmployeeBack1.setOnAction(e -> 
+        {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabBooking);
             cmboEmployeeMenu.getSelectionModel().select(0);
@@ -514,7 +515,8 @@ public class HotelMadisonUI extends Application
         lstCheckout.setPrefWidth(400);
         btnCheckout.disableProperty()
         .bind(lstCheckout.getSelectionModel().selectedItemProperty().isNull());
-        btnCheckout.setOnAction(e -> {
+        btnCheckout.setOnAction(e -> 
+        {
             int selectedInt = lstCheckout.getSelectionModel().getSelectedIndex();
             booking.get(selectedInt).bookedRoom.freeThisRoom();
             checkoutList.remove(selectedInt);
@@ -522,7 +524,8 @@ public class HotelMadisonUI extends Application
             
         });
         
-        btnEmployeeBack2.setOnAction(e -> {
+        btnEmployeeBack2.setOnAction(e -> 
+        {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabCheckout);
             cmboEmployeeMenu.getSelectionModel().select(0);
@@ -552,48 +555,47 @@ public class HotelMadisonUI extends Application
         lstGuest.setPrefWidth(500);
         addGuestPane.setVgap(10);
         addGuestPane.setHgap(10);
-        btnAddGuest.setOnAction(e -> {
+        btnAddGuest.setOnAction(e -> 
+        {
   
-            // int x = 0;
             if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 2)
             {
                 handleAddGuest(cmboGuestStatus.getValue().toString());
                 lblAddGuest.setText("");
-            } else {
-                
+            } 
+            
+            else 
+            {
                 String errorMessage = "Please try again.";
                 String errorMessagesString = addGuestErrorMessages();
                 
                 // Textfield empty
-                if(errorMessagesString.contains("1")) {
+                if(errorMessagesString.contains("1")) 
                     errorMessage += "\n- All text fields must be filled";
-                }
     
                 // Passwords don't match
-                if(errorMessagesString.contains("2")) {
+                if(errorMessagesString.contains("2"))
                     errorMessage += "\n- The password entries don't match ";
-                }
                 
                 // No capital
-                if(errorMessagesString.contains("3")) {
-                    errorMessage += "\n- The password must contain a captial letter";
-                }
+                if(errorMessagesString.contains("3"))
+                    errorMessage += "\n- The password must contain a capital letter";
                 
                 // No number
-                if(errorMessagesString.contains("4")) {
+                if(errorMessagesString.contains("4"))
                     errorMessage += "\n- The password must contain a number";
-                }
                 
                 // Number at the front 
-                if(errorMessagesString.contains("5")) {
+                if(errorMessagesString.contains("5"))
                     errorMessage += "\n- The password cannot begin with a number";
-                }
                 
                 lblAddGuest.setText(errorMessage);
             }
+            
         });
         
-        btnEmployeeBack3.setOnAction(e -> {
+        btnEmployeeBack3.setOnAction(e -> 
+        {
             lblAddGuest.setText("");
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabAddGuest);  
@@ -620,7 +622,8 @@ public class HotelMadisonUI extends Application
         btnEditGuest.disableProperty()
         .bind(lstEditGuest.getSelectionModel().selectedItemProperty().isNull());
         
-        btnEditGuest.setOnAction(e -> {
+        btnEditGuest.setOnAction(e -> 
+        {
             int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
 
             String errorMessage = "Please try again!";
@@ -632,23 +635,19 @@ public class HotelMadisonUI extends Application
                     
                     int y;
                     y = valueGuest.get((selectedInt - guest.size())).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
-                    //y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    
                     if (y == 0)
-                    {
-                        lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!"); 
-                    }    
+                        lblEditGuest.setText(errorMessage + "\nIncorrect old Password!");   
+                    
                     if (y == 1)
-                    {
                         lblEditGuest.setText(errorMessage + "\nPasswords cannot match!");
-                    }
+                    
                     if ( y == 2)
-                    {
                         lblEditGuest.setText(errorMessage + "\nMust meet password requirements!");
-                    }
+                    
                     if (y == 3)
-                    {
                         lblEditGuest.setText(errorMessage + "\nPassword cannot start with a number! ");    
-                    }
+                    
                     if (y == 4)
                     {
                         guestList.remove(selectedInt);        
@@ -660,11 +659,10 @@ public class HotelMadisonUI extends Application
                         lblEditGuest.setText("The password has been \n changed successfully.");
                     }
                 }
+                
                 else
-                {
                     lblEditGuest.setText(errorMessage + "\nPasswords do not match or \n"
-                    + "TextFields are empty");
-                }
+                            + "TextFields are empty");
             }
             else if (lstEditGuest.getSelectionModel().getSelectedItem().toString().contains("(Guest)"))
             {
@@ -672,23 +670,19 @@ public class HotelMadisonUI extends Application
                 {
                     int y;
                     y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
-                    //)
+                    
                     if (y == 0)
-                    {
                         lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!"); 
-                    }    
-                    if (y == 1)
-                    {
+                    
+                    if (y == 1)     
                         lblEditGuest.setText(errorMessage + "\nPasswords cannot match!");
-                    }
+                    
                     if ( y == 2)
-                    {
                         lblEditGuest.setText(errorMessage + "\nMust meet password requirements!");
-                    }
+                    
                     if (y == 3)
-                    {
                         lblEditGuest.setText(errorMessage + "\nPassword cannot start with a number! ");    
-                    }
+                    
                     if (y == 4)
                     {
                         guestList.remove(selectedInt);        
@@ -700,12 +694,16 @@ public class HotelMadisonUI extends Application
                         lblEditGuest.setText("The Guest info has been \n changed successfully.");
                         System.out.println(lstEditGuest.getSelectionModel().getSelectedItem().toString());
                     }
-                } else {
+                    
+                } 
+                
+                else 
                     lblEditGuest.setText(errorMessage + "\nTextFields cannot be empty");
-                }
             }
         });
-        btnEmployeeBack4.setOnAction(e -> {
+        
+        btnEmployeeBack4.setOnAction(e -> 
+        {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabEditGuest);
             cmboEmployeeMenu.getSelectionModel().select(0);
@@ -740,23 +738,19 @@ public class HotelMadisonUI extends Application
                 {
                     int y;
                     y = valueGuest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
-                    //y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    
                     if (y == 0)
-                    {
-                        lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!"); 
-                    }    
+                        lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!");    
+                    
                     if (y == 1)
-                    {
                         lblEditGuest.setText(errorMessage + "\nPasswords cannot match!");
-                    }
+                    
                     if ( y == 2)
-                    {
                         lblEditGuest.setText(errorMessage + "\nMust meet password requirements!");
-                    }
+                    
                     if (y == 3)
-                    {
                         lblEditGuest.setText(errorMessage + "\nPassword cannot start with a number! ");    
-                    }
+                    
                     if (y == 4)
                     {
                         guestList.remove(selectedInt);        
@@ -769,14 +763,13 @@ public class HotelMadisonUI extends Application
                     }
                 }
                 else
-                {
                     lblEditGuest.setText(errorMessage + "\nPasswords do not match or \n"
-                    + "TextFields are empty");
-                }
+                            + "TextFields are empty");
    
         });
         //vGuestList
-        btnEmployeeBack8.setOnAction(e -> {
+        btnEmployeeBack8.setOnAction(e -> 
+        {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabEditVGuest);
             cmboEmployeeMenu.getSelectionModel().select(0);
@@ -801,21 +794,23 @@ public class HotelMadisonUI extends Application
         lstEmployee.setPrefWidth(400);
         addEmployeePane.setVgap(10);
         addEmployeePane.setHgap(10);       
-        btnAddEmployee.setOnAction(e -> {
+        btnAddEmployee.setOnAction(e -> 
+        {
             int x = 0;
             if (isValidAddEmployee() == true && createNewPassword(txtEmployeePassword.getText()) == 2)
             {
-            Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
-            employee.add(tempEmployee);
+                Employee tempEmployee = new Employee(txtEmployeeUsername.getText(), txtEmployeePassword.getText(), txtEmployeeName.getText());
+                employee.add(tempEmployee);
             
-            employeeList.add(tempEmployee.toString());
+                employeeList.add(tempEmployee.toString());
             
-            txtEmployeeUsername.clear();
-            txtEmployeePassword.clear();
-            txtEmployeePassword1.clear();
-            txtEmployeeName.clear();
-            lblAddEmployee.setText("");
+                txtEmployeeUsername.clear();
+                txtEmployeePassword.clear();
+                txtEmployeePassword1.clear();
+                txtEmployeeName.clear();
+                lblAddEmployee.setText("");
             }
+            
             else if (isValidAddEmployee() == true && createNewPassword(txtEmployeePassword.getText()) == 0)
             {
                 lblAddEmployee.setText("");
@@ -826,13 +821,14 @@ public class HotelMadisonUI extends Application
                         + "or one or more TextFields \n"
                         + "are empty");
             }
+            
             else if (isValidAddEmployee() == true && createNewPassword(txtEmployeePassword.getText()) == 1)
             {
                 lblAddEmployee.setText("");
                 lblAddEmployee.setText("Please try again. Password cannot \n"
                     + "start with a number");
             }            
-            //if (isValidAddEmployee() == false && createNewPassword(txtEmployeePassword.getText()) == 0)
+            
             else
             {
                 lblAddEmployee.setText("");
@@ -840,7 +836,8 @@ public class HotelMadisonUI extends Application
                         + "or All TextFields are empty");                            
             }   
         });
-        btnEmployeeBack5.setOnAction(e -> {
+        btnEmployeeBack5.setOnAction(e -> 
+        {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabAddEmployee);  
         });
@@ -865,33 +862,30 @@ public class HotelMadisonUI extends Application
         editEmployeePane.setHgap(10);
         btnEditEmployee.disableProperty()
         .bind(lstEditEmployee.getSelectionModel().selectedItemProperty().isNull());
-        btnEditEmployee.setOnAction(e -> {
-            
+        btnEditEmployee.setOnAction(e -> 
+        {
             if (isValidEditEmployee() == true)
             {    
-            int selectedInt = lstEditEmployee.getSelectionModel().getSelectedIndex();
-            int y = 0; 
+                int selectedInt = lstEditEmployee.getSelectionModel().getSelectedIndex();
+                int y = 0; 
                 y = employee.get(selectedInt).setPassword(txtEditEmployeePassword.getText(),txtEditEmployeePassword1.getText());
+                
                 if (y == 0)
-                {
                     lblEditEmployee.setText("You entered the wrong password! "
                         + "Please try again!"); 
-                }      
+                
                 if (y == 1)
-                {
                     lblEditEmployee.setText("You entered the same password twice! "
                         + "Please try again!");
-                }
+                
                 if ( y == 2)
-                {
                     lblEditEmployee.setText("Your password needs a capital letter and number! "
                         + "Please try again!");
-                }
+                
                 if (y == 3)
-                {
                     lblEditEmployee.setText("Your password cannot start with a number! "
                         + "Please try again!");    
-                }
+                
                 if (y == 4)
                 {    
                     employee.get(selectedInt).setEmployeeName(txtEditGuestName.getText());
@@ -903,13 +897,15 @@ public class HotelMadisonUI extends Application
                     lblEditEmployee.setText("Your password has been changed successfully.");
                 }
             }
+            
             else
             {
                 lblEditEmployee.setText("Please try again. Passwords do not match or \n"
-                + "One or more TextFields are empty");
+                        + "One or more TextFields are empty");
             }
         });
-        btnEmployeeBack6.setOnAction(e -> {
+        btnEmployeeBack6.setOnAction(e -> 
+        {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabEditEmployee);  
         });
@@ -962,17 +958,19 @@ public class HotelMadisonUI extends Application
         addRoomPane.add(lblRoomPrice, 1, 10);
         addRoomPane.add(lblRoomNumber, 1, 11);
         addRoomPane.setVgap(10);
-        //cmboBed.getSelectionModel();
+        
         for (int i = 0; i < room.size(); i++)
         {
             roomList.add(room.get(i).roomDescription() + "Room is Active");
         }
-        btnAddRoom.setOnAction(e -> {
+        btnAddRoom.setOnAction(e -> 
+        {
             if (isValidRoomPrice() == true && isValidRoomNumber() == true)
             {
                 handleAddRoom();
                 lblRoomNumber.setText("");
             }
+            
             else
             {
                 if (isValidRoomPrice() == false)
@@ -980,11 +978,13 @@ public class HotelMadisonUI extends Application
                     lblRoomPrice.setText("Please enter valid room price!");
                     lblRoomNumber.setText("");
                 }
+                
                 if (isValidRoomNumber() == false)
                 {
                     lblRoomNumber.setText("Please enter valid room number!");
                     lblRoomPrice.setText("");
                 }
+                
                 if (isValidRoomPrice() == false && isValidRoomNumber() == false)
                 {
                     lblRoomPrice.setText("Please enter valid room price!");
@@ -992,14 +992,18 @@ public class HotelMadisonUI extends Application
                 }
             }     
         });
-        btnEditRoom.disableProperty()
-        .bind(lstRoom.getSelectionModel().selectedItemProperty().isNull());
-        btnEditRoom.setOnAction(e -> {
+        
+        btnEditRoom.disableProperty().bind(lstRoom.getSelectionModel()
+                .selectedItemProperty().isNull());
+        
+        btnEditRoom.setOnAction(e -> 
+        {
             if (isValidRoomPrice() == true && isValidRoomNumber() == true)
             {
                 handleEditRoom();
                 lblRoomNumber.setText("");
             }
+            
             else
             {
                 if (isValidRoomPrice() == false)
@@ -1007,11 +1011,13 @@ public class HotelMadisonUI extends Application
                     lblRoomPrice.setText("Please enter valid room price!");
                     lblRoomNumber.setText("");
                 }
+                
                 if (isValidRoomNumber() == false)
                 {
                     lblRoomNumber.setText("Please enter valid room number!");
                     lblRoomPrice.setText("");
                 }
+                
                 if (isValidRoomPrice() == false && isValidRoomNumber() == false)
                 {
                     lblRoomPrice.setText("Please enter valid room price!");
@@ -1019,7 +1025,9 @@ public class HotelMadisonUI extends Application
                 }
             }     
         });
-        btnEmployeeBack7.setOnAction(e -> {
+        
+        btnEmployeeBack7.setOnAction(e -> 
+        {
                 Tabs.getSelectionModel().select(tabEmployee);
                 Tabs.getTabs().remove(tabAddRoom);  
         });        
@@ -1040,15 +1048,17 @@ public class HotelMadisonUI extends Application
         cmboYearOut.getSelectionModel().select(0);
         for (int i = 1; i < 32; i++)
         {
-        cmboDayIn.getItems().add(i);
-        cmboDayIn.getSelectionModel().select(0);
+            cmboDayIn.getItems().add(i);
+            cmboDayIn.getSelectionModel().select(0);
         }
+        
         bookRoomPane.add(cmboDayIn, 2, 6);
         for (int i = 1; i < 32; i++)
         {
-        cmboDayOut.getItems().add(i);
-        cmboDayOut.getSelectionModel().select(0);
+            cmboDayOut.getItems().add(i);
+            cmboDayOut.getSelectionModel().select(0);
         }
+        
         bookRoomPane.add(cmboDayOut, 2, 7);
         cmboMonthIn.getItems().addAll(("January"),("February"),("March"),("April"),("May"),
                 ("June"),("July"),("August"),("September"),("October"),("November"),("December"));      
@@ -1071,9 +1081,9 @@ public class HotelMadisonUI extends Application
         }
         btnBookRoom.disableProperty()
         .bind(listBookRoom.getSelectionModel().selectedItemProperty().isNull());
-        btnBookRoom.setOnAction(e -> {
-           //int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
-
+        btnBookRoom.setOnAction(e -> 
+        {
+            
            int dayIn = ((Integer)cmboDayIn.getValue());
            int dayOut = ((Integer)cmboDayOut.getValue());
            int yearIn = ((Integer)cmboYearIn.getValue());
@@ -1093,10 +1103,10 @@ public class HotelMadisonUI extends Application
                 lblThankYou.setText("*Thank you for booking a room!*");
                 
                 booking.add(newBooking);
-                //gBookingList.add(newBooking.toString());
-                //System.out.println("Thank you for booking Room #" + newBooking.getBookedRoom().getRoomNumber());
+                
                 checkoutList.add(newBooking.toString());  
            }
+           
            if (!currentVGuest.isEmpty())
            {
                 int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
@@ -1109,8 +1119,8 @@ public class HotelMadisonUI extends Application
                 lblThankYou.setText("*Thank you for booking a room!*");
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString()); 
-
            }
+           
            cmboDayIn.getSelectionModel().select(0);
            cmboDayOut.getSelectionModel().select(0);
            cmboMonthIn.getSelectionModel().select(0);
@@ -1119,7 +1129,9 @@ public class HotelMadisonUI extends Application
            cmboYearOut.getSelectionModel().select(0);
            lblNotBooked.setText("");             
         });
-        btnGuestBack1.setOnAction(e -> {
+        
+        btnGuestBack1.setOnAction(e -> 
+        {
            if (!currentVGuest.isEmpty())
            {
                Tabs.getSelectionModel().select(tabValueGuest);
@@ -1127,12 +1139,14 @@ public class HotelMadisonUI extends Application
                cmboVGuestMenu.getSelectionModel().select(0);
                
            }
+           
            if (!currentGuest.isEmpty())
            {
                Tabs.getSelectionModel().select(tabGuest);
                Tabs.getTabs().remove(tabBookRoom);
                cmboGuestMenu.getSelectionModel().select(0);
            }  
+           
            lblThankYou.setText("");
         });
        
@@ -1154,26 +1168,24 @@ public class HotelMadisonUI extends Application
                 for (int i = 0; i < booking.size(); i++)
                 {
                     if (booking.get(i).getBookingGuest().getGuestName().equals(currentGuest.get(0).getGuestName()))
-                    {
-                    gBookingList.add(booking.get(i).toString());
-                    
-                    }
+                        gBookingList.add(booking.get(i).toString());
+
                     System.out.print(booking.get(i).toString());
                 }
             }
+            
             if (!currentVGuest.isEmpty())
             {
                 for (int i = 0; i < booking.size(); i++)
                 {
                     if (booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
-                    {
-                    gBookingList.add(booking.get(i).toString());
-                    }
-                    
+                    gBookingList.add(booking.get(i).toString());          
                 }  
             }
         });
-        btnGuestBack2.setOnAction(e -> {
+        
+        btnGuestBack2.setOnAction(e -> 
+        {
            if (!currentVGuest.isEmpty())
            {
                lstGBooking.getItems().clear();
@@ -1181,6 +1193,7 @@ public class HotelMadisonUI extends Application
                Tabs.getTabs().remove(tabDisplayBooking);
                cmboVGuestMenu.getSelectionModel().select(0);
            }
+           
            if (!currentGuest.isEmpty())
            {
                lstGBooking.getItems().clear();
@@ -1222,16 +1235,18 @@ public class HotelMadisonUI extends Application
                }
             }
              
-        btnEditInfo.setOnAction(e -> {
-            if (isValidEditGuestName()){
+        btnEditInfo.setOnAction(e -> 
+        {
+            if (isValidEditGuestName())
+            {
                 if (!currentGuest.isEmpty())
                 {
-                   //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
                    currentGuest.get(0).setGuestName(txtEditName.getText());
                    guestEditList.remove(0);
                    guestEditList.add(currentGuest.get(0).toString());
                    txtEditName.clear();
                 }
+                
                 if (!currentVGuest.isEmpty())
                 {
                    //int selectedInt = lstGuestInfo.getSelectionModel().getSelectedIndex();
@@ -1240,11 +1255,15 @@ public class HotelMadisonUI extends Application
                    guestEditList.add(currentVGuest.get(0).toString());
                    txtEditName.clear();
                 }
-            } else {
+                
+            } 
+            
+            else 
                 System.out.println("No name was entered!");
-            }
         });
-        btnGuestBack3.setOnAction(e -> {
+        
+        btnGuestBack3.setOnAction(e -> 
+        {
            if (!currentVGuest.isEmpty())
            {
                lstGuestInfo.getItems().clear();
@@ -1252,6 +1271,7 @@ public class HotelMadisonUI extends Application
                Tabs.getTabs().remove(tabEditGuestInfo);
                cmboVGuestMenu.getSelectionModel().select(0);
            }
+           
            if (!currentGuest.isEmpty())
            {
                lstGuestInfo.getItems().clear();
@@ -1286,65 +1306,71 @@ public class HotelMadisonUI extends Application
         btnFinishOrderService.setDisable(true);
         BooleanBinding isTextFieldEmpty = Bindings.isEmpty(txtServiceQuantity.textProperty());
         btnAddToOrder.disableProperty().bind(isTextFieldEmpty);
-        btnAddToOrder.setOnAction(e -> {
+        btnAddToOrder.setOnAction(e -> 
+        {
             if (isValidAddOrder() == true)
             {       
-            String quantityOfService;
-            quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
-            roomServiceList.add(quantityOfService);
+                String quantityOfService;
+                quantityOfService = cmboServices.getValue().toString() + " x " + txtServiceQuantity.getText();
+                roomServiceList.add(quantityOfService);
            
-            double num = handleRoomService(cmboServices.getValue().toString());
-            double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
-            int quantity = Integer.parseInt(txtServiceQuantity.getText());
+                double num = handleRoomService(cmboServices.getValue().toString());
+                double totalService = Double.parseDouble(txtServiceQuantity.getText()) * num;
+                int quantity = Integer.parseInt(txtServiceQuantity.getText());
             
-            RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService, quantity);
-            tempServiceList.add(newOrder);
-            txtServiceQuantity.clear();
-            for(int i = 0; i < booking.size();i++)
-            {
-                if(booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
+                RoomService newOrder = new RoomService(cmboServices.getValue().toString(), totalService, quantity);
+                tempServiceList.add(newOrder);
+                txtServiceQuantity.clear();
+            
+                for(int i = 0; i < booking.size();i++)
                 {
-                    booking.get(i).addRoomService(newOrder);
+                    if(booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
+                        booking.get(i).addRoomService(newOrder);
+                    
+                    System.out.println(newOrder.toString());
                 }
-            System.out.println(newOrder.toString());
             }
-            }
+            
             cmboServices.getSelectionModel().select(0);           
             btnFinishOrderService.setDisable(false);
         });
         
-        btnFinishOrderService.setOnAction(e -> {
+        btnFinishOrderService.setOnAction(e -> 
+        {
             double totalCost = 0;
             {
-                //if(booking.get(i).getBookingGuest().getGuestName().equals(currentVGuest.get(0).getGuestName()))
                 {
-                    //booking.get(0).getArrayList().add(newOrder);
                     for (int j = 0; j < tempServiceList.size(); j++)
                     {
-                    totalCost += tempServiceList.get(j).getPrice();
-                    lblTotalPrice.setText("Total Price: $" + totalCost );
+                        totalCost += tempServiceList.get(j).getPrice();
+                        lblTotalPrice.setText("Total Price: $" + totalCost );
                     }
+                    
                     System.out.print(tempServiceList.size()); 
                 }
             }
+            
             for (int j = 0; j < tempServiceList.size(); j++)
             {
                 tempServiceList.remove(j);
             }
+            
             cmboServices.getSelectionModel().select(0);
             cmboServices.getSelectionModel().select(0);
         });
-        btnClearOrder.setOnAction(e -> {
+        btnClearOrder.setOnAction(e -> 
+        {
             listOrder.getItems().clear();
             lblTotalPrice.setText("Total Price: ");
             txtServiceQuantity.clear();
             for (int j = 0; j < tempServiceList.size(); j++)
-            {
                 tempServiceList.remove(j);
-            }
+            
             cmboServices.getSelectionModel().select(0);
         });
-        btnBack.setOnAction(e -> {
+        
+        btnBack.setOnAction(e -> 
+        {
             Tabs.getTabs().remove(tabRoomService);
             Tabs.getSelectionModel().select(tabValueGuest);
             cmboVGuestMenu.getSelectionModel().select(0);
@@ -1352,9 +1378,8 @@ public class HotelMadisonUI extends Application
             listOrder.getItems().clear();
             lblTotalPrice.setText("Total Price: ");
             for (int j = 0; j < tempServiceList.size(); j++)
-            {
                 tempServiceList.remove(j);
-            }
+            
             lblNotBooked.setText("");
         });
         
@@ -1369,7 +1394,8 @@ public class HotelMadisonUI extends Application
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         launch(args);
     }
     
@@ -1382,7 +1408,8 @@ public class HotelMadisonUI extends Application
         switch(login)
         {
             case "Employees":                 
-            for(int i = 0; i < employee.size(); i++) {
+            for(int i = 0; i < employee.size(); i++) 
+            {
                 if (employee.get(i).checkCredentials(username, password))
                 {
                     cmboLogin.getSelectionModel().select(0);
@@ -1394,9 +1421,12 @@ public class HotelMadisonUI extends Application
                     count++;
                 }
             }    
-            if (count == 0){
+            
+            if (count == 0)
+            {
                 invalid.setText("Invalid Credentials! Please try again!");
             }
+            
             count = 0; 
             break;
             
@@ -1430,12 +1460,16 @@ public class HotelMadisonUI extends Application
                         count++;
                     }
                 }
-                if (count == 0){
+                
+                if (count == 0)
+                {
                     invalid.setText("Invalid Credentials! Please try again!");
                 }
+                
                 break;
                 
-            default: break;
+            default: 
+                break;
         }   
     }
     
@@ -1443,23 +1477,55 @@ public class HotelMadisonUI extends Application
     {
         switch(menuChoice) 
         {
-            case "Run a Booking Report": Tabs.getTabs().add(tabBooking); Tabs.getSelectionModel().select(tabBooking); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Checkout Guest": Tabs.getTabs().add(tabCheckout); Tabs.getSelectionModel().select(tabCheckout); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Create New Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Edit Guest Account": Tabs.getTabs().add(tabEditGuest); Tabs.getSelectionModel().select(tabEditGuest); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Edit Value Guest Account": Tabs.getTabs().add(tabEditVGuest); Tabs.getSelectionModel().select(tabEditVGuest); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Create New Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Edit Employee Account": Tabs.getTabs().add(tabEditEmployee); Tabs.getSelectionModel().select(tabEditEmployee); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Create or Edit a Room": Tabs.getTabs().add(tabAddRoom); Tabs.getSelectionModel().select(tabAddRoom); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break;
-            default: break;
+            case "Run a Booking Report": 
+                Tabs.getTabs().add(tabBooking); Tabs.getSelectionModel().select(tabBooking); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+                
+            case "Checkout Guest": 
+                Tabs.getTabs().add(tabCheckout); 
+                Tabs.getSelectionModel().select(tabCheckout); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+                
+            case "Create New Guest Account": 
+                Tabs.getTabs().add(tabAddGuest);
+                Tabs.getSelectionModel().select(tabAddGuest); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+                
+            case "Edit Guest Account": 
+                Tabs.getTabs().add(tabEditGuest); 
+                Tabs.getSelectionModel().select(tabEditGuest); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+                
+            case "Edit Value Guest Account": 
+                Tabs.getTabs().add(tabEditVGuest); 
+                Tabs.getSelectionModel().select(tabEditVGuest); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+                
+            case "Create New Employee Account": 
+                Tabs.getTabs().add(tabAddEmployee); 
+                Tabs.getSelectionModel().select(tabAddEmployee); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+                
+            case "Edit Employee Account": 
+                Tabs.getTabs().add(tabEditEmployee); 
+                Tabs.getSelectionModel().select(tabEditEmployee);
+                cmboEmployeeMenu.getSelectionModel().select(0);
+                break;
+                
+            case "Create or Edit a Room": 
+                Tabs.getTabs().add(tabAddRoom); 
+                Tabs.getSelectionModel().select(tabAddRoom); 
+                cmboEmployeeMenu.getSelectionModel().select(0); 
+                break;
+            
+            default: 
+                break;
         }
     }
     
@@ -1467,19 +1533,45 @@ public class HotelMadisonUI extends Application
     {
         switch(menuChoice)
         {
-            case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
-            case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
-            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuestInfo); break; 
-            default: break;
+            case "Book a Room": 
+                Tabs.getTabs().add(tabBookRoom); 
+                Tabs.getSelectionModel().select(tabBookRoom); 
+                break;
+                
+            case "Display Booking Report": 
+                Tabs.getTabs().add(tabDisplayBooking); 
+                Tabs.getSelectionModel().select(tabDisplayBooking); 
+                break; 
+                
+            case "Edit Guest Information": 
+                Tabs.getTabs().add(tabEditGuestInfo); 
+                Tabs.getSelectionModel().select(tabEditGuestInfo); 
+                break;
+                
+            default: 
+                break;
         }
     }
+    
     public void handleVGuestChoice(String menuChoice)
     {
         switch(menuChoice)
         {
-            case "Book a Room": Tabs.getTabs().add(tabBookRoom); Tabs.getSelectionModel().select(tabBookRoom); break; 
-            case "Display Booking Report": Tabs.getTabs().add(tabDisplayBooking); Tabs.getSelectionModel().select(tabDisplayBooking); break; 
-            case "Edit Guest Information": Tabs.getTabs().add(tabEditGuestInfo); Tabs.getSelectionModel().select(tabEditGuestInfo); break;
+            case "Book a Room": 
+                Tabs.getTabs().add(tabBookRoom); 
+                Tabs.getSelectionModel().select(tabBookRoom); 
+                break; 
+                
+            case "Display Booking Report": 
+                Tabs.getTabs().add(tabDisplayBooking); 
+                Tabs.getSelectionModel().select(tabDisplayBooking); 
+                break; 
+                
+            case "Edit Guest Information": 
+                Tabs.getTabs().add(tabEditGuestInfo); 
+                Tabs.getSelectionModel().select(tabEditGuestInfo); 
+                break;
+                
             case "Order Room Service": 
                 for (int i = 0; i < room.size(); i++)
                 {
@@ -1489,12 +1581,12 @@ public class HotelMadisonUI extends Application
                         lblNotBooked.setText("");
                     }
                     else
-                    {
                         lblNotBooked.setText("You have not yet booked a Room");
-                    }
                 }
                 break;
-            default: break;
+                
+            default:
+                break;
         }
     }
     
@@ -1504,10 +1596,20 @@ public class HotelMadisonUI extends Application
         
         switch(choice)
         {
-            case "1 Queen Size Bed": result = 1; break;
-            case "2 Queen Size Beds": result = 2; break;
-            case "1 King Size Bed": result = 3; break;
-            default: break;
+            case "1 Queen Size Bed": 
+                result = 1; 
+                break;
+                
+            case "2 Queen Size Beds": 
+                result = 2; 
+                break;
+                
+            case "1 King Size Bed": 
+                result = 3; 
+                break;
+                
+            default: 
+                break;
         }
         return result;
     }
@@ -1518,9 +1620,16 @@ public class HotelMadisonUI extends Application
         
         switch(choice)
         {
-            case "Microwave": result = 1; break;
-            case "Fridge + Microwave": result = 2; break;
-            default: break;
+            case "Microwave": 
+                result = 1; 
+                break;
+                
+            case "Fridge + Microwave": 
+                result = 2; 
+                break;
+                
+            default: 
+                break;
         }
         return result;
     }
@@ -1531,9 +1640,16 @@ public class HotelMadisonUI extends Application
         
         switch(choice)
         {
-            case "1-Cup Std. Coffee Machine": result = 1; break;
-            case "Keurig Hot K200 Coffee Machine": result = 2; break;
-            default: break;
+            case "1-Cup Std. Coffee Machine": 
+                result = 1; 
+                break;
+                
+            case "Keurig Hot K200 Coffee Machine": 
+                result = 2; 
+                break;
+                
+            default: 
+                break;
         }
         return result;
     }
@@ -1544,9 +1660,16 @@ public class HotelMadisonUI extends Application
         
         switch(choice)
         {
-            case "Standard Room": result = 1; break;
-            case "Enhanced Accessibility Room": result = 2; break;
-            default: break;
+            case "Standard Room": 
+                result = 1; 
+                break;
+                
+            case "Enhanced Accessibility Room": 
+                result = 2; 
+                break;
+                
+            default: 
+                break;
         }
         return result;
     }
@@ -1556,19 +1679,56 @@ public class HotelMadisonUI extends Application
         int monthInt = 0;
         switch(month)
         {
-            case "January": monthInt = 1; break;
-            case "February": monthInt = 2; break;
-            case "March": monthInt = 3; break;
-            case "April": monthInt = 4; break;
-            case "May": monthInt = 5; break;
-            case "June": monthInt = 6; break;
-            case "July": monthInt = 7; break;
-            case "August": monthInt = 8; break;
-            case "September": monthInt = 9; break;
-            case "October": monthInt = 10; break;
-            case "November": monthInt = 11; break;
-            case "December": monthInt = 12; break;            
-            default: break;
+            case "January": 
+                monthInt = 1; 
+                break;
+                
+            case "February": 
+                monthInt = 2; 
+                break;
+                
+            case "March": 
+                monthInt = 3; 
+                break;
+                
+            case "April": 
+                monthInt = 4; 
+                break;
+                
+            case "May": 
+                monthInt = 5; 
+                break;
+                
+            case "June": 
+                monthInt = 6; 
+                break;
+                
+            case "July": 
+                monthInt = 7; 
+                break;
+                
+            case "August": 
+                monthInt = 8; 
+                break;
+                
+            case "September": 
+                monthInt = 9; 
+                break;
+                
+            case "October": 
+                monthInt = 10; 
+                break;
+                
+            case "November": 
+                monthInt = 11; 
+                break;
+                
+            case "December": 
+                monthInt = 12; 
+                break;    
+                
+            default: 
+                break;
         }
         return monthInt;
     }
@@ -1578,47 +1738,48 @@ public class HotelMadisonUI extends Application
         int status = handleInactive(cmboStatus.getValue().toString());
         if (status == 1)
         {
-        int bed = handleBed(cmboBed.getValue().toString());
-        int kitchen = handleKitchen(cmboKitchen.getValue().toString());
-        int coffee = handleCoffee(cmboCoffee.getValue().toString());
-        int access = handleAccess(cmboAccess.getValue().toString());
+            int bed = handleBed(cmboBed.getValue().toString());
+            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
+            int coffee = handleCoffee(cmboCoffee.getValue().toString());
+            int access = handleAccess(cmboAccess.getValue().toString());
             
-        Room tempRoom = new Room(bed, kitchen, coffee, access,  
-                Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
+            Room tempRoom = new Room(bed, kitchen, coffee, access,  
+                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
                    
-        room.add(tempRoom);
+            room.add(tempRoom);
             
-        roomList.add(tempRoom.roomDescription() + "Room is Active");
-        bookList.add(tempRoom.roomDescription());
+            roomList.add(tempRoom.roomDescription() + "Room is Active");
+            bookList.add(tempRoom.roomDescription());
             
-        cmboBed.getSelectionModel().select(0);
-        cmboKitchen.getSelectionModel().select(0);
-        cmboCoffee.getSelectionModel().select(0);
-        cmboAccess.getSelectionModel().select(0);
-        txtRoomNum.clear();
-        txtPrice.clear();
+            cmboBed.getSelectionModel().select(0);
+            cmboKitchen.getSelectionModel().select(0);
+            cmboCoffee.getSelectionModel().select(0);
+            cmboAccess.getSelectionModel().select(0);
+            txtRoomNum.clear();
+            txtPrice.clear();
         }
+        
         if (status == 2)
         {
-        int bed = handleBed(cmboBed.getValue().toString());
-        int kitchen = handleKitchen(cmboKitchen.getValue().toString());
-        int coffee = handleCoffee(cmboCoffee.getValue().toString());
-        int access = handleAccess(cmboAccess.getValue().toString());
+            int bed = handleBed(cmboBed.getValue().toString());
+            int kitchen = handleKitchen(cmboKitchen.getValue().toString());
+            int coffee = handleCoffee(cmboCoffee.getValue().toString());
+            int access = handleAccess(cmboAccess.getValue().toString());
             
-        Room tempRoom = new Room(bed, kitchen, coffee, access,  
-                Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
+            Room tempRoom = new Room(bed, kitchen, coffee, access,  
+                    Integer.valueOf(txtRoomNum.getText()), Double.valueOf(txtPrice.getText()));
                    
-        room.add(tempRoom);
+            room.add(tempRoom);
             
-        roomList.add(tempRoom.roomDescription() + "Room is InActive");
-        bookList.add(tempRoom.roomDescription());
+            roomList.add(tempRoom.roomDescription() + "Room is InActive");
+            bookList.add(tempRoom.roomDescription());
             
-        cmboBed.getSelectionModel().select(0);
-        cmboKitchen.getSelectionModel().select(0);
-        cmboCoffee.getSelectionModel().select(0);
-        cmboAccess.getSelectionModel().select(0);
-        txtRoomNum.clear();
-        txtPrice.clear();
+            cmboBed.getSelectionModel().select(0);
+            cmboKitchen.getSelectionModel().select(0);
+            cmboCoffee.getSelectionModel().select(0);
+            cmboAccess.getSelectionModel().select(0);
+            txtRoomNum.clear();
+            txtPrice.clear();
         }
         
         
@@ -1634,9 +1795,6 @@ public class HotelMadisonUI extends Application
         
         int status = handleInactive(cmboStatus.getValue().toString());
             
-        //Room tempRoom = new Room(bed, kitchen, coffee, access,  
-        //       room.get(selectedInt).getRoomNumber(), Double.valueOf(txtPrice.getText()));
-                    
         room.get(selectedInt).setBed(bed);
         room.get(selectedInt).setKitch(kitchen);
         room.get(selectedInt).setCoffee(coffee);
@@ -1655,6 +1813,7 @@ public class HotelMadisonUI extends Application
             txtRoomNum.clear();
             txtPrice.clear();
         }
+        
         else if (status == 1)
         {
             bookList.add(selectedInt, room.get(selectedInt).roomDescription());
@@ -1668,14 +1827,6 @@ public class HotelMadisonUI extends Application
             txtRoomNum.clear();
             txtPrice.clear();
         }
-            
-       // System.out.print(room.get(selectedInt).roomDescription());
-            
-        //selectRoomList.add(tempRoom.getRoomNumber());
-        //selectRoomList.remove(tempRoom.getRoomNumber());
-            
-        //lstRoom.getItems().remove(selectedInt);
-        
     }
     
     public int handleInactive(String status)
@@ -1683,8 +1834,13 @@ public class HotelMadisonUI extends Application
         int num = 0;
         switch (status)
         {
-            case "Active": num = 1; break;
-            case "InActive": num = 2; break;
+            case "Active": 
+                num = 1; 
+                break;
+                
+            case "InActive": 
+                num = 2; 
+                break;
         }
         return num;
     }
@@ -1694,16 +1850,17 @@ public class HotelMadisonUI extends Application
         boolean result = false;
         if (!(txtPrice.getText() == null || txtPrice.getText().length() == 0)) 
         {
-        try {
-            // Do all the validation you need here such as
-            Double d = Double.parseDouble(txtPrice.getText());
-            if ( d >= 1.0 && d < 9999.9)
-                {
-                result = true;
-                }
-            } catch (NumberFormatException e) 
+            try 
             {
-            result = false;
+            // Do all the validation you need here such as
+                Double d = Double.parseDouble(txtPrice.getText());
+                if (d >= 1.0 && d < 9999.9)
+                    result = true;
+            } 
+       
+            catch (NumberFormatException e) 
+            {
+                result = false;
             }
         }
         return result;     
@@ -1714,16 +1871,17 @@ public class HotelMadisonUI extends Application
         boolean result = false;
         if (!(txtRoomNum.getText() == null || txtRoomNum.getText().length() == 0)) 
         {
-        try {
-            // Do all the validation you need here such as
-            int d = Integer.parseInt(txtRoomNum.getText());
-            if ( d >= 1 && d < 999)
-                {
-                result = true;
-                }
-            } catch (NumberFormatException e) 
+            try 
             {
-            result = false;
+            // Do all the validation you need here such as
+                int d = Integer.parseInt(txtRoomNum.getText());
+                if ( d >= 1 && d < 999)
+                    result = true;
+            } 
+            
+            catch (NumberFormatException e) 
+            {
+                result = false;
             }
         }
         return result;     
@@ -1734,16 +1892,16 @@ public class HotelMadisonUI extends Application
         boolean result = false;
         if (!(txtServiceQuantity.getText() == null || txtServiceQuantity.getText().length() == 0)) 
         {
-        try {
+            try 
+            {
             // Do all the validation you need here such as
             int d = Integer.parseInt(txtServiceQuantity.getText());
             if ( d >= 1 && d < 999)
-                {
                 result = true;
-                }
-            } catch (NumberFormatException e) 
+            } 
+            catch (NumberFormatException e) 
             {
-            result = false;
+                result = false;
             }
         }
         return result;     
@@ -1777,34 +1935,35 @@ public class HotelMadisonUI extends Application
         if (txtGuestPassword.getText() == null || txtGuestPassword.getText().length() == 0
                 || txtGuestPassword1.getText() == null || txtGuestPassword1.getText().length() == 0
                 || txtGuestUsername.getText() == null || txtGuestUsername.getText().length() == 0
-                || txtGuestName.getText() == null || txtGuestName.getText().length() == 0) {
+                || txtGuestName.getText() == null || txtGuestName.getText().length() == 0) 
+        {
             result += 1;
-        } else {
+        } 
+        
+        else 
+        {
             // if the passwords don't match, concat 2 to result
-            if(!txtGuestPassword.getText().equals(txtGuestPassword1.getText())) {
+            if(!txtGuestPassword.getText().equals(txtGuestPassword1.getText())) 
              result += 2;
-            }
 
             // if the password doesn't contain a capital, concat 3 to result
             if (!(txtGuestPassword.getText().matches(".*[A-Z].*"))
-                    || !(txtGuestPassword1.getText().matches(".*[A-Z].*"))) {
+                    || !(txtGuestPassword1.getText().matches(".*[A-Z].*"))) 
                 result += 3;
-            }
 
             // if the password doesn't contain a number, concat 4 to result
             if (!(txtGuestPassword.getText().matches(".*[0-9].*"))
-                    || !(txtGuestPassword1.getText().matches(".*[0-9].*"))) {
+                    || !(txtGuestPassword1.getText().matches(".*[0-9].*"))) 
                 result += 4;
-            }
 
             // if the password starts with a number, concat 5 to result
             String firstChar = txtGuestPassword.getText().substring(0, 1);
             if (firstChar.equals("0") || firstChar.equals("1") || firstChar.equals(2)
                     || firstChar.equals("3") || firstChar.equals("4") || firstChar.equals("5")
                     || firstChar.equals("6") || firstChar.equals("7") || firstChar.equals("8")
-                    || firstChar.equals("9")) {
+                    || firstChar.equals("9")) 
+
                 result += 5;
-            }
         }
         
         return result;
@@ -1818,19 +1977,18 @@ public class HotelMadisonUI extends Application
         if (!(txtEditGuestPassword.getText() == null || txtEditGuestPassword.getText().length() == 0
                 && txtEditGuestPassword1.getText() == null || txtEditGuestPassword1.getText().length() == 0
                 && txtEditGuestName.getText() == null || txtEditGuestName.getText().length() == 0)) 
-        {
             result = true; 
-        }
+        
         return result;     
     }
     
-    public boolean isValidEditGuestName() {
+    public boolean isValidEditGuestName() 
+    {
         boolean result = false;
         
-        if(!((txtEditName.getText() == null) || (txtEditName.getText().trim().length() == 0))) {
+        if(!((txtEditName.getText() == null) || (txtEditName.getText().trim().length() == 0))) 
             result = true; 
-        } 
-        
+       
         return result; 
     }
     
@@ -1843,13 +2001,10 @@ public class HotelMadisonUI extends Application
                 && txtEmployeeName.getText() == null || txtEmployeeName.getText().length() == 0)) 
         {
             if(txtEmployeePassword.getText().equals(txtEmployeePassword1.getText()))
-            {
                 result = true;
-            }
+            
             else
-            {
                 result = false;
-            }
         }
         return result;     
     }
@@ -1860,13 +2015,11 @@ public class HotelMadisonUI extends Application
         if (!(txtEditEmployeePassword.getText() == null || txtEditEmployeePassword.getText().length() == 0
                 && txtEditEmployeePassword1.getText() == null || txtEditEmployeePassword1.getText().length() == 0
                 && txtEditEmployeeName.getText() == null || txtEditEmployeeName.getText().length() == 0)) 
-        {
             result = true; 
-        }
+        
         else
-        {
             result = false;
-        }
+        
         return result;     
     }
     
@@ -1874,9 +2027,16 @@ public class HotelMadisonUI extends Application
     {
         switch(status)
         {
-            case "Guest": addGuest(); break; 
-            case "ValueGuest": addValueGuest(); break;
-            default: break;
+            case "Guest": 
+                addGuest();
+                break; 
+                
+            case "ValueGuest": 
+                addValueGuest(); 
+                break;
+                
+            default: 
+                break;
         }
     }
     
@@ -1918,13 +2078,28 @@ public class HotelMadisonUI extends Application
         double num = 0;
         switch(service)
         {
-            case "Pizza - $17.00":  num = 17.00; break;
-            case "Dessert - $5.00":  num = 5.00; break;
-            case "Salad - $8.00": num = 8.00; break;
-            case "Dom Perignon 1968 - $150.00": num = 150.00; break;
-            case "Towels - $2.00": num = 2.00 ; break;
+            case "Pizza - $17.00":  
+                num = 17.00; 
+                break;
+                
+            case "Dessert - $5.00":  
+                num = 5.00; 
+                break;
+                
+            case "Salad - $8.00": 
+                num = 8.00; 
+                break;
+                
+            case "Dom Perignon 1968 - $150.00":
+                num = 150.00;
+                break;
+                
+            case "Towels - $2.00": 
+                num = 2.00; 
+                break;
                   
-            default: break;
+            default: 
+                break;
         }
         return num;
     }
