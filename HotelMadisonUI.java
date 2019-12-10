@@ -287,10 +287,7 @@ public class HotelMadisonUI extends Application
     @Override
     public void start(Stage primaryStage) 
     {
-        
-        
-        
-         String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
+        String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
         String userID = "javauser";
         String userPASS="javapass";
         Statement stmt;
@@ -299,8 +296,8 @@ public class HotelMadisonUI extends Application
         try
         {
               Connection conn = getDBConnection(jdbcConnectionURL,userID,userPASS); 
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,  
-                    ResultSet.CONCUR_READ_ONLY);  
+              stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,  
+              ResultSet.CONCUR_READ_ONLY);  
        
 //            DELETE EMPLOYEES
             
@@ -339,11 +336,10 @@ public class HotelMadisonUI extends Application
 //          DELETE GUESTS
             
              sqlQuery= "SELECT * FROM GUESTTABLE"; 
-              
-               rset = stmt.executeQuery(sqlQuery); 
+             rset = stmt.executeQuery(sqlQuery); 
               x=0; 
-          while(rset.next())
-          {
+            while(rset.next())
+           {
              
               String EUN=rset.getString("GUESTUSERNAME");
               String Pass=rset.getString("PASSWORD");
@@ -369,12 +365,11 @@ public class HotelMadisonUI extends Application
             
              rset = stmt.executeQuery(sqlQuery); 
               
-
-             
              sqlQuery= "SELECT * FROM VALUEGUESTTABLE"; 
                
                rset = stmt.executeQuery(sqlQuery); 
               x=0; 
+          
           while(rset.next())
           {
              
@@ -398,18 +393,14 @@ public class HotelMadisonUI extends Application
               valueGuest.add(g1);
              x++;              
           }
-            sqlQuery = "DELETE FROM VALUEGUESTTABLE";
-            
-             rset = stmt.executeQuery(sqlQuery); 
-         
-
+           
+                sqlQuery = "DELETE FROM VALUEGUESTTABLE";
+                rset = stmt.executeQuery(sqlQuery); 
+                
+                sqlQuery= "SELECT * FROM ROOMTABLE"; 
+                rset = stmt.executeQuery(sqlQuery); 
+                x=0;    
           
-                               
-             sqlQuery= "SELECT * FROM ROOMTABLE"; 
-                
-               rset = stmt.executeQuery(sqlQuery); 
-                
-           x=0;    
           while(rset.next())
           {
               int bed=rset.getInt("BEDOPTION");
@@ -432,14 +423,10 @@ public class HotelMadisonUI extends Application
 
           
           // DELETE BOOKING
-         
-                
-             
            x=0; 
         
-                if (guest!=null&&room!=null||
-                  valueGuest!=null&&room!=null)
-             {
+             if (guest!=null&&room!=null|| valueGuest!=null&&room!=null)
+      {
              
           sqlQuery= "SELECT * FROM BOOKINGTABLE"; 
                
@@ -513,24 +500,15 @@ public class HotelMadisonUI extends Application
                             
 
                 rset = stmt.executeQuery(sqlQuery); 
+          }     
+          }
+          }
 
-          } 
-            
-             }
-        }
-        
-
-    
-        
         catch(SQLException e)
         {
               System.out.println(e.toString());  
         }
-//        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
-//        employee.add(e1);
-      
-
-        
+              
         for(int i=0;i<guest.size();i++)
         {
             guestList.add(guest.get(i));
@@ -855,7 +833,6 @@ public class HotelMadisonUI extends Application
             {
                 if (isValidEditGuest() == true)
                 {
-                    
                     int y;
                     y = valueGuest.get((selectedInt - guest.size())).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
                     
