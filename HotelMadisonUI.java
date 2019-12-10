@@ -1,3 +1,11 @@
+/*
+ * Author: Yohannes Mitiku, Austin Putnam, Marin Walters, Dylan Jones & Ivan Zhang
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
+ * Purpose: To create the HotelMadison application using JavaFX
+ * For our User Interface and integrating the UI with an Oracle SQL
+ * Database.. 
+*/
 package CIS_Group_Project2;
 
 import java.sql.*;
@@ -20,15 +28,12 @@ import oracle.jdbc.pool.*;
 
 public class HotelMadisonUI extends Application 
 {
+    // Arraylists and Observable Lists
     public static ArrayList<Employee> employee = new ArrayList();
     public static ArrayList<Guest> guest = new ArrayList();
     public static ArrayList<Room> room = new ArrayList<Room>();
     public static ArrayList<ValueGuest> valueGuest = new ArrayList();
     public static ArrayList<Booking> booking = new ArrayList();
-
-//    public static ArrayList <RoomService> roomServiceArray = new ArrayList<>();
-    //public static ArrayList<Booking> tempBooking = new ArrayList();
-
     public static ArrayList<Guest> currentGuest = new ArrayList();
     public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
@@ -287,9 +292,7 @@ public class HotelMadisonUI extends Application
     @Override
     public void start(Stage primaryStage) 
     {
-        
-        
-        
+        // Database connection
          String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
         String userID = "javauser";
         String userPASS="javapass";
@@ -569,9 +572,6 @@ public class HotelMadisonUI extends Application
             
              }
         }
-        
-
-    
         
         catch(SQLException e)
         {
