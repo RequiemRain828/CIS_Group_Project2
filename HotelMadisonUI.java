@@ -336,11 +336,7 @@ public class HotelMadisonUI extends Application
             sqlQuery="DELETE FROM EMPLOYEETABLE";
            
             rset = stmt.executeQuery(sqlQuery); 
-             
-              
-              
-              
-              
+   
 //          DELETE GUESTS
             
              sqlQuery= "SELECT * FROM GUESTTABLE"; 
@@ -427,9 +423,7 @@ public class HotelMadisonUI extends Application
           sqlQuery = "DELETE FROM ROOMTABLE";
             
              rset = stmt.executeQuery(sqlQuery); 
-               
 
-          
           // DELETE BOOKING
            x=0; 
         
@@ -446,11 +440,8 @@ public class HotelMadisonUI extends Application
               int guestnum=rset.getInt("GUESTID");
              
               Guest gnew = guest.get(getGuestPos(rset.getString("BOOKINGGUEST")));
-                            
 
               Room roomnew = room.get(roomc-1);
-                           
-
               int CIY=rset.getInt("CHECKINYEAR");
               int CID=rset.getInt("CHECKINDAY");
               int COD=rset.getInt("CHECKOUTDAY");
@@ -473,15 +464,11 @@ public class HotelMadisonUI extends Application
                   booking.add(bv1);
               }
              x++;              
-          }
-
-                         
+          }                        
                 sqlQuery = "DELETE FROM BOOKINGTABLE";
                 rset = stmt.executeQuery(sqlQuery); 
                 System.out.println(sqlQuery); 
 
-          
-          
           // DELETE ROOMSERVICE
           
                       
@@ -512,12 +499,6 @@ public class HotelMadisonUI extends Application
           }
           }
 
-
-           
-            
-             
-        
-        
         catch(SQLException e)
         {
               System.out.println(e.toString());  
@@ -525,7 +506,6 @@ public class HotelMadisonUI extends Application
 
 //        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
 //        employee.add(e1);
-
 
         for(int i=0;i<guest.size();i++)
         {
@@ -2191,7 +2171,6 @@ public class HotelMadisonUI extends Application
         {
             result += 1;
         } 
-        
         else 
         {
             // if the passwords don't match, concat 2 to result
@@ -2217,12 +2196,9 @@ public class HotelMadisonUI extends Application
 
                 result += 5;
         }
-        
         return result;
     }
-    
-    
-    
+
     public boolean isValidEditGuest()
     {
         boolean result = false;
@@ -2243,7 +2219,7 @@ public class HotelMadisonUI extends Application
        
         return result; 
     }
-    
+    // Author: Dylan Jones
     public boolean isValidAddEmployee()
     {
         boolean result = false;
@@ -2324,7 +2300,7 @@ public class HotelMadisonUI extends Application
         txtGuestPassword.clear();
         txtGuestName.clear();       
     }
-    
+    // Author: Ivan Zhang
     public double handleRoomService(String service)
     {
         double num = 0;
@@ -2355,7 +2331,7 @@ public class HotelMadisonUI extends Application
         }
         return num;
     }
-    
+
     public int createNewPassword(String newP)
     {
         int x = 0;
@@ -2377,13 +2353,9 @@ public class HotelMadisonUI extends Application
         }
         return x;
     }
-    
     @Override
     public void stop()
     {
-       
-        
-        
         String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
         String userID = "javauser";
         String userPASS="javapass";
@@ -2395,10 +2367,7 @@ public class HotelMadisonUI extends Application
               Connection conn = getDBConnection(jdbcConnectionURL,userID,userPASS); 
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,  
                     ResultSet.CONCUR_READ_ONLY);  
-       
-            
-            
-            
+
              for (int i = 0; i < employee.size();i++)
         {
             sqlQuery= "INSERT INTO EMPLOYEETABLE (EMPLOYEEID,PASSWORD,EMPLOYEENAME,USERNAME)"+
@@ -2407,8 +2376,7 @@ public class HotelMadisonUI extends Application
                     + "'" +splitName(employee.get(i).employeeName) + "'" +", "
                     + "'" + employee.get(i).username+ "'" +")"; 
                 System.out.println(sqlQuery); 
-               rset = stmt.executeQuery(sqlQuery); 
-                  
+               rset = stmt.executeQuery(sqlQuery);       
         }      
          
             for (int i = 0; i < guest.size();i++)
@@ -2435,12 +2403,9 @@ public class HotelMadisonUI extends Application
                     + valueGuest.get(i).numberOfBookings +","
                     +"'"+ valueGuest.get(i).getStatus() +"'"+")"; 
                 System.out.println(sqlQuery); 
-               rset = stmt.executeQuery(sqlQuery); 
-                  
+               rset = stmt.executeQuery(sqlQuery);         
         }
-             
-
-                       
+          
              for (int i = 0; i < room.size();i++)
         {
             sqlQuery= "INSERT INTO ROOMTABLE (ROOMID,BEDOPTION,KITCHENOPTION,COFFEEOPTION,ACCESSIBLEOPTION, "
@@ -2458,18 +2423,12 @@ public class HotelMadisonUI extends Application
                rset = stmt.executeQuery(sqlQuery); 
                   
         }          
-                       
-       
-             
-//            if (booking.size()>0)
-//        {
          for (int i = 0; i < booking.size();i++)
         {
             if(booking.get(i).getBookingGuest().getStatus().equals("V")){
                 String guestName=splitName(booking.get(i).getValueGuest().guestName);
                 System.out.println("Test3");
-                
-                
+                 
             sqlQuery= "INSERT INTO BOOKINGTABLE (BOOKINGID,ROOMID,GUESTID,BOOKEDROOM,"
                     + "BOOKINGGUEST,VALUEGUEST,CHECKINMONTH,"
                     + "CHECKINDAY,CHECKINYEAR, CHECKOUTMONTH,CHECKOUTDAY, "
@@ -2517,13 +2476,9 @@ public class HotelMadisonUI extends Application
                     +"'"+booking.get(i).roomServiceCost +"'"+", "
                     +"'"+booking.get(i).totalCost +"'"+")"; 
                               rset = stmt.executeQuery(sqlQuery);
-                     System.out.println(sqlQuery);
-                
+                     System.out.println(sqlQuery);  
             }
         }
-//     
-//         for(int k = 0; k < 15;k++){
-         
             for (int i = 0; i < booking.size() ;i++)
         {
             
@@ -2539,33 +2494,14 @@ public class HotelMadisonUI extends Application
                rset = stmt.executeQuery(sqlQuery); 
             }  
         }
-//         }
-//        }
-        
-                       
-                       
-                       
-                       
-                       
-//    sqlQuery= "INSERT INTO GUESTTABLE (GUESTID,GUESTUSERNAME,PASSWORD,GUESTNAME,AMOUNTSPENTWITHHOTEL,NUMBEROFBOOKINGS,STATUS)VALUES (1,"'"bob69','bob','bob',2000,3,'G')"; 
-     
-              
-         
+
         }
         catch(SQLException e)
         {
               System.out.println(e.toString());  
         }
-//      public  Connection getDBConnection(String url, String user, String pass)
-//              throws SQLException    { 
-//
-//             OracleDataSource ds = new OracleDataSource();     
-//             ds.setURL(url);    
-//    return ds.getConnection(user, pass);    }
-        
-   
-      
-}
+
+    }
     public static int getGuestPos(String name){
        int position = 0;
        for (int i=0;i<guest.size();i++)
