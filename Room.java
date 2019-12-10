@@ -1,6 +1,6 @@
 /*
  * Author: Austin Putnam, Marin Walters & Ivan Zhang
- * Date: December 12, 2019
+ * Date: December 10, 2019
  * Assignment: Hotel Madison Part 2
  * Purpose: To create a Room object. 
 */
