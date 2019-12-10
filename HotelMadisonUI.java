@@ -305,7 +305,7 @@ public class HotelMadisonUI extends Application
 //            DELETE EMPLOYEES
             
              sqlQuery= "SELECT * FROM EMPLOYEETABLE"; 
-                System.out.println(sqlQuery); 
+                
                rset = stmt.executeQuery(sqlQuery); 
                String Name="";
            int x=0;    
@@ -327,23 +327,19 @@ public class HotelMadisonUI extends Application
               employee.add(e1);
              x++;              
           }
-//          for(int i=0;i<x;i++)
-//          {
-//              
-//             sqlQuery="Delete FROM EMPLOYEETABLE WHERE EMPLOYEEID="+i;
-//                             System.out.println(sqlQuery); 
-//
-//                rset = stmt.executeQuery(sqlQuery); 
-//
-//          } 
+
             sqlQuery="DELETE FROM EMPLOYEETABLE";
            
             rset = stmt.executeQuery(sqlQuery); 
-              System.out.println(sqlQuery); 
+             
+              
+              
+              
+              
 //          DELETE GUESTS
             
              sqlQuery= "SELECT * FROM GUESTTABLE"; 
-                System.out.println(sqlQuery); 
+              
                rset = stmt.executeQuery(sqlQuery); 
               x=0; 
           while(rset.next())
@@ -361,7 +357,7 @@ public class HotelMadisonUI extends Application
                  
                  Name= rset.getString("GUESTNAME").replace("/", " ");
                }
-//               Name=rset.getString("GUESTNAME");
+
               String amountSpent=rset.getString("AMOUNTSPENTWITHHOTEL");
               int numOfBookings=rset.getInt("NUMBEROFBOOKINGS");
               String status=rset.getString("STATUS");
@@ -372,23 +368,11 @@ public class HotelMadisonUI extends Application
            sqlQuery = "DELETE FROM GUESTTABLE";
             
              rset = stmt.executeQuery(sqlQuery); 
-               System.out.println(sqlQuery); 
-//          for(int i=0;i<x;i++)
-//          {
-////              guest.get(i).amountSpentWithHotel=rset.getDouble("AMOUNTSPENTWITHHOTEL");
-////              guest.get(i).numberOfBookings=rset.getInt("NUMBEROFBOOKINGS");
-//              sqlQuery="Delete FROM GUESTTABLE WHERE GUESTID="+i;
-//              System.out.println(sqlQuery); 
-//
-//                rset = stmt.executeQuery(sqlQuery); 
-//
-//          } 
-          
-//         DELETE VALUEGUEST 
-          
+              
+
              
              sqlQuery= "SELECT * FROM VALUEGUESTTABLE"; 
-                System.out.println(sqlQuery); 
+               
                rset = stmt.executeQuery(sqlQuery); 
               x=0; 
           while(rset.next())
@@ -406,7 +390,7 @@ public class HotelMadisonUI extends Application
                  
                  Name= rset.getString("GUESTNAME").replace("/", " ");
                }
-//              Name=rset.getString("GUESTNAME");
+
               String amountSpent=rset.getString("AMOUNTSPENTWITHHOTEL");
               int numOfBookings=rset.getInt("NUMBEROFBOOKINGS");
               String status=rset.getString("STATUS");
@@ -417,22 +401,12 @@ public class HotelMadisonUI extends Application
             sqlQuery = "DELETE FROM VALUEGUESTTABLE";
             
              rset = stmt.executeQuery(sqlQuery); 
-               System.out.println(sqlQuery); 
-//          for(int i=0;i<x;i++)
-//          {
-//
-//              sqlQuery="Delete FROM VALUEGUESTTABLE WHERE VALUECLUBID="+i;
-//              System.out.println(sqlQuery); 
-//
-//                rset = stmt.executeQuery(sqlQuery); 
-//
-//          }
-          //DELETE ROOMS
-          
+         
+
           
                                
              sqlQuery= "SELECT * FROM ROOMTABLE"; 
-                System.out.println(sqlQuery); 
+                
                rset = stmt.executeQuery(sqlQuery); 
                 
            x=0;    
@@ -454,22 +428,8 @@ public class HotelMadisonUI extends Application
           sqlQuery = "DELETE FROM ROOMTABLE";
             
              rset = stmt.executeQuery(sqlQuery); 
-               System.out.println(sqlQuery); 
-//                rset = stmt.executeQuery(sqlQuery); 
-//          for(int i=0;i<x;i++)
-//          {
-//              
-//             sqlQuery="Delete FROM ROOMTABLE WHERE ROOMID="+i;
-//                             System.out.println(sqlQuery); 
-//
-//                rset = stmt.executeQuery(sqlQuery); 
-//
-//          } 
-          
-          
+               
 
-//          rset.getString("GUESTTABLE.GUESTID");
-//          System.out.println(rset);
           
           // DELETE BOOKING
          
@@ -482,21 +442,19 @@ public class HotelMadisonUI extends Application
              {
              
           sqlQuery= "SELECT * FROM BOOKINGTABLE"; 
-                System.out.println(sqlQuery); 
+               
                rset = stmt.executeQuery(sqlQuery); 
           while(rset.next())
           {
-//             if (guest!=null&&!rset.getString("VALUEGUEST").equals(null)&&room!=null||
-//                  valueGuest!=null&&!rset.getString("VALUEGUEST").equals(null)&&room!=null)
-//             {
+
               int roomc=rset.getInt("BOOKEDROOM");
               int guestnum=rset.getInt("GUESTID");
              
               Guest gnew = guest.get(getGuestPos(rset.getString("BOOKINGGUEST")));
-                            System.out.println("TEST");
+                            
 
               Room roomnew = room.get(roomc-1);
-                           System.out.println("TEST2");
+                           
 
               int CIY=rset.getInt("CHECKINYEAR");
               int CID=rset.getInt("CHECKINDAY");
@@ -509,7 +467,7 @@ public class HotelMadisonUI extends Application
               {
                   
               Booking b1 = new Booking(gnew,roomnew, CIY, CID, 
-        COD, CIM, COM, COY);
+                             COD, CIM, COM, COY);
                 booking.add(b1);
               }
               else
@@ -521,21 +479,12 @@ public class HotelMadisonUI extends Application
               }
              x++;              
           }
-//          else
-//             {
-//                 break;
-//             }
-          
-          
-//          for(int i=0;i<x;i++)
-//          {
-//              
-//             sqlQuery="Delete FROM BOOKINGTABLE WHERE BOOKINGID="+i;
+
                          
                 sqlQuery = "DELETE FROM BOOKINGTABLE";
                 rset = stmt.executeQuery(sqlQuery); 
                 System.out.println(sqlQuery); 
-//          }
+
           
           
           // DELETE ROOMSERVICE
@@ -561,7 +510,7 @@ public class HotelMadisonUI extends Application
           {
               
              sqlQuery="Delete FROM ROOMSERVICETABLE WHERE ROOMSERVICEID="+i;
-                             System.out.println(sqlQuery); 
+                            
 
                 rset = stmt.executeQuery(sqlQuery); 
 
@@ -579,36 +528,7 @@ public class HotelMadisonUI extends Application
         }
 //        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
 //        employee.add(e1);
-//        
-//        Employee emp = new Employee ("admin" , "Pool2", "Boston Putnam");
-//        employee.add(emp);
-//        
-//        Employee emp1 = new Employee ("blah" , "Bleep3", "Costin Putnam");
-//        employee.add(emp1);
-//        
-//        Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
-//        guest.add(g1);
-//        
-//        Guest g2 = new Guest("guest1" , "C2", "Mike Thorton");
-//        guest.add(g2);
-//        
-//        ValueGuest g3 = new ValueGuest("vguest" , "G0", "Seth Ledger");
-//        valueGuest.add(g3);
-//        
-//ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Bob Solid");
-//valueGuest.add(g4);
-//
-//Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
-//room.add(r1);
-//
-//Room r2 = new Room(1, 1, 1 ,1 , 2, 100.00);
-//room.add(r2);
-
-        Room r1 = new Room(1, 1, 1, 1, 3, 50.00);
-        room.add(r1);
-        
-        Room r2 = new Room(1, 1, 1 ,1 , 4, 100.00);
-        room.add(r2);
+      
 
         
         for(int i=0;i<guest.size();i++)
