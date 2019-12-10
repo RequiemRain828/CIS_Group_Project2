@@ -25,11 +25,10 @@ public class HotelMadisonUI extends Application
     public static ArrayList<Room> room = new ArrayList<Room>();
     public static ArrayList<ValueGuest> valueGuest = new ArrayList();
     public static ArrayList<Booking> booking = new ArrayList();
-<<<<<<< HEAD
+
 //    public static ArrayList <RoomService> roomServiceArray = new ArrayList<>();
     //public static ArrayList<Booking> tempBooking = new ArrayList();
-=======
->>>>>>> ba139186de221c07e3a69a998608e6771140f85c
+
     public static ArrayList<Guest> currentGuest = new ArrayList();
     public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
@@ -571,7 +570,7 @@ public class HotelMadisonUI extends Application
              }
         }
         
-<<<<<<< HEAD
+
     
         
         catch(SQLException e)
@@ -604,13 +603,13 @@ public class HotelMadisonUI extends Application
 //
 //Room r2 = new Room(1, 1, 1 ,1 , 2, 100.00);
 //room.add(r2);
-=======
+
         Room r1 = new Room(1, 1, 1, 1, 3, 50.00);
         room.add(r1);
         
         Room r2 = new Room(1, 1, 1 ,1 , 4, 100.00);
         room.add(r2);
->>>>>>> ba139186de221c07e3a69a998608e6771140f85c
+
         
         for(int i=0;i<guest.size();i++)
         {
