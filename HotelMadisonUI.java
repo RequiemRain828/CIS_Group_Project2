@@ -289,10 +289,10 @@ public class HotelMadisonUI extends Application
         ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Bob Solid");
         valueGuest.add(g4);
         
-        Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
+        Room r1 = new Room(1, 1, 1, 1, 3, 50.00);
         room.add(r1);
         
-        Room r2 = new Room(1, 1, 1 ,1 , 2, 100.00);
+        Room r2 = new Room(1, 1, 1 ,1 , 4, 100.00);
         room.add(r2);
         
         for(int i=0;i<guest.size();i++){
@@ -500,7 +500,8 @@ public class HotelMadisonUI extends Application
             int selectedInt = lstCheckout.getSelectionModel().getSelectedIndex();
             booking.get(selectedInt).bookedRoom.freeThisRoom();
             checkoutList.remove(selectedInt);
-            bookList.add(booking.get(selectedInt).toString());
+            bookList.add(room.get(selectedInt).roomDescription());
+            
         });
         
         btnEmployeeBack2.setOnAction(e -> {
@@ -1016,9 +1017,8 @@ public class HotelMadisonUI extends Application
         btnBookRoom.disableProperty()
         .bind(listBookRoom.getSelectionModel().selectedItemProperty().isNull());
         btnBookRoom.setOnAction(e -> {
-           int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
-           listBookRoom.getItems().remove(selectedInt);
-           
+           //int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
+
            int dayIn = ((Integer)cmboDayIn.getValue());
            int dayOut = ((Integer)cmboDayOut.getValue());
            int yearIn = ((Integer)cmboYearIn.getValue());
@@ -1028,30 +1028,33 @@ public class HotelMadisonUI extends Application
            
            if (!currentGuest.isEmpty())
            {
+                int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
+                listBookRoom.getItems().remove(selectedInt);
                 Guest myGuest = currentGuest.get(0);
-                room.get(selectedInt);              
-                room.get(selectedInt).bookRoom();
                 Room chosenRoom = room.get(selectedInt);
-                //listBookRoom.getItems().remove(i);
+                room.get(selectedInt).bookRoom();
+                
                 Booking newBooking = new Booking(myGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
                 lblThankYou.setText("*Thank you for booking a room!*");
                 
                 booking.add(newBooking);
-                checkoutList.add(newBooking.toString());
-                  
+                //gBookingList.add(newBooking.toString());
+                //System.out.println("Thank you for booking Room #" + newBooking.getBookedRoom().getRoomNumber());
+                checkoutList.add(newBooking.toString());  
            }
            if (!currentVGuest.isEmpty())
            {
+                int selectedInt = listBookRoom.getSelectionModel().getSelectedIndex();
+                listBookRoom.getItems().remove(selectedInt);
                 Guest aGuest = currentVGuest.get(0);
-                room.get(selectedInt);              
+                //room.get(selectedInt);              
                 room.get(selectedInt).bookRoom();
                 Room chosenRoom = room.get(selectedInt);
-                //listBookRoom.getItems().remove(i);
                 Booking newBooking = new Booking(aGuest, chosenRoom, yearIn, dayIn, dayOut, monthIn, monthOut, yearOut);
-                
+                lblThankYou.setText("*Thank you for booking a room!*");
                 booking.add(newBooking);
                 checkoutList.add(newBooking.toString()); 
-                bookRoomPane.add(new Label("*Thank you for booking a room!*"), 4, 6);
+
            }
            cmboDayIn.getSelectionModel().select(0);
            cmboDayOut.getSelectionModel().select(0);
@@ -1090,6 +1093,7 @@ public class HotelMadisonUI extends Application
         guestBookingPane.setHgap(15);
         btnDisplyGBooking.setOnAction(e -> {
             lstGBooking.getItems().clear();
+            
             if (!currentGuest.isEmpty())
             {
                 for (int i = 0; i < booking.size(); i++)
@@ -1097,7 +1101,9 @@ public class HotelMadisonUI extends Application
                     if (booking.get(i).getBookingGuest().getGuestName().equals(currentGuest.get(0).getGuestName()))
                     {
                     gBookingList.add(booking.get(i).toString());
+                    
                     }
+                    System.out.print(booking.get(i).toString());
                 }
             }
             if (!currentVGuest.isEmpty())
@@ -1108,6 +1114,7 @@ public class HotelMadisonUI extends Application
                     {
                     gBookingList.add(booking.get(i).toString());
                     }
+                    
                 }  
             }
         });
@@ -1156,21 +1163,10 @@ public class HotelMadisonUI extends Application
                for (int i = 0; i < 1; i++)
                {
                guestEditList.add(currentGuest.get(0).toString());
+               lstGuestInfo.getItems().add(guestEditList);
                }
             }
-        
-//        btnDisplayInfo.setOnAction(e -> {
-//            if (!currentVGuest.isEmpty())
-//            {
-//               guestEditList.add(currentVGuest.get(0).toString());
-//            }
-//            if (!currentGuest.isEmpty())
-//            {
-//               guestEditList.add(currentGuest.get(0).toString());
-//            }
-//        });
-        
-        
+             
         btnEditInfo.setOnAction(e -> {
             if (isValidEditGuestName()){
                 if (!currentGuest.isEmpty())
@@ -1644,7 +1640,7 @@ public class HotelMadisonUI extends Application
         try {
             // Do all the validation you need here such as
             Double d = Double.parseDouble(txtPrice.getText());
-            if ( d >= 1.0 && d < 999.9)
+            if ( d >= 1.0 && d < 9999.9)
                 {
                 result = true;
                 }
