@@ -9,7 +9,7 @@ package CIS_Group_Project2;
 public class Room 
 {
     
-    private int roomID;
+    public int roomID;
     
     public int bedOption;
     public int kitchenOption;
