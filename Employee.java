@@ -1,7 +1,7 @@
 /*
  * Author: Austin Putnam
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create an Employee object. 
 */
 package CIS_Group_Project2;
@@ -54,6 +54,7 @@ public class Employee
         this.employeeName = employeeName;
     }
     
+    //  Author: Austin Putnam
     public int setPassword(String oldP, String newP) //Allows users to change passwords
     { 
         int x = 0;
