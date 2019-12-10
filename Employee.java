@@ -10,10 +10,10 @@ import java.util.*;
 
 public class Employee 
 {
-    private int employeeID;
-    private String username;
-    private String password;
-    private String employeeName;
+    public int employeeID;
+    public String username;
+    public String password;
+    public String employeeName;
     
     public static int nextID = 0;
     public static ArrayList<Employee> employeeArray = new ArrayList<Employee>();
