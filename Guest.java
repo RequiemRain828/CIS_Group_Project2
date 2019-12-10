@@ -1,7 +1,7 @@
 /*
  * Author: Austin Putnam
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create a Guest object. 
 */
 package CIS_Group_Project2;
@@ -47,11 +47,16 @@ public class Guest
         return this.username;
     }
     
+    public String getPassword() {
+        return this.password;
+    }
+    
     public void setGuestName(String guestName) // Setter for guest name
     {
         this.guestName = guestName;
     }
     
+    //  Author: Austin Putnam
      public int setPassword(String oldP, String newP) //Allows users to change passwords
     { 
         int x = 0;
@@ -88,6 +93,7 @@ public class Guest
         return x;
     }
     
+    //  Author: Austin Putnam 
      public int createNewPassword(String newP)
     {
         int x = 0;
@@ -122,7 +128,7 @@ public class Guest
       
 
     @Override
-     public String toString()
+    public String toString()
     {
         String tempStatus = "";
         if (this.getStatus().equals("G")) {
@@ -132,11 +138,22 @@ public class Guest
         }
         
         return "Username: " + this.username + ", Password: " + hashPassword() + ", Guest Name: " + this.guestName + ", Status: " 
-                + this.getStatus() + tempStatus;
-        // return "username: " + this.username + "password: " + this.password + "guest name: " + this.guestName;
-                
+                + this.getStatus() + tempStatus;               
     }
     
+    public String toStringName()
+    {
+        String tempStatus = "";
+        if (this.getStatus().equals("G")) {
+            tempStatus = " (Guest)";
+        } else if (this.getStatus().equals("V")) {
+            tempStatus = " (Value Guest)";
+        }
+        
+        return this.getGuestName() + tempStatus;           
+    }
+    
+    //  Author: Marin Walters
     public String hashPassword()
     {
         String result = "";
