@@ -1,7 +1,7 @@
 /*
  * Author: Austin Putnam
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create a Guest object. 
 */
 package CIS_Group_Project2;
@@ -56,6 +56,7 @@ public class Guest
         this.guestName = guestName;
     }
     
+    //  Author: Austin Putnam
      public int setPassword(String oldP, String newP) //Allows users to change passwords
     { 
         int x = 0;
@@ -92,6 +93,7 @@ public class Guest
         return x;
     }
     
+    //  Author: Austin Putnam 
      public int createNewPassword(String newP)
     {
         int x = 0;
@@ -151,6 +153,7 @@ public class Guest
         return this.getGuestName() + tempStatus;           
     }
     
+    //  Author: Marin Walters
     public String hashPassword()
     {
         String result = "";
