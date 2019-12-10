@@ -292,12 +292,10 @@ public class HotelMadisonUI extends Application
     @Override
     public void start(Stage primaryStage) 
     {
-<<<<<<< HEAD
-        String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
-=======
+
         // Database connection
          String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
->>>>>>> bceecb4862b1d20648cbef00cdedff592336bf8d
+
         String userID = "javauser";
         String userPASS="javapass";
         Statement stmt;
@@ -514,25 +512,21 @@ public class HotelMadisonUI extends Application
           }
           }
 
-<<<<<<< HEAD
-=======
-          } 
+
+           
             
-             }
-        }
+             
         
->>>>>>> bceecb4862b1d20648cbef00cdedff592336bf8d
+        
         catch(SQLException e)
         {
               System.out.println(e.toString());  
         }
-<<<<<<< HEAD
-              
-=======
+
 //        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
 //        employee.add(e1);
 
->>>>>>> bceecb4862b1d20648cbef00cdedff592336bf8d
+
         for(int i=0;i<guest.size();i++)
         {
             guestList.add(guest.get(i));
