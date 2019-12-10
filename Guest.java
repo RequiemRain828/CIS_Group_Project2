@@ -8,9 +8,9 @@ package CIS_Group_Project2;
 
 public class Guest 
 {
-    private int guestID;
+    public int guestID;
     private String username;
-    private String password;
+    public String password;
     private String guestName;
     public double amountSpentWithHotel;
     public int numberOfBookings;
@@ -146,4 +146,8 @@ public class Guest
         }
         return result;
     }
+    
+    
+    
+    
 }
