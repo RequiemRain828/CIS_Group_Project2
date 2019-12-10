@@ -1,5 +1,6 @@
 package CIS_Group_Project2;
 
+import java.sql.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,6 +14,7 @@ import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import oracle.jdbc.pool.*;
 
 public class HotelMadisonUI extends Application 
 {
@@ -21,6 +23,7 @@ public class HotelMadisonUI extends Application
     public static ArrayList<Room> room = new ArrayList<Room>();
     public static ArrayList<ValueGuest> valueGuest = new ArrayList();
     public static ArrayList<Booking> booking = new ArrayList();
+//    public static ArrayList <RoomService> roomServiceArray = new ArrayList<>();
     //public static ArrayList<Booking> tempBooking = new ArrayList();
     public static ArrayList<Guest> currentGuest = new ArrayList();
     public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
@@ -243,32 +246,321 @@ public class HotelMadisonUI extends Application
     @Override
     public void start(Stage primaryStage) 
     {
-        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
-        employee.add(e1);
         
-        Employee emp = new Employee ("admin" , "Pool2", "Boston Putnam");
-        employee.add(emp);
         
-        Employee emp1 = new Employee ("blah" , "Bleep3", "Costin Putnam");
-        employee.add(emp1);
         
-        Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
-        guest.add(g1);
+         String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
+        String userID = "javauser";
+        String userPASS="javapass";
+        Statement stmt;
+        String sqlQuery="";
+        ResultSet rset; 
+        try
+        {
+              Connection conn = getDBConnection(jdbcConnectionURL,userID,userPASS); 
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,  
+                    ResultSet.CONCUR_READ_ONLY);  
+       
+//            DELETE EMPLOYEES
+            
+             sqlQuery= "SELECT * FROM EMPLOYEETABLE"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+               String Name="";
+           int x=0;    
+          while(rset.next())
+          {
+              String EUN=rset.getString("USERNAME");
+              String Pass=rset.getString("PASSWORD");
+              if ((rset.getString("EMPLOYEENAME").indexOf("/"))==rset.getString("EMPLOYEENAME").length())
+              {
+                  
+              Name=rset.getString("EMPLOYEENAME").substring(0, rset.getString("EMPLOYEENAME").length()-1);
+              }
+              else
+              {
+                 
+                 Name= rset.getString("EMPLOYEENAME").replace("/", " ");
+               }
+              Employee e1 = new Employee (EUN , Pass, Name);
+              employee.add(e1);
+             x++;              
+          }
+//          for(int i=0;i<x;i++)
+//          {
+//              
+//             sqlQuery="Delete FROM EMPLOYEETABLE WHERE EMPLOYEEID="+i;
+//                             System.out.println(sqlQuery); 
+//
+//                rset = stmt.executeQuery(sqlQuery); 
+//
+//          } 
+            sqlQuery="DELETE FROM EMPLOYEETABLE";
+           
+            rset = stmt.executeQuery(sqlQuery); 
+              System.out.println(sqlQuery); 
+//          DELETE GUESTS
+            
+             sqlQuery= "SELECT * FROM GUESTTABLE"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+              x=0; 
+          while(rset.next())
+          {
+             
+              String EUN=rset.getString("GUESTUSERNAME");
+              String Pass=rset.getString("PASSWORD");
+               if ((rset.getString("GUESTNAME").indexOf("/"))==rset.getString("GUESTNAME").length())
+              {
+                  
+              Name=rset.getString("GUESTNAME").substring(0, rset.getString("GUESTNAME").length()-1);
+              }
+              else
+              {
+                 
+                 Name= rset.getString("GUESTNAME").replace("/", " ");
+               }
+//               Name=rset.getString("GUESTNAME");
+              String amountSpent=rset.getString("AMOUNTSPENTWITHHOTEL");
+              int numOfBookings=rset.getInt("NUMBEROFBOOKINGS");
+              String status=rset.getString("STATUS");
+              Guest g1 = new Guest (EUN , Pass, Name);
+              guest.add(g1);
+             x++;              
+          }
+           sqlQuery = "DELETE FROM GUESTTABLE";
+            
+             rset = stmt.executeQuery(sqlQuery); 
+               System.out.println(sqlQuery); 
+//          for(int i=0;i<x;i++)
+//          {
+////              guest.get(i).amountSpentWithHotel=rset.getDouble("AMOUNTSPENTWITHHOTEL");
+////              guest.get(i).numberOfBookings=rset.getInt("NUMBEROFBOOKINGS");
+//              sqlQuery="Delete FROM GUESTTABLE WHERE GUESTID="+i;
+//              System.out.println(sqlQuery); 
+//
+//                rset = stmt.executeQuery(sqlQuery); 
+//
+//          } 
+          
+//         DELETE VALUEGUEST 
+          
+             
+             sqlQuery= "SELECT * FROM VALUEGUESTTABLE"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+              x=0; 
+          while(rset.next())
+          {
+             
+              String EUN=rset.getString("GUESTUSERNAME");
+              String Pass=rset.getString("PASSWORD");
+                  if ((rset.getString("GUESTNAME").indexOf("/"))==rset.getString("GUESTNAME").length())
+              {
+                  
+              Name=rset.getString("GUESTNAME").substring(0, rset.getString("GUESTNAME").length()-1);
+              }
+              else
+              {
+                 
+                 Name= rset.getString("GUESTNAME").replace("/", " ");
+               }
+//              Name=rset.getString("GUESTNAME");
+              String amountSpent=rset.getString("AMOUNTSPENTWITHHOTEL");
+              int numOfBookings=rset.getInt("NUMBEROFBOOKINGS");
+              String status=rset.getString("STATUS");
+              ValueGuest g1 = new ValueGuest (EUN , Pass, Name);
+              valueGuest.add(g1);
+             x++;              
+          }
+            sqlQuery = "DELETE FROM VALUEGUESTTABLE";
+            
+             rset = stmt.executeQuery(sqlQuery); 
+               System.out.println(sqlQuery); 
+//          for(int i=0;i<x;i++)
+//          {
+//
+//              sqlQuery="Delete FROM VALUEGUESTTABLE WHERE VALUECLUBID="+i;
+//              System.out.println(sqlQuery); 
+//
+//                rset = stmt.executeQuery(sqlQuery); 
+//
+//          }
+          //DELETE ROOMS
+          
+          
+                               
+             sqlQuery= "SELECT * FROM ROOMTABLE"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+                
+           x=0;    
+          while(rset.next())
+          {
+              int bed=rset.getInt("BEDOPTION");
+              int kitch=rset.getInt("KITCHENOPTION");
+              int coffee=rset.getInt("COFFEEOPTION");
+              int accessibility=rset.getInt("ACCESSIBLEOPTION");
+              int roomNumber=rset.getInt("ROOMNUMBER");
+              double roomPrice=rset.getDouble("ROOMCOSTPERNIGHT");
+              
         
-        Guest g2 = new Guest("guest1" , "C2", "Mike Thorton");
-        guest.add(g2);
+     
+              Room room1 = new Room (bed, kitch, coffee, accessibility, roomNumber, roomPrice);
+                room.add(room1);
+             x++;              
+          }
+          sqlQuery = "DELETE FROM ROOMTABLE";
+            
+             rset = stmt.executeQuery(sqlQuery); 
+               System.out.println(sqlQuery); 
+//                rset = stmt.executeQuery(sqlQuery); 
+//          for(int i=0;i<x;i++)
+//          {
+//              
+//             sqlQuery="Delete FROM ROOMTABLE WHERE ROOMID="+i;
+//                             System.out.println(sqlQuery); 
+//
+//                rset = stmt.executeQuery(sqlQuery); 
+//
+//          } 
+          
+          
+
+//          rset.getString("GUESTTABLE.GUESTID");
+//          System.out.println(rset);
+          
+          // DELETE BOOKING
+         
+                
+             
+           x=0; 
         
-        ValueGuest g3 = new ValueGuest("vguest" , "G0", "Seth Ledger");
-        valueGuest.add(g3);
+                if (guest!=null&&room!=null||
+                  valueGuest!=null&&room!=null)
+             {
+             
+          sqlQuery= "SELECT * FROM BOOKINGTABLE"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+          while(rset.next())
+          {
+//             if (guest!=null&&!rset.getString("VALUEGUEST").equals(null)&&room!=null||
+//                  valueGuest!=null&&!rset.getString("VALUEGUEST").equals(null)&&room!=null)
+//             {
+              int roomc=rset.getInt("BOOKEDROOM");
+              int guestnum=rset.getInt("GUESTID");
+             
+              Guest gnew = guest.get(getGuestPos(rset.getString("BOOKINGGUEST")));
+                            System.out.println("TEST");
+
+              Room roomnew = room.get(roomc-1);
+                           System.out.println("TEST2");
+
+              int CIY=rset.getInt("CHECKINYEAR");
+              int CID=rset.getInt("CHECKINDAY");
+              int COD=rset.getInt("CHECKOUTDAY");
+              int CIM=rset.getInt("CHECKINMONTH");
+              int COM=rset.getInt("CHECKOUTMONTH");
+              int COY=rset.getInt("CHECKOUTYEAR");
+              
+              if(rset.getString("VALUEGUEST").equals("G"))
+              {
+                  
+              Booking b1 = new Booking(gnew,roomnew, CIY, CID, 
+        COD, CIM, COM, COY);
+                booking.add(b1);
+              }
+              else
+              {
+                  gnew=valueGuest.get(getGuestPos(rset.getString("BOOKINGGUEST")));
+                   roomnew = room.get(roomc-1);
+                   Booking bv1 = new Booking(gnew,roomnew, CIY, CID, COD, CIM, COM, COY);
+                  booking.add(bv1);
+              }
+             x++;              
+          }
+//          else
+//             {
+//                 break;
+//             }
+          
+          
+//          for(int i=0;i<x;i++)
+//          {
+//              
+//             sqlQuery="Delete FROM BOOKINGTABLE WHERE BOOKINGID="+i;
+                         
+                sqlQuery = "DELETE FROM BOOKINGTABLE";
+                rset = stmt.executeQuery(sqlQuery); 
+                System.out.println(sqlQuery); 
+//          }
+          
+          
+          // DELETE ROOMSERVICE
+          
+                      
+             sqlQuery= "SELECT * FROM ROOMSERVICETABLE"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+                
+           x=0;    
+          while(rset.next())
+          {
+              String EUN=rset.getString("DESCRIPTION");
+              double Pass=rset.getDouble("PRICE");
+              int qty=rset.getInt("QUANTITY");
+              int bookID = rset.getInt("BOOKINGID");
+     
+              RoomService r1 = new RoomService (EUN , Pass, qty);
+                booking.get(bookID-1).roomServiceArray.add(r1);
+             x++;              
+          }
+          for(int i=0;i<x;i++)
+          {
+              
+             sqlQuery="Delete FROM ROOMSERVICETABLE WHERE ROOMSERVICEID="+i;
+                             System.out.println(sqlQuery); 
+
+                rset = stmt.executeQuery(sqlQuery); 
+
+          } 
+            
+             }
+        }
         
-        ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Bob Solid");
-        valueGuest.add(g4);
+    
         
-        Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
-        room.add(r1);
-        
-        Room r2 = new Room(1, 1, 1 ,1 , 2, 100.00);
-        room.add(r2);
+        catch(SQLException e)
+        {
+              System.out.println(e.toString());  
+        }
+//        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
+//        employee.add(e1);
+//        
+//        Employee emp = new Employee ("admin" , "Pool2", "Boston Putnam");
+//        employee.add(emp);
+//        
+//        Employee emp1 = new Employee ("blah" , "Bleep3", "Costin Putnam");
+//        employee.add(emp1);
+//        
+//        Guest g1 = new Guest("guest", "C1", "Jeremy Ezell");
+//        guest.add(g1);
+//        
+//        Guest g2 = new Guest("guest1" , "C2", "Mike Thorton");
+//        guest.add(g2);
+//        
+//        ValueGuest g3 = new ValueGuest("vguest" , "G0", "Seth Ledger");
+//        valueGuest.add(g3);
+//        
+//ValueGuest g4 = new ValueGuest("vguest1" , "G1", "Bob Solid");
+//valueGuest.add(g4);
+//
+//Room r1 = new Room(1, 1, 1, 1, 1, 50.00);
+//room.add(r1);
+//
+//Room r2 = new Room(1, 1, 1 ,1 , 2, 100.00);
+//room.add(r2);
         
         for(int i=0;i<guest.size();i++){
             guestList.add(guest.get(i));
@@ -1647,6 +1939,229 @@ public class HotelMadisonUI extends Application
     @Override
     public void stop()
     {
+       
         
-    }
+        
+        String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
+        String userID = "javauser";
+        String userPASS="javapass";
+        Statement stmt;
+        String sqlQuery="";
+        ResultSet rset; 
+        try
+        {
+              Connection conn = getDBConnection(jdbcConnectionURL,userID,userPASS); 
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,  
+                    ResultSet.CONCUR_READ_ONLY);  
+       
+            
+            
+            
+             for (int i = 0; i < employee.size();i++)
+        {
+            sqlQuery= "INSERT INTO EMPLOYEETABLE (EMPLOYEEID,PASSWORD,EMPLOYEENAME,USERNAME)"+
+            " VALUES "+ "("+employee.get(i).employeeID+", "
+                    +"'"+employee.get(i).password +"'" +", "
+                    + "'" +splitName(employee.get(i).employeeName) + "'" +", "
+                    + "'" + employee.get(i).username+ "'" +")"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+                  
+        }      
+         
+            for (int i = 0; i < guest.size();i++)
+        {
+            sqlQuery= "INSERT INTO GUESTTABLE (GUESTID,GUESTUSERNAME,PASSWORD,GUESTNAME,AMOUNTSPENTWITHHOTEL,NUMBEROFBOOKINGS,STATUS)"+
+            " VALUES "+ "("+guest.get(i).guestID+","+"'"+guest.get(i).getUsername() +"'"+","+
+                    "'"+ guest.get(i).password +"'"+","+
+                    "'"+splitName(guest.get(i).getGuestName())+"'" 
+                    +","+guest.get(i).amountSpentWithHotel +","
+                    + guest.get(i).numberOfBookings +","
+                    +"'"+ guest.get(i).getStatus() +"'"+")"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+                  
+        }
+        
+             for (int i = 0; i < valueGuest.size();i++)
+        {
+            sqlQuery= "INSERT INTO VALUEGUESTTABLE (VALUECLUBID,GUESTUSERNAME,PASSWORD,GUESTNAME,AMOUNTSPENTWITHHOTEL,NUMBEROFBOOKINGS,STATUS)"+
+            " VALUES "+ "("+valueGuest.get(i).getValueClubId()+","+"'"+valueGuest.get(i).getUsername() +"'"+","+
+                    "'"+ valueGuest.get(i).password +"'"+","+
+                    "'"+splitName(valueGuest.get(i).getGuestName())+"'" 
+                    +","+valueGuest.get(i).amountSpentWithHotel +","
+                    + valueGuest.get(i).numberOfBookings +","
+                    +"'"+ valueGuest.get(i).getStatus() +"'"+")"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+                  
+        }
+             
+
+                       
+             for (int i = 0; i < room.size();i++)
+        {
+            sqlQuery= "INSERT INTO ROOMTABLE (ROOMID,BEDOPTION,KITCHENOPTION,COFFEEOPTION,ACCESSIBLEOPTION, "
+                    + "ROOMNUMBER, ROOMBOOKQUANTITY, ROOMBOOKED, ROOMCOSTPERNIGHT, ROOMSTATUS)"
+                    + " VALUES "+ "("+room.get(i).roomID+", "+room.get(i).bedOption +","
+                    +room.get(i).kitchenOption +","
+                    +room.get(i).coffeeOption +","
+                    +room.get(i).accessibleOption +","
+                    +room.get(i).getRoomNumber() + ","
+                    +room.get(i).getBookedRoomQuantity() +","
+                    +"'"+room.get(i).bookedRoom() +"'" + ","
+                    +room.get(i).roomCostPerNight + "," + "'"
+                    +room.get(i).roomStatus +"'" +")"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+                  
+        }          
+                       
+       
+             
+//            if (booking.size()>0)
+//        {
+         for (int i = 0; i < booking.size();i++)
+        {
+            if(booking.get(i).getBookingGuest().getStatus().equals("V")){
+                String guestName=splitName(booking.get(i).getValueGuest().guestName);
+                System.out.println("Test3");
+                
+                
+            sqlQuery= "INSERT INTO BOOKINGTABLE (BOOKINGID,ROOMID,GUESTID,BOOKEDROOM,"
+                    + "BOOKINGGUEST,VALUEGUEST,CHECKINMONTH,"
+                    + "CHECKINDAY,CHECKINYEAR, CHECKOUTMONTH,CHECKOUTDAY, "
+                    + "CHECKOUTYEAR, ROOMCOST, ROOMSERVICECOST,TOTALCOST)"+
+                      " VALUES "+ "("+booking.get(i).bookingID+", "
+                    +booking.get(i).getBookedRoom().roomID +", "
+//                    + booking.get(i).getValueGuest().valueClubID +", "
+//           
+                    + "'"+booking.get(i).getBookedRoom().getRoomNumber() +"'" +", "
+                    + "'"+ guestName+"'"+", "
+//                    + "'" +booking.get(i).getValueGuest().getStatus()+ "'" +", "
+                    +booking.get(i).checkInMonth +", "
+                    +booking.get(i).checkInDay +", "
+                    +booking.get(i).checkInYear +", "
+                    +booking.get(i).checkOutMonth +", "
+                    +booking.get(i).checkOutDay +", "
+                    +booking.get(i).checkOutYear +", "
+                    + "'"+ booking.get(i).roomCost +"'"+", "
+                    +"'"+booking.get(i).roomServiceCost +"'"+", "
+                    +"'"+booking.get(i).totalCost +"'"+")"; 
+//                              rset = stmt.executeQuery(sqlQuery);
+                     System.out.println(sqlQuery);
+            }
+            else if(booking.get(i).getBookingGuest().getStatus().equals("G"))
+            {
+               
+                     sqlQuery= "INSERT INTO BOOKINGTABLE (BOOKINGID,ROOMID,GUESTID,BOOKEDROOM,"
+                    + "BOOKINGGUEST,VALUEGUEST,CHECKINMONTH,"
+                    + "CHECKINDAY,CHECKINYEAR, CHECKOUTMONTH,CHECKOUTDAY, "
+                    + "CHECKOUTYEAR, ROOMCOST, ROOMSERVICECOST,TOTALCOST)"+
+                     " VALUES "+ "("+booking.get(i).bookingID+", "
+                    +booking.get(i).getBookedRoom().roomID +", "
+                    +booking.get(i).getBookingGuest().guestID +", "
+            
+                    +"'"+booking.get(i).getBookedRoom().getRoomNumber()+"'" +", "
+                    + "'"+splitName(booking.get(i).getBookingGuest().getGuestName()) +"'"+", "
+                    + "'" +booking.get(i).bookingGuest.getStatus() + "'" +", "
+                    +booking.get(i).checkInMonth +", "
+                    +booking.get(i).checkInDay +", "
+                    +booking.get(i).checkInYear +", "
+                    +booking.get(i).checkOutMonth +", "
+                    +booking.get(i).checkOutDay +", "
+                    +booking.get(i).checkOutYear +", "
+                    + "'"+ booking.get(i).roomCost +"'"+", "
+                    +"'"+booking.get(i).roomServiceCost +"'"+", "
+                    +"'"+booking.get(i).totalCost +"'"+")"; 
+                              rset = stmt.executeQuery(sqlQuery);
+                     System.out.println(sqlQuery);
+                
+            }
+        }
+//     
+//         for(int k = 0; k < 15;k++){
+         
+            for (int i = 0; i < booking.size() ;i++)
+        {
+            
+            for (int j = 0; j < booking.get(i).rsCount(); j++)
+            {
+            sqlQuery= "INSERT INTO ROOMSERVICETABLE (ROOMSERVICEID,DESCRIPTION,PRICE,QUANTITY,BOOKINGID)"+
+            " VALUES "+ "("+booking.get(i).roomServiceArray.get(j).roomServiceID+","+"'"
+                    +booking.get(i).roomServiceArray.get(j).getDescription() +"'"+","
+                    +booking.get(i).roomServiceArray.get(j).price +","
+                    +booking.get(i).roomServiceArray.get(j).quantity +","
+                    +booking.get(i).bookingID +")"; 
+                System.out.println(sqlQuery); 
+               rset = stmt.executeQuery(sqlQuery); 
+            }  
+        }
+//         }
+//        }
+        
+                       
+                       
+                       
+                       
+                       
+//    sqlQuery= "INSERT INTO GUESTTABLE (GUESTID,GUESTUSERNAME,PASSWORD,GUESTNAME,AMOUNTSPENTWITHHOTEL,NUMBEROFBOOKINGS,STATUS)VALUES (1,"'"bob69','bob','bob',2000,3,'G')"; 
+     
+              
+         
+        }
+        catch(SQLException e)
+        {
+              System.out.println(e.toString());  
+        }
+//      public  Connection getDBConnection(String url, String user, String pass)
+//              throws SQLException    { 
+//
+//             OracleDataSource ds = new OracleDataSource();     
+//             ds.setURL(url);    
+//    return ds.getConnection(user, pass);    }
+        
+   
+      
 }
+    public static int getGuestPos(String name){
+       int position = 0;
+       for (int i=0;i<guest.size();i++)
+       {
+           if(guest.get(i).getGuestName().equals(name))
+           {
+               position =i;
+               break;
+           }
+           else if(valueGuest.get(i).getGuestName().equals(name))
+           {
+                position =i;
+                break;
+           }
+       
+               }
+       return position;
+    }
+
+    public static String splitName( String name)
+    {
+        String temp;
+        if(name.contains(" "))
+        {
+        temp=name.substring(0,name.indexOf(" "))+"/"+name.substring(name.indexOf(" ")+1, name.length());
+        System.out.println(temp);
+        }
+        else
+        {
+            temp= name+"/";
+        }
+        return temp;
+    }
+   public static Connection getDBConnection(String url, String user, String pass)     
+     throws SQLException {
+       OracleDataSource ds = new OracleDataSource();     
+   ds.setURL(url);    
+    return ds.getConnection(user, pass);
+   }   
+      }
+      
