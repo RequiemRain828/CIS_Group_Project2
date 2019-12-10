@@ -1,3 +1,11 @@
+/*
+ * Author: Yohannes Mitiku, Austin Putnam, Marin Walters, Dylan Jones & Ivan Zhang
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
+ * Purpose: To create the HotelMadison application using JavaFX
+ * For our User Interface and integrating the UI with an Oracle SQL
+ * Database.. 
+*/
 package CIS_Group_Project2;
 
 import java.sql.*;
@@ -20,15 +28,12 @@ import oracle.jdbc.pool.*;
 
 public class HotelMadisonUI extends Application 
 {
+    // Arraylists and Observable Lists
     public static ArrayList<Employee> employee = new ArrayList();
     public static ArrayList<Guest> guest = new ArrayList();
     public static ArrayList<Room> room = new ArrayList<Room>();
     public static ArrayList<ValueGuest> valueGuest = new ArrayList();
     public static ArrayList<Booking> booking = new ArrayList();
-
-//    public static ArrayList <RoomService> roomServiceArray = new ArrayList<>();
-    //public static ArrayList<Booking> tempBooking = new ArrayList();
-
     public static ArrayList<Guest> currentGuest = new ArrayList();
     public static ArrayList<ValueGuest> currentVGuest = new ArrayList();
     public static ObservableList roomList = FXCollections.observableArrayList();
@@ -287,7 +292,12 @@ public class HotelMadisonUI extends Application
     @Override
     public void start(Stage primaryStage) 
     {
+<<<<<<< HEAD
         String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
+=======
+        // Database connection
+         String jdbcConnectionURL="jdbc:oracle:thin:@localhost:1521:XE ";
+>>>>>>> bceecb4862b1d20648cbef00cdedff592336bf8d
         String userID = "javauser";
         String userPASS="javapass";
         Statement stmt;
@@ -504,11 +514,25 @@ public class HotelMadisonUI extends Application
           }
           }
 
+<<<<<<< HEAD
+=======
+          } 
+            
+             }
+        }
+        
+>>>>>>> bceecb4862b1d20648cbef00cdedff592336bf8d
         catch(SQLException e)
         {
               System.out.println(e.toString());  
         }
+<<<<<<< HEAD
               
+=======
+//        Employee e1 = new Employee ("root" , "D1", "Austin Putnam");
+//        employee.add(e1);
+
+>>>>>>> bceecb4862b1d20648cbef00cdedff592336bf8d
         for(int i=0;i<guest.size();i++)
         {
             guestList.add(guest.get(i));
@@ -536,6 +560,8 @@ public class HotelMadisonUI extends Application
         
         primaryPane.add(Tabs, 0, 0);
         
+        // Sets loginpane to logintab 
+        // Adds controls to loginpane
         tabLogin.setContent(loginPane); 
         loginPane.setAlignment(Pos.CENTER);
         loginPane.add(new Label(""), 0, 0);
@@ -556,6 +582,7 @@ public class HotelMadisonUI extends Application
         });
 
         // Employee Menu Pane
+        // Adds controls to employee menu pane
         tabEmployee.setContent(employeePane);
         employeePane.setAlignment(Pos.CENTER);
         employeePane.add(new Label("Welcome to the Employee Menu"), 0, 1);
@@ -574,12 +601,13 @@ public class HotelMadisonUI extends Application
         employeePane.add(btnEmployeeSelect, 0, 3);
         employeePane.add(btnEmployeeLogout, 1, 3);
         employeePane.setVgap(10);
+        // Selects menu option from combobox
         btnEmployeeSelect.setOnAction(e -> 
         {
             
             handleEmployeeChoice(cmboEmployeeMenu.getValue().toString());
         });
-        
+        // button that log outs of current user
         btnEmployeeLogout.setOnAction(e -> 
         {
             invalid.setText("");
@@ -590,6 +618,7 @@ public class HotelMadisonUI extends Application
         });
         
         // Guest Menu Pane
+        // Adds controls to guest menu pane
         tabGuest.setContent(guestPane);
         guestPane.setAlignment(Pos.CENTER);
         guestPane.add(new Label("Welcome to the Guest Menu"), 0, 1);
@@ -603,6 +632,7 @@ public class HotelMadisonUI extends Application
         guestPane.add(btnGuestSelect, 0, 3);
         guestPane.add(btnGuestLogout, 1, 3);
         guestPane.setVgap(10);
+        // Select guest menu option from combobox
         btnGuestSelect.setOnAction(e -> 
         {            
             handleGuestChoice(cmboGuestMenu.getValue().toString());
@@ -614,6 +644,7 @@ public class HotelMadisonUI extends Application
                 }
             }
         });
+        // button that logouts current guest
         btnGuestLogout.setOnAction(e -> 
         {            
             currentGuest.remove(0);
@@ -623,6 +654,8 @@ public class HotelMadisonUI extends Application
             Tabs.getTabs().remove(tabGuest);  
         });
         
+        // Sets value guest pane to value guest tab
+        // Adds controls to value guest pane
         tabValueGuest.setContent(valueGuestPane);
         valueGuestPane.setAlignment(Pos.CENTER);
         valueGuestPane.add(new Label("Welcome to ValueGuest Menu"), 0, 1);
@@ -638,6 +671,7 @@ public class HotelMadisonUI extends Application
         valueGuestPane.add(btnVGuestLogout, 1, 3);
         valueGuestPane.add(lblNotBooked, 0, 4);
         valueGuestPane.setVgap(10);
+        // selects value guest option from combobox menu
         btnVGuestSelect.setOnAction(e -> 
         {            
             handleVGuestChoice(cmboVGuestMenu.getValue().toString());
@@ -647,6 +681,7 @@ public class HotelMadisonUI extends Application
             }
                 
         });
+        // button that log outs current guest user
         btnVGuestLogout.setOnAction(e -> 
         {
             currentVGuest.remove(0);
@@ -656,6 +691,8 @@ public class HotelMadisonUI extends Application
             Tabs.getTabs().remove(tabValueGuest);            
         });
         
+        // Sets booking pane to booking pane
+        // Adds controls to booking pane
         tabBooking.setContent(employeeBookingPane);
         employeeBookingPane.setAlignment(Pos.CENTER);
         employeeBookingPane.add(new Label(""), 0, 0);
@@ -689,6 +726,7 @@ public class HotelMadisonUI extends Application
                        }          
             }
         });
+        // Button that displays all booking
         btnDisplayAll.setOnAction(e -> 
         {
             lstEmployeeBooking.getItems().clear();
@@ -697,6 +735,7 @@ public class HotelMadisonUI extends Application
                 ebookingList.add(booking.get(i).toString());
             }
         });
+        // Goes bck to employee menu
         btnEmployeeBack1.setOnAction(e -> 
         {
             Tabs.getSelectionModel().select(tabEmployee);
@@ -704,6 +743,8 @@ public class HotelMadisonUI extends Application
             cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
+        // Sets checkout guest pane to checkout guest tab
+        // Adds controls to check out guest pane
         tabCheckout.setContent(checkoutPane);
         checkoutPane.setAlignment(Pos.CENTER);
         checkoutPane.add(new Label("Checkout Guest Menu"), 0, 1);
@@ -716,6 +757,7 @@ public class HotelMadisonUI extends Application
         lstCheckout.setPrefWidth(400);
         btnCheckout.disableProperty()
         .bind(lstCheckout.getSelectionModel().selectedItemProperty().isNull());
+        // Button that checkouts a guest
         btnCheckout.setOnAction(e -> 
         {
             int selectedInt = lstCheckout.getSelectionModel().getSelectedIndex();
@@ -724,7 +766,7 @@ public class HotelMadisonUI extends Application
             bookList.add(room.get(selectedInt).roomDescription());
             
         });
-        
+        // Button that goes back to employee menu
         btnEmployeeBack2.setOnAction(e -> 
         {
             Tabs.getSelectionModel().select(tabEmployee);
@@ -732,6 +774,8 @@ public class HotelMadisonUI extends Application
             cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
+        // Sets Add guest pane to add guest tab
+        // Adds controls to add guest pane
         tabAddGuest.setContent(addGuestPane);
         addGuestPane.setAlignment(Pos.CENTER);
         addGuestPane.add(new Label("Guest Account Menu"), 0, 1);
