@@ -47,6 +47,10 @@ public class Guest
         return this.username;
     }
     
+    public String getPassword() {
+        return this.password;
+    }
+    
     public void setGuestName(String guestName) // Setter for guest name
     {
         this.guestName = guestName;

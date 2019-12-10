@@ -163,6 +163,7 @@ public class Booking {
                 this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
         return result; 
     }
+    
      public String toStringValue(){
         String result = "";
         

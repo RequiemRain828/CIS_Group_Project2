@@ -115,7 +115,7 @@ public class HotelMadisonUI extends Application
     public Label lblEditGuestName = new Label("Enter Guest Full Name: ");
     public Label lblEditGuestPassword = new Label("Enter Old Guest Password: ");
     public Label lblEditGuestPassword1 = new Label("Enter New Guest Password: ");
-    public Label lblEditGuestForEmpPasswordMustHaves = new Label("Password Requirements:"
+    public Label lblEditGuestPasswordMustHaves = new Label("Password Requirements:"
             + "\n * Must contain at least one capital letter"
             + "\n * Must contain at least one number"
             + "\n * Cannot begin with a number");
@@ -544,59 +544,37 @@ public class HotelMadisonUI extends Application
             } else {
                 
                 String errorMessage = "Please try again.";
-                String temp = addGuestErrorMessages();
+                String errorMessagesString = addGuestErrorMessages();
                 
                 // Textfield empty
-                if(addGuestErrorMessages().contains("1")) {
+                if(errorMessagesString.contains("1")) {
                     errorMessage += "\n- All text fields must be filled";
                 }
     
                 // Passwords don't match
-                if(addGuestErrorMessages().contains("2")) {
+                if(errorMessagesString.contains("2")) {
                     errorMessage += "\n- The password entries don't match ";
                 }
                 
                 // No capital
-                if(addGuestErrorMessages().contains("3")) {
+                if(errorMessagesString.contains("3")) {
                     errorMessage += "\n- The password must contain a captial letter";
                 }
                 
                 // No number
-                if(addGuestErrorMessages().contains("4")) {
+                if(errorMessagesString.contains("4")) {
                     errorMessage += "\n- The password must contain a number";
                 }
                 
                 // Number at the front 
-                if(addGuestErrorMessages().contains("5")) {
+                if(errorMessagesString.contains("5")) {
                     errorMessage += "\n- The password cannot begin with a number";
                 }
                 
                 lblAddGuest.setText(errorMessage);
             }
-//            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 0)
-//            {
-//                lblAddGuest.setText("");
-//                lblAddGuest.setText("Please try again. \n"
-//                        + "Password does not contain \n"
-//                        + "at least one uppercase \n"
-//                        + "letter and one number \n"
-//                        + "or one or more TextFields \n"
-//                        + "are empty");
-//            }
-//            else if (isValidAddGuest() == true && createNewPassword(txtGuestPassword.getText()) == 1)
-//            {
-//                lblAddGuest.setText("");
-//                lblAddGuest.setText("Please try again. Password cannot \n"
-//                    + "start with a number");
-//            }
-//            //if (isValidAddGuest() == false && createNewPassword(txtGuestPassword.getText()) == 0)
-//            else
-//            {
-//                lblAddGuest.setText("");
-//                lblAddGuest.setText("Please try again. Passwords do not match\n"
-//                        + "or All Textfields are empty");
-//            }
         });
+        
         btnEmployeeBack3.setOnAction(e -> {
             lblAddGuest.setText("");
             Tabs.getSelectionModel().select(tabEmployee);
@@ -613,8 +591,8 @@ public class HotelMadisonUI extends Application
         editGuestPane.add(txtEditGuestName, 1, 3);
         editGuestPane.add(txtEditGuestPassword, 1, 4);
         editGuestPane.add(txtEditGuestPassword1, 1, 5);
-        editGuestPane.add(lblEditGuestForEmpPasswordMustHaves, 0, 6);
-        editGuestPane.add(lblEditGuest, 1, 7);
+        editGuestPane.add(lblEditGuestPasswordMustHaves, 0, 6);
+        editGuestPane.add(lblEditGuest, 0, 7);
         editGuestPane.add(btnEmployeeBack4, 2, 8);
         editGuestPane.add(btnEditGuest, 1, 8);
         editGuestPane.add(lstEditGuest, 2, 1, 2, 7);
@@ -630,94 +608,86 @@ public class HotelMadisonUI extends Application
             //y=guest.get(guestID).setPassword(passWordold, passWordnew);
 
             //guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+            String errorMessage = "Please try again!";
+            
             if( lstEditGuest.getSelectionModel().getSelectedItem().toString().contains("(Value Guest)"))
             {
                 if (isValidEditGuest() == true)
                 {
-                int y;
-                y = valueGuest.get((selectedInt - guest.size())).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
-                //y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
-                if (y == 0)
-                {
-                    lblEditGuest.setText("You entered the wrong password! "
-                        + "Please try again!"); 
-                }    
-                if (y == 1)
-                {
-                    lblEditGuest.setText("You entered the same password twice! "
-                        + "Please try again!");
-                }
-                if ( y == 2)
-                {
-                    lblEditGuest.setText("Your password needs a capital letter and number! "
-                        + "Please try again!");
-                }
-                if (y == 3)
-                {
-                    lblEditGuest.setText("Your password cannot start with a number! "
-                        + "Please try again!");    
-                }
-                if (y == 4)
-                {
-                    guestList.remove(selectedInt);        
-                    valueGuest.get((selectedInt - guest.size())).setGuestName(txtEditGuestName.getText());
-                    guestList.add(selectedInt, valueGuest.get(selectedInt - guest.size()).toString());
-                    txtEditGuestName.clear();
-                    txtEditGuestPassword.clear();
-                    txtEditGuestPassword1.clear();
-                    lblEditGuest.setText("Your psssword has been changed successfully");
-                }
+                    
+                    int y;
+                    y = valueGuest.get((selectedInt - guest.size())).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    //y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    if (y == 0)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!"); 
+                    }    
+                    if (y == 1)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nPasswords cannot match!");
+                    }
+                    if ( y == 2)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nMust meet password requirements!");
+                    }
+                    if (y == 3)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nPassword cannot start with a number! ");    
+                    }
+                    if (y == 4)
+                    {
+                        guestList.remove(selectedInt);        
+                        valueGuest.get((selectedInt - guest.size())).setGuestName(txtEditGuestName.getText());
+                        guestList.add(selectedInt, valueGuest.get(selectedInt - guest.size()).toString());
+                        txtEditGuestName.clear();
+                        txtEditGuestPassword.clear();
+                        txtEditGuestPassword1.clear();
+                        lblEditGuest.setText("The password has been \n changed successfully.");
+                    }
                 }
                 else
                 {
-                    lblEditGuest.setText("Please try again. Passwords do not match or \n"
-                    + "One or more TextFields are empty");
+                    lblEditGuest.setText(errorMessage + "\nPasswords do not match or \n"
+                    + "TextFields are empty");
                 }
             }
             else if (lstEditGuest.getSelectionModel().getSelectedItem().toString().contains("(Guest)"))
             {
                 if (isValidEditGuest() == true)
                 {
-                int y;
-                y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
-                //)
-                if (y == 0)
-                {
-                    lblEditGuest.setText("You entered the wrong password! "
-                        + "Please try again!"); 
-                }    
-                if (y == 1)
-                {
-                    lblEditGuest.setText("You entered the same password twice! "
-                        + "Please try again!");
+                    int y;
+                    y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    //)
+                    if (y == 0)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!"); 
+                    }    
+                    if (y == 1)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nPasswords cannot match!");
+                    }
+                    if ( y == 2)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nMust meet password requirements!");
+                    }
+                    if (y == 3)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nPassword cannot start with a number! ");    
+                    }
+                    if (y == 4)
+                    {
+                        guestList.remove(selectedInt);        
+                        guest.get(selectedInt).setGuestName(txtEditGuestName.getText());
+                        guestList.add(selectedInt, guest.get(selectedInt).toString());
+                        txtEditGuestName.clear();
+                        txtEditGuestPassword.clear();
+                        txtEditGuestPassword1.clear();
+                        lblEditGuest.setText("The Guest info has been \n changed successfully.");
+                        System.out.println(lstEditGuest.getSelectionModel().getSelectedItem().toString());
+                    }
+                } else {
+                    lblEditGuest.setText(errorMessage + "\nTextFields cannot be empty");
                 }
-                if ( y == 2)
-                {
-                    lblEditGuest.setText("Your password needs a capital letter and number! "
-                        + "Please try again!");
-                }
-                if (y == 3)
-                {
-                    lblEditGuest.setText("Your password cannot start with a number! "
-                        + "Please try again!");    
-                }
-                if (y == 4)
-                {
-                    guestList.remove(selectedInt);        
-                    guest.get(selectedInt).setGuestName(txtEditGuestName.getText());
-                    guestList.add(selectedInt, guest.get(selectedInt).toString());
-                    txtEditGuestName.clear();
-                    txtEditGuestPassword.clear();
-                    txtEditGuestPassword1.clear();
-                    lblEditGuest.setText("Your psssword has been changed successfully");
-                    System.out.println(lstEditGuest.getSelectionModel().getSelectedItem().toString());
-                }
-            }
-            else
-            {
-                lblEditGuest.setText("Please try again. Passwords do not match or \n"
-                + "One or more TextFields are empty");
-            }
             }
         });
         
@@ -1752,6 +1722,8 @@ public class HotelMadisonUI extends Application
         
         return result;
     }
+    
+    
     
     public boolean isValidEditGuest()
     {
