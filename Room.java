@@ -1,7 +1,7 @@
 /*
  * Author: Austin Putnam, Marin Walters & Ivan Zhang
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create a Room object. 
 */
 package CIS_Group_Project2;
@@ -15,7 +15,6 @@ public class Room
     public int kitchenOption;
     public int coffeeOption;
     public int accessibleOption;
-    
     private int roomNumber;
     private int roomBookQuantity;
     private boolean roomBooked;
@@ -222,10 +221,8 @@ public class Room
         }
         
         
-        desc = ("Room Number: " + this.getRoomNumber() + " has \n" 
-                + bed + ", a " + kitchen + ", a " + coffee + "\n"
-                + "and is a " + access + "\n"
-                + "Room Price Per Night is $" + this.roomCostPerNight + "\n"
+        desc = ("Room Number # " + this.getRoomNumber() + " has " + bed  +  ",a " + kitchen + ", a " + coffee + ",\n" 
+                + "and is a " + access + ", Room Price Per Night is $" + this.roomCostPerNight + ". "
                 );
         
         return desc;
@@ -257,6 +254,11 @@ public class Room
     {
         return false;
     }
+    
+    public String toStringRoomNum()
+    {
+        return "Room Number" + this.getRoomNumber();
+    }
        
     @Override
     public String toString()
@@ -267,5 +269,5 @@ public class Room
                 + " and is classifed as a " + this.accessibleOption + 
                 " Room Price Per Night is $" + this.roomCostPerNight;              
     }
-        
+    
 }
