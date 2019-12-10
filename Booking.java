@@ -30,7 +30,7 @@ public class Booking {
     public double roomServiceCost;
     public double totalCost;
     
-    public ArrayList <RoomService> roomServiceList = new ArrayList<>();
+    public ArrayList <RoomService> roomServiceArray = new ArrayList<>();
     
     private static int nextID = 1;
     
@@ -64,6 +64,10 @@ public class Booking {
     public Guest getBookingGuest(){
         return this.bookingGuest;
     }
+    public ValueGuest getValueGuest()
+    {
+        return this.valueGuest;
+    }
     
     public Room getBookedRoom(){
         return this.bookedRoom;
@@ -85,7 +89,7 @@ public class Booking {
     }
     
     public void RoomService(String description, double price, int quantity){
-        this.roomServiceList.add(new RoomService(description, price, quantity));
+        this.roomServiceArray.add(new RoomService(description, price, quantity));
     }
     
     public double roomCost(){
@@ -96,9 +100,9 @@ public class Booking {
     
     public double roomService(){
         
-        for (int i = 0; i < this.roomServiceList.size(); i++){
+        for (int i = 0; i < this.roomServiceArray.size(); i++){
             
-           this.roomServiceCost += roomServiceList.get(i).price;
+           this.roomServiceCost += roomServiceArray.get(i).price;
             
         }
         return this.roomServiceCost;
@@ -127,6 +131,10 @@ public class Booking {
        
         
     }
+    public int rsCount()
+    {
+        return this.roomServiceArray.size();
+    }
     
     // getter for total cost
     
@@ -140,15 +148,15 @@ public class Booking {
     public ArrayList getArrayList(){
         
       
-        return this.roomServiceList;
+        return this.roomServiceArray;
        
     }
     public String getRoomServiceList()
     {
           String roomService="";
-         for (int i = 0; i < this.roomServiceList.size(); i++){
+         for (int i = 0; i < this.roomServiceArray.size(); i++){
             
-           roomService += "\n" + roomServiceList.get(i).description + " x " + roomServiceList.get(i).quantity ;
+           roomService += "\n" + roomServiceArray.get(i).description + " x " + roomServiceArray.get(i).quantity ;
         // +  ",\n "     
         }
          return roomService;
@@ -180,5 +188,8 @@ public class Booking {
         return result; 
     }
     
+  
+     
+     
 
 }
