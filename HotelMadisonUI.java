@@ -38,7 +38,7 @@ public class HotelMadisonUI extends Application
     public static ObservableList guestName = FXCollections.observableArrayList();
     public static ObservableList gBookingList = FXCollections.observableArrayList();
     public static ObservableList guestEditList = FXCollections.observableArrayList();
-    //public static int count;
+    public static ObservableList vGuestList = FXCollections.observableArrayList();
     
     // Shared Controls
     public Button btnEmployeeBack1 = new Button("Back to Employee Menu ");
@@ -124,7 +124,23 @@ public class HotelMadisonUI extends Application
     public TextField txtEditGuestPassword1 = new TextField();
     public TextField txtEditGuestName = new TextField();
     public Button btnEditGuest = new Button("Edit Guest -> ");
-    public ListView lstEditGuest = new ListView(guestList);
+    public ListView lstEditGuest = new ListView(editGuestList);
+    
+    // Edit Value Guest Controls
+    public Label lblSelectVGuest = new Label("*** Select a guest from the list to edit.***");
+    public Label lblEditVGuestName = new Label("Enter Guest Full Name: ");
+    public Label lblEditVGuestPassword = new Label("Enter Old Guest Password: ");
+    public Label lblEditVGuestPassword1 = new Label("Enter New Guest Password: ");
+    public Label lblEditVGuestPasswordMustHaves = new Label("Password Requirements:"
+            + "\n * Must contain at least one capital letter"
+            + "\n * Must contain at least one number"
+            + "\n * Cannot begin with a number");
+    public Label lblEditVGuest = new Label("");
+    public TextField txtEditVGuestPassword = new TextField();
+    public TextField txtEditVGuestPassword1 = new TextField();
+    public TextField txtEditVGuestName = new TextField();
+    public Button btnEditVGuest = new Button("Edit Value Guest -> ");
+    public ListView lstEditVGuest = new ListView(vGuestList);
     
     // Create Employee Account
     public Label lblEmployeeUsername = new Label("Enter Employee Username: ");
@@ -180,9 +196,6 @@ public class HotelMadisonUI extends Application
     public Label lblRoomPrice = new Label("");
     public Label lblRoomNumber = new Label("");
     
-    // Edit Guest Room Controls
-    
-    
     // Guest Book a Room Controls
     public Label lblFreeRooms = new Label("Free Rooms: ");
     public Label lblCheckinDate = new Label("Check In Month/Day/Year: ");
@@ -237,6 +250,7 @@ public class HotelMadisonUI extends Application
     public GridPane checkoutPane = new GridPane();
     public GridPane addGuestPane = new GridPane();
     public GridPane editGuestPane = new GridPane();
+    public GridPane editVGuestPane = new GridPane();
     public GridPane addEmployeePane = new GridPane();
     public GridPane editEmployeePane = new GridPane();
     public GridPane addRoomPane = new GridPane();
@@ -256,6 +270,7 @@ public class HotelMadisonUI extends Application
     public Tab tabCheckout = new Tab("Checkout Guest Menu");
     public Tab tabAddGuest = new Tab("Add Guest Menu");
     public Tab tabEditGuest = new Tab("Edit Guest Menu");
+    public Tab tabEditVGuest = new Tab("Edit Value Guest Menu");
     public Tab tabAddEmployee = new Tab("Add Employee Menu");
     public Tab tabEditEmployee = new Tab("Edit Employee Menu");
     public Tab tabAddRoom = new Tab("Employee Add Room");
@@ -297,11 +312,13 @@ public class HotelMadisonUI extends Application
         
         for(int i=0;i<guest.size();i++){
             guestList.add(guest.get(i));
+            editGuestList.add(guest.get(i));
             guestName.add(guest.get(i).toStringName()); 
         }
         for(int i=0;i<valueGuest.size();i++)
         {
             guestList.add(valueGuest.get(i));
+            vGuestList.add(valueGuest.get(i));
             guestName.add(valueGuest.get(i).toStringName());
        
         }
@@ -355,6 +372,7 @@ public class HotelMadisonUI extends Application
                 ("Checkout Guest"),
                 ("Create New Guest Account"),
                 ("Edit Guest Account"),
+                ("Edit Value Guest Account"),
                 ("Create New Employee Account"),
                 ("Edit Employee Account"),
                 ("Create or Edit a Room")
@@ -604,10 +622,7 @@ public class HotelMadisonUI extends Application
         
         btnEditGuest.setOnAction(e -> {
             int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
-            
-            //y=guest.get(guestID).setPassword(passWordold, passWordnew);
 
-            //guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
             String errorMessage = "Please try again!";
             
             if( lstEditGuest.getSelectionModel().getSelectedItem().toString().contains("(Value Guest)"))
@@ -690,13 +705,83 @@ public class HotelMadisonUI extends Application
                 }
             }
         });
-        
         btnEmployeeBack4.setOnAction(e -> {
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabEditGuest);
             cmboEmployeeMenu.getSelectionModel().select(0);
         });
+        
+        tabEditVGuest.setContent(editVGuestPane);
+        editVGuestPane.setAlignment(Pos.CENTER);
+        editVGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 1);
+        editVGuestPane.add(lblSelectVGuest, 0, 2);
+        editVGuestPane.add(lblEditVGuestName, 0, 3);
+        editVGuestPane.add(lblEditVGuestPassword, 0, 4);
+        editVGuestPane.add(lblEditVGuestPassword1, 0, 5);
+        editVGuestPane.add(txtEditVGuestName, 1, 3);
+        editVGuestPane.add(txtEditVGuestPassword, 1, 4);
+        editVGuestPane.add(txtEditVGuestPassword1, 1, 5);
+        editVGuestPane.add(lblEditVGuestPasswordMustHaves, 0, 6);
+        editVGuestPane.add(lblEditVGuest, 0, 7);
+        editVGuestPane.add(btnEmployeeBack8, 2, 8);
+        editVGuestPane.add(btnEditVGuest, 1, 8);
+        editVGuestPane.add(lstEditVGuest, 2, 1, 2, 7);
+        lstEditVGuest.setPrefWidth(500);
+        editVGuestPane.setVgap(10);
+        editVGuestPane.setHgap(10);
+        btnEditGuest.disableProperty()
+        .bind(lstEditGuest.getSelectionModel().selectedItemProperty().isNull());
+        btnEditGuest.setOnAction(e -> {
+            int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
+
+            String errorMessage = "Please try again!";
             
+                if (isValidEditGuest() == true)
+                {
+                    int y;
+                    y = valueGuest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    //y = guest.get(selectedInt).setPassword(txtEditGuestPassword.getText(),txtEditGuestPassword1.getText());
+                    if (y == 0)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nIncorrect Old Password!"); 
+                    }    
+                    if (y == 1)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nPasswords cannot match!");
+                    }
+                    if ( y == 2)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nMust meet password requirements!");
+                    }
+                    if (y == 3)
+                    {
+                        lblEditGuest.setText(errorMessage + "\nPassword cannot start with a number! ");    
+                    }
+                    if (y == 4)
+                    {
+                        guestList.remove(selectedInt);        
+                        valueGuest.get(selectedInt).setGuestName(txtEditGuestName.getText());
+                        guestList.add(selectedInt, valueGuest.get(selectedInt).toString());
+                        txtEditGuestName.clear();
+                        txtEditGuestPassword.clear();
+                        txtEditGuestPassword1.clear();
+                        lblEditGuest.setText("The password has been \n changed successfully.");
+                    }
+                }
+                else
+                {
+                    lblEditGuest.setText(errorMessage + "\nPasswords do not match or \n"
+                    + "TextFields are empty");
+                }
+   
+        });
+        //vGuestList
+        btnEmployeeBack8.setOnAction(e -> {
+            Tabs.getSelectionModel().select(tabEmployee);
+            Tabs.getTabs().remove(tabEditVGuest);
+            cmboEmployeeMenu.getSelectionModel().select(0);
+        });
+        
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
         addEmployeePane.add(new Label("Employee Account Menu"), 0, 1);
@@ -1364,8 +1449,10 @@ public class HotelMadisonUI extends Application
             cmboEmployeeMenu.getSelectionModel().select(0); break;
             case "Create New Guest Account": Tabs.getTabs().add(tabAddGuest); Tabs.getSelectionModel().select(tabAddGuest); 
             cmboEmployeeMenu.getSelectionModel().select(0); break;
-            case "Edit Guest Account": ; Tabs.getTabs().add(tabEditGuest); Tabs.getSelectionModel().select(tabEditGuest); 
-            cmboEmployeeMenu.getSelectionModel().select(0); break; 
+            case "Edit Guest Account": Tabs.getTabs().add(tabEditGuest); Tabs.getSelectionModel().select(tabEditGuest); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
+            case "Edit Value Guest Account": Tabs.getTabs().add(tabEditVGuest); Tabs.getSelectionModel().select(tabEditVGuest); 
+            cmboEmployeeMenu.getSelectionModel().select(0); break;
             case "Create New Employee Account": Tabs.getTabs().add(tabAddEmployee); Tabs.getSelectionModel().select(tabAddEmployee); 
             cmboEmployeeMenu.getSelectionModel().select(0); break;
             case "Edit Employee Account": Tabs.getTabs().add(tabEditEmployee); Tabs.getSelectionModel().select(tabEditEmployee); 
@@ -1818,6 +1905,7 @@ public class HotelMadisonUI extends Application
         valueGuest.add(tempValueGuest);
         
         guestList.add(tempValueGuest.toString());
+        vGuestList.add(tempValueGuest.toString());
         guestName.add(tempValueGuest.toStringName());
         txtGuestUsername.clear();
         txtGuestPassword.clear();
