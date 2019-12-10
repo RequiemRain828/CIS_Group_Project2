@@ -1,9 +1,11 @@
 package CIS_Group_Project2;
-
-/**
- *
+/*
  * @author Dylan Jones
- */
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
+ * Purpose: To create a Guest object. 
+*/
+
 public class RoomService {
     
     public int roomServiceID;
