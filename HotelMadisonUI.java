@@ -770,6 +770,7 @@ public class HotelMadisonUI extends Application
             cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
+        //* Author: Yohannes Mitiku
         // Sets Add guest pane to add guest tab
         // Adds controls to add guest pane
         tabAddGuest.setContent(addGuestPane);
@@ -842,6 +843,9 @@ public class HotelMadisonUI extends Application
             Tabs.getTabs().remove(tabAddGuest);  
         });
         
+        //* Author: Yohannes Mitiku
+        // Sets edit guest pane to edit guest tab
+        // adds controls to guest pane 
         tabEditGuest.setContent(editGuestPane);
         editGuestPane.setAlignment(Pos.CENTER);
         editGuestPane.add(new Label("Welcome to the Edit a Guest Account Menu"), 0, 1);
@@ -969,9 +973,9 @@ public class HotelMadisonUI extends Application
         editVGuestPane.setVgap(10);
         editVGuestPane.setHgap(10);
         btnEditGuest.disableProperty()
-        .bind(lstEditGuest.getSelectionModel().selectedItemProperty().isNull());
-        btnEditGuest.setOnAction(e -> {
-            int selectedInt = lstEditGuest.getSelectionModel().getSelectedIndex();
+        .bind(lstEditVGuest.getSelectionModel().selectedItemProperty().isNull());
+        btnEditVGuest.setOnAction(e -> {
+            int selectedInt = lstEditVGuest.getSelectionModel().getSelectedIndex();
 
             String errorMessage = "Please try again!";
             
@@ -1006,9 +1010,7 @@ public class HotelMadisonUI extends Application
                 else
                     lblEditGuest.setText(errorMessage + "\nPasswords do not match or \n"
                             + "TextFields are empty");
-   
         });
-        //vGuestList
         btnEmployeeBack8.setOnAction(e -> 
         {
             Tabs.getSelectionModel().select(tabEmployee);
@@ -1016,6 +1018,7 @@ public class HotelMadisonUI extends Application
             cmboEmployeeMenu.getSelectionModel().select(0);
         });
         
+        //* Author: Marin Walters
         tabAddEmployee.setContent(addEmployeePane);
         addEmployeePane.setAlignment(Pos.CENTER);
         addEmployeePane.add(new Label("Employee Account Menu"), 0, 1);
@@ -1083,6 +1086,7 @@ public class HotelMadisonUI extends Application
             Tabs.getTabs().remove(tabAddEmployee);  
         });
         
+        //* Author: Marin Walters
         tabEditEmployee.setContent(editEmployeePane);
         editEmployeePane.setAlignment(Pos.CENTER);
         editEmployeePane.add(new Label("Welcome to the Edit an Employee Account Menu"), 0, 1);
@@ -1150,7 +1154,7 @@ public class HotelMadisonUI extends Application
             Tabs.getSelectionModel().select(tabEmployee);
             Tabs.getTabs().remove(tabEditEmployee);  
         });
-        
+        // Author: Ivan Zhang
         tabAddRoom.setContent(addRoomPane);
         addRoomPane.setAlignment(Pos.CENTER);
         addRoomPane.add(new Label(""), 0, 0);
@@ -1300,6 +1304,7 @@ public class HotelMadisonUI extends Application
             cmboDayOut.getSelectionModel().select(0);
         }
         
+        // Author: Austin Putnam
         bookRoomPane.add(cmboDayOut, 2, 7);
         cmboMonthIn.getItems().addAll(("January"),("February"),("March"),("April"),("May"),
                 ("June"),("July"),("August"),("September"),("October"),("November"),("December"));      
@@ -1395,6 +1400,7 @@ public class HotelMadisonUI extends Application
            lblThankYou.setText("");
         });
        
+        // Author: Ivan Zhang
         tabDisplayBooking.setContent(guestBookingPane);
         guestBookingPane.setAlignment(Pos.CENTER);
         guestBookingPane.add(new Label("Welcome to the Display Guest Booking Report Menu"), 0, 1);
@@ -1448,6 +1454,7 @@ public class HotelMadisonUI extends Application
            }        
         });
         
+        // Author: Ivan Zhang
         tabEditGuestInfo.setContent(editGuestInfoPane);
         editGuestInfoPane.setAlignment(Pos.CENTER);
         editGuestInfoPane.add(new Label("Welcome to the Edit Guest Information Menu"), 0, 1);
@@ -1526,6 +1533,7 @@ public class HotelMadisonUI extends Application
            }        
         });
         
+        // Author: Dylan Jones
         tabRoomService.setContent(roomServicePane);
         roomServicePane.setAlignment(Pos.CENTER);
         roomServicePane.add(new Label("Welcome to the Room Service Menu"), 0, 0);
@@ -1613,7 +1621,7 @@ public class HotelMadisonUI extends Application
             
             cmboServices.getSelectionModel().select(0);
         });
-        
+        // Goes back to value guest menu
         btnBack.setOnAction(e -> 
         {
             Tabs.getTabs().remove(tabRoomService);
@@ -1978,6 +1986,7 @@ public class HotelMadisonUI extends Application
         return monthInt;
     }
     
+    // Author: Ivan Zhang
     public void handleAddRoom()
     {  
         int status = handleInactive(cmboStatus.getValue().toString());
@@ -2029,6 +2038,7 @@ public class HotelMadisonUI extends Application
         
         
     }
+    // Author: Ivan Zhang
     public void handleEditRoom()
     {
         int selectedInt = lstRoom.getSelectionModel().getSelectedIndex();
