@@ -1,7 +1,7 @@
 /*
  * Author: Austin Putnam, Marin Walters & Ivan Zhang
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 12, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create a Room object. 
 */
 package CIS_Group_Project2;
