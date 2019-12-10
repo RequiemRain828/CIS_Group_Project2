@@ -1075,9 +1075,13 @@ public class HotelMadisonUI extends Application
         listBookRoom.setPrefWidth(500);
         bookRoomPane.setVgap(10);
         bookRoomPane.setHgap(10);
-        for (int i = 0; i < room.size(); i++)
+        for (int i = 0; i < room.size(); i++)            
         {
+            if(!(room.get(i).bookedRoom())
+                    && !(room.get(i).roomStatus()))
+            {
             bookList.add(room.get(i).roomDescription());
+            }
         }
         btnBookRoom.disableProperty()
         .bind(listBookRoom.getSelectionModel().selectedItemProperty().isNull());
@@ -1804,8 +1808,8 @@ public class HotelMadisonUI extends Application
         {
             bookList.remove(selectedInt);
             roomList.remove(selectedInt);
-            roomList.add(selectedInt, room.get(selectedInt).roomDescription() + "Room is InActive");
-
+            roomList.add(selectedInt, room.get(selectedInt).roomDescription() + "Room is InActive");           
+            room.get(selectedInt).roomStatus = true;
             cmboBed.getSelectionModel().select(0);
             cmboKitchen.getSelectionModel().select(0);
             cmboCoffee.getSelectionModel().select(0);
@@ -1819,7 +1823,7 @@ public class HotelMadisonUI extends Application
             bookList.add(selectedInt, room.get(selectedInt).roomDescription());
             roomList.remove(selectedInt);
             roomList.add(selectedInt, room.get(selectedInt).roomDescription() + "Room is Active");
-            
+            room.get(selectedInt).roomStatus = false;
             cmboBed.getSelectionModel().select(0);
             cmboKitchen.getSelectionModel().select(0);
             cmboCoffee.getSelectionModel().select(0);
