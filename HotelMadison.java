@@ -1,6 +1,6 @@
 /*
  * Author: Yohannes Mitiku, Austin Putnam, Marin Walters, Dylan Jones & Ivan Zhang
- * Date: November 18, 2019
+ * Date: December 10, 2019
  * Assignment: Hotel Madison Part 1
  * Purpose: To create the HotelMadison application. 
 */
