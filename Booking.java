@@ -1,9 +1,10 @@
 /*
  * Author: Marin Walters
- * Date: November 18, 2019
- * Assignment: Hotel Madison Part 1
+ * Date: December 10, 2019
+ * Assignment: Hotel Madison Part 2
  * Purpose: To create a booking - The Booking class acts as a “cross-table” object 
-            and creates a link between a Guest object and a Room object. 
+            and creates a link between a Guest object, Room object, and Room Service object
+            for Value Guests. 
 */
 package CIS_Group_Project2;
 
@@ -48,6 +49,7 @@ public class Booking {
         
     }
     
+    // Author: Marin Walters
     public Booking(ValueGuest valueGuest, Room bookedRoom, int checkInYear, int checkIn, 
             int checkOut, int checkInMonth,int checkOutMonth,int checkOutYear){
         this.checkOutMonth = checkOutMonth;
@@ -161,21 +163,22 @@ public class Booking {
         }
          return roomService;
     }
-     @Override
+    @Override
     public String toString(){
         String result = "";
         result += this.bookingGuest.getGuestName() + " booked Room# " +
-                this.bookedRoom.getRoomNumber() 
+                bookedRoom.getRoomNumber()
                 + "\n from " +this.checkInMonth+"/"
                 +this.checkInDay+"/"+ this.checkInYear+" to "+
                 this.checkOutMonth+"/"+this.checkOutDay+"/"+this.checkOutYear ;
         return result; 
     }
+    
      public String toStringValue(){
         String result = "";
         
         result += this.bookingGuest.getGuestName() + " booked Room# " 
-                + this.bookedRoom.getRoomNumber() +" from "
+                + this.getBookedRoom().getRoomNumber() +" from "
                 + this.checkInMonth+"/"
                 + this.checkInDay+"/"+ this.checkInYear+" to "
                 + this.checkOutMonth+"/"+this.checkOutDay+"/"
@@ -188,8 +191,15 @@ public class Booking {
         return result; 
     }
     
+<<<<<<< HEAD
   
      
      
+=======
+     public void addRoomService(RoomService newRoomService)
+     {
+         this.roomServiceList.add(newRoomService);
+     }
+>>>>>>> ba139186de221c07e3a69a998608e6771140f85c
 
 }
